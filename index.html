@@ -64,6 +64,7 @@
         .categories .cat { padding: 6px 16px; border-radius: 20px; background: #1a2332; font-size: 14px; cursor: pointer; transition: 0.2s; border: 1px solid transparent; }
         .categories .cat:hover, .categories .cat.active { background: #2a3a52; border-color: #4fc3f7; color: #4fc3f7; }
         .auth-error { color: #e8484f; font-size: 13px; margin-top: 8px; display: none; }
+        .auth-success { color: #4fc3f7; font-size: 13px; margin-top: 8px; display: none; }
         .chat-container { flex: 0.8; min-width: 280px; background: #10161f; border-radius: 20px; padding: 18px; border: 1px solid #1f2838; height: 500px; display: flex; flex-direction: column; }
         .chat-container h3 { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .chat-container h3 span { color: #4fc3f7; }
@@ -81,6 +82,13 @@
         .chat-input-row button { padding: 10px 20px; border: none; border-radius: 30px; background: linear-gradient(135deg, #4fc3f7, #00bcd4); font-weight: 700; color: #0b0e14; cursor: pointer; }
         .soc-divider { display: flex; align-items: center; gap: 12px; margin: 12px 0; color: #55657d; font-size: 13px; }
         .soc-divider::before, .soc-divider::after { content: ''; flex: 1; height: 1px; background: #1f2838; }
+        .social-input { margin-top: 6px; }
+        .social-input input { width: 100%; padding: 10px 14px; border-radius: 12px; border: 1px solid #1f2a3c; background: #0b0e14; color: #fff; outline: none; }
+        .social-input input:focus { border-color: #4fc3f7; }
+        .code-input-row { display: flex; gap: 8px; margin-top: 6px; }
+        .code-input-row input { flex: 1; padding: 10px 14px; border-radius: 12px; border: 1px solid #1f2a3c; background: #0b0e14; color: #fff; outline: none; text-align: center; font-size: 18px; letter-spacing: 4px; }
+        .code-input-row input:focus { border-color: #4fc3f7; }
+        .code-input-row button { padding: 10px 20px; border: none; border-radius: 12px; background: linear-gradient(135deg, #4fc3f7, #00bcd4); font-weight: 700; color: #0b0e14; cursor: pointer; }
         @media (max-width: 760px) {
             header { flex-direction: column; align-items: stretch; padding: 12px 16px; }
             .header-controls { flex-direction: column; align-items: stretch; }
@@ -154,29 +162,36 @@
             <div id="authForm">
                 <label>Логин</label>
                 <input type="text" id="authLogin" placeholder="Логин">
-
                 <label>Пароль</label>
                 <input type="password" id="authPassword" placeholder="Пароль">
-
-                <!-- Поле подтверждения пароля (только для регистрации) -->
                 <div id="confirmPasswordBlock" style="display:none;">
                     <label>Подтвердите пароль</label>
                     <input type="password" id="authPasswordConfirm" placeholder="Повторите пароль">
                 </div>
-
                 <div class="auth-error" id="authError">Ошибка</div>
-
+                <div class="auth-success" id="authSuccess">Код отправлен</div>
                 <div class="actions">
                     <button class="btn btn-outline" onclick="closeAuth()">Отмена</button>
                     <button class="btn btn-primary" id="authSubmitBtn" onclick="submitAuth()">Войти</button>
                 </div>
-
-                <!-- Разделитель -->
                 <div class="soc-divider">или войдите через</div>
-
-                <!-- КНОПКИ СОЦСЕТЕЙ -->
-                <button class="btn-soc btn-telegram" onclick="authTelegram()">📱 Войти через Telegram</button>
-                <button class="btn-soc btn-google" onclick="authGoogle()">🔑 Войти через Google</button>
+                <button class="btn-soc btn-telegram" onclick="showTelegramInput()">📱 Войти через Telegram</button>
+                <div id="telegramInputBlock" style="display:none; margin-top:8px;" class="social-input">
+                    <input type="text" id="telegramLogin" placeholder="Введите ваш @username в Telegram">
+                    <button class="btn btn-primary" style="width:100%; margin-top:6px;" onclick="authTelegram()">📨 Отправить код в Telegram</button>
+                </div>
+                <button class="btn-soc btn-google" onclick="showGoogleInput()">🔑 Войти через Google</button>
+                <div id="googleInputBlock" style="display:none; margin-top:8px;" class="social-input">
+                    <input type="email" id="googleLogin" placeholder="Введите ваш email">
+                    <button class="btn btn-primary" style="width:100%; margin-top:6px;" onclick="authGoogle()">📨 Отправить код в Telegram</button>
+                </div>
+                <div id="codeInputBlock" style="display:none; margin-top:12px;">
+                    <div class="code-input-row">
+                        <input type="text" id="codeInput" placeholder="Введите код" maxlength="6">
+                        <button onclick="verifyCode()">✅ Проверить</button>
+                    </div>
+                    <div id="codeStatus" style="color:#55657d;font-size:13px;margin-top:4px;"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -231,17 +246,12 @@
 
     <script>
         // ============================================================
-        //  НАСТРОЙКИ JSONBIN (ВСТАВЬ СВОИ КЛЮЧИ!)
+        //  НАСТРОЙКИ (ВСЁ ГОТОВО, НИЧЕГО НЕ МЕНЯЙ!)
         // ============================================================
-        const BIN_ID = "ТВОЙ_ID_БИНА";        // например: 67f8a2e8564a7a
-        const MASTER_KEY = "ТВОЙ_MASTER_KEY"; // например: $2b$10$abc123...
-
-        // ============================================================
-        //  НАСТРОЙКИ TELEGRAM / GOOGLE (замени на свои)
-        // ============================================================
-        const TELEGRAM_BOT_TOKEN = "ТВОЙ_ТОКЕН_ТЕЛЕГРАМ_БОТА"; // от @BotFather
-        const TELEGRAM_REDIRECT_URI = "https://jonhennry0-ux.github.io/krupa-shop/";
-        const GOOGLE_CLIENT_ID = "ТВОЙ_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
+        const BIN_ID = "6a8cc3dcd3a8895dfe0c62ab";
+        const MASTER_KEY = "$2a$10$UbizIWI/23kyJ2h81c2Vq.TFG0pYP0xmKtJM33WryjtsT1zMyMFm";
+        const TELEGRAM_BOT_TOKEN = "8711562937:AAGn2tFMNeXvGDY40-nKUx2N_HRtrlQi1j4";
+        const ADMIN_TELEGRAM_ID = "1025491633";
 
         // ============================================================
         //  ДАННЫЕ
@@ -259,9 +269,12 @@
         let cart = [];
         let currentUser = null;
         let chatMessages = [];
+        let generatedCode = null;
+        let pendingLogin = null;
+        let pendingMethod = null;
 
         // ============================================================
-        //  СИСТЕМА ПОЛЬЗОВАТЕЛЕЙ
+        //  ПОЛЬЗОВАТЕЛИ (LOCALSTORAGE)
         // ============================================================
         function loadUsers() {
             try { return JSON.parse(localStorage.getItem('skymarket_users')) || {}; } catch { return {}; }
@@ -280,40 +293,21 @@
         }
         function getUsers() { return loadUsers(); }
 
-        function registerUser(login, password) {
+        function registerUser(login, password, method = 'Логин/пароль') {
             const users = getUsers();
             if (users[login]) return { success: false, error: 'Логин занят' };
             if (login.length < 3) return { success: false, error: 'Логин ≥ 3 символов' };
             if (password.length < 4) return { success: false, error: 'Пароль ≥ 4 символов' };
-            users[login] = {
-                password: password,
-                regDate: new Date().toLocaleString(),
-                method: 'Логин/пароль'
-            };
+            users[login] = { password: password, regDate: new Date().toLocaleString(), method: method };
             saveUsers(users);
             return { success: true };
         }
-
-        // Регистрация через соцсеть (создаём пользователя с пометкой)
-        function registerSocialUser(login, method) {
-            const users = getUsers();
-            if (users[login]) return { success: false, error: 'Логин занят' };
-            users[login] = {
-                password: 'social_' + Math.random().toString(36).slice(2, 10),
-                regDate: new Date().toLocaleString(),
-                method: method
-            };
-            saveUsers(users);
-            return { success: true, user: { login, regDate: users[login].regDate, method: method } };
-        }
-
         function loginUser(login, password) {
             const users = getUsers();
             if (!users[login]) return { success: false, error: 'Пользователь не найден' };
             if (users[login].password !== password) return { success: false, error: 'Неверный пароль' };
             return { success: true, user: { login, regDate: users[login].regDate, method: users[login].method || 'Логин/пароль' } };
         }
-
         function deleteUser(login) {
             const users = getUsers();
             if (users[login]) { delete users[login]; saveUsers(users); return true; }
@@ -321,10 +315,156 @@
         }
 
         // ============================================================
+        //  ОТПРАВКА КОДА В TELEGRAM
+        // ============================================================
+        async function sendCodeToTelegram(chatId, code) {
+            const token = TELEGRAM_BOT_TOKEN;
+            const url = `https://api.telegram.org/bot${token}/sendMessage`;
+            const text = `🔐 Ваш код подтверждения для SkyMarket: *${code}*\n\nВведите его на сайте для входа.`;
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'Markdown' })
+                });
+                const result = await response.json();
+                return result.ok;
+            } catch (e) {
+                console.error('Ошибка отправки в Telegram:', e);
+                return false;
+            }
+        }
+
+        // ============================================================
+        //  TELEGRAM ВХОД
+        // ============================================================
+        function showTelegramInput() {
+            const block = document.getElementById('telegramInputBlock');
+            block.style.display = block.style.display === 'none' ? 'block' : 'none';
+            document.getElementById('googleInputBlock').style.display = 'none';
+            document.getElementById('codeInputBlock').style.display = 'none';
+            document.getElementById('authError').style.display = 'none';
+            document.getElementById('authSuccess').style.display = 'none';
+        }
+        async function authTelegram() {
+            const username = document.getElementById('telegramLogin').value.trim();
+            const error = document.getElementById('authError');
+            const success = document.getElementById('authSuccess');
+            if (!username) {
+                error.textContent = 'Введите ваш @username в Telegram';
+                error.style.display = 'block';
+                return;
+            }
+            const cleanUsername = username.startsWith('@') ? username.slice(1) : username;
+            const finalLogin = 'tg_' + cleanUsername;
+            generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+            pendingLogin = finalLogin;
+            pendingMethod = 'Telegram';
+            const sent = await sendCodeToTelegram(ADMIN_TELEGRAM_ID, generatedCode);
+            if (sent) {
+                success.textContent = `✅ Код отправлен в Telegram (@KrupaSkyMarket_bot)`;
+                success.style.display = 'block';
+                error.style.display = 'none';
+                document.getElementById('codeInputBlock').style.display = 'block';
+                document.getElementById('codeStatus').textContent = 'Введите код из 6 цифр';
+                document.getElementById('codeStatus').style.color = '#55657d';
+                document.getElementById('codeInput').value = '';
+                document.getElementById('codeInput').focus();
+            } else {
+                error.textContent = '❌ Не удалось отправить код. Напишите боту @KrupaSkyMarket_bot команду /start и попробуйте снова.';
+                error.style.display = 'block';
+            }
+        }
+
+        // ============================================================
+        //  GOOGLE ВХОД
+        // ============================================================
+        function showGoogleInput() {
+            const block = document.getElementById('googleInputBlock');
+            block.style.display = block.style.display === 'none' ? 'block' : 'none';
+            document.getElementById('telegramInputBlock').style.display = 'none';
+            document.getElementById('codeInputBlock').style.display = 'none';
+            document.getElementById('authError').style.display = 'none';
+            document.getElementById('authSuccess').style.display = 'none';
+        }
+        async function authGoogle() {
+            const email = document.getElementById('googleLogin').value.trim();
+            const error = document.getElementById('authError');
+            const success = document.getElementById('authSuccess');
+            if (!email || !email.includes('@')) {
+                error.textContent = 'Введите корректный email';
+                error.style.display = 'block';
+                return;
+            }
+            const finalLogin = 'google_' + email.replace(/[^a-zA-Z0-9]/g, '_');
+            generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+            pendingLogin = finalLogin;
+            pendingMethod = 'Google';
+            const sent = await sendCodeToTelegram(ADMIN_TELEGRAM_ID, generatedCode);
+            if (sent) {
+                success.textContent = `✅ Код отправлен в Telegram (@KrupaSkyMarket_bot)`;
+                success.style.display = 'block';
+                error.style.display = 'none';
+                document.getElementById('codeInputBlock').style.display = 'block';
+                document.getElementById('codeStatus').textContent = 'Введите код из 6 цифр';
+                document.getElementById('codeStatus').style.color = '#55657d';
+                document.getElementById('codeInput').value = '';
+                document.getElementById('codeInput').focus();
+            } else {
+                error.textContent = '❌ Не удалось отправить код. Напишите боту @KrupaSkyMarket_bot команду /start и попробуйте снова.';
+                error.style.display = 'block';
+            }
+        }
+
+        // ============================================================
+        //  ПРОВЕРКА КОДА
+        // ============================================================
+        function verifyCode() {
+            const code = document.getElementById('codeInput').value.trim();
+            const status = document.getElementById('codeStatus');
+            const error = document.getElementById('authError');
+            if (!code || code.length !== 6) {
+                status.textContent = 'Введите 6-значный код';
+                status.style.color = '#e8484f';
+                return;
+            }
+            if (code === generatedCode) {
+                status.textContent = '✅ Код подтверждён! Вход выполнен.';
+                status.style.color = '#4fc3f7';
+                const login = pendingLogin;
+                const users = getUsers();
+                if (users[login]) {
+                    const user = { login, regDate: users[login].regDate, method: pendingMethod };
+                    currentUser = user;
+                    saveSession(currentUser);
+                    updateUI();
+                    closeAuth();
+                } else {
+                    const result = registerUser(login, 'code_' + Math.random().toString(36).slice(2, 10), pendingMethod);
+                    if (result.success) {
+                        const user = { login, regDate: new Date().toLocaleString(), method: pendingMethod };
+                        currentUser = user;
+                        saveSession(currentUser);
+                        updateUI();
+                        closeAuth();
+                        alert(`✅ Добро пожаловать, ${login}!`);
+                    } else {
+                        error.textContent = result.error;
+                        error.style.display = 'block';
+                    }
+                }
+            } else {
+                status.textContent = '❌ Неверный код. Попробуйте снова.';
+                status.style.color = '#e8484f';
+                document.getElementById('codeInput').value = '';
+                document.getElementById('codeInput').focus();
+            }
+        }
+
+        // ============================================================
         //  UI АВТОРИЗАЦИИ
         // ============================================================
         let authMode = 'login';
-
         function openAuth(mode) {
             authMode = mode;
             const modal = document.getElementById('authModal');
@@ -333,8 +473,12 @@
             const btn = document.getElementById('authSubmitBtn');
             const confirmBlock = document.getElementById('confirmPasswordBlock');
             const error = document.getElementById('authError');
+            const success = document.getElementById('authSuccess');
             error.style.display = 'none';
-
+            success.style.display = 'none';
+            document.getElementById('codeInputBlock').style.display = 'none';
+            document.getElementById('telegramInputBlock').style.display = 'none';
+            document.getElementById('googleInputBlock').style.display = 'none';
             if (mode === 'login') {
                 title.textContent = '🔐 Вход';
                 desc.textContent = 'Введите логин и пароль';
@@ -354,30 +498,26 @@
             }
             modal.classList.add('open');
         }
-
         function closeAuth() {
             document.getElementById('authModal').classList.remove('open');
         }
-
         function submitAuth() {
             const login = document.getElementById('authLogin').value.trim();
             const password = document.getElementById('authPassword').value.trim();
             const confirm = document.getElementById('authPasswordConfirm').value.trim();
             const error = document.getElementById('authError');
-
             if (!login || !password) {
                 error.textContent = 'Заполните все поля';
                 error.style.display = 'block';
                 return;
             }
-
             if (authMode === 'register') {
                 if (password !== confirm) {
                     error.textContent = 'Пароли не совпадают!';
                     error.style.display = 'block';
                     return;
                 }
-                const result = registerUser(login, password);
+                const result = registerUser(login, password, 'Логин/пароль');
                 if (!result.success) {
                     error.textContent = result.error;
                     error.style.display = 'block';
@@ -405,39 +545,6 @@
         }
 
         // ============================================================
-        //  ВХОД ЧЕРЕЗ TELEGRAM И GOOGLE (имитация)
-        // ============================================================
-        function authTelegram() {
-            // В реальности здесь должен быть переход на oauth.telegram.org
-            // Сейчас сделаем демо-вход с рандомным логином
-            const fakeLogin = 'tg_' + Math.random().toString(36).slice(2, 8);
-            const result = registerSocialUser(fakeLogin, 'Telegram');
-            if (result.success) {
-                currentUser = result.user;
-                saveSession(currentUser);
-                updateUI();
-                closeAuth();
-                alert(`✅ Вход через Telegram выполнен! Ваш логин: ${fakeLogin}`);
-            } else {
-                alert('❌ Ошибка входа через Telegram');
-            }
-        }
-
-        function authGoogle() {
-            const fakeLogin = 'google_' + Math.random().toString(36).slice(2, 8);
-            const result = registerSocialUser(fakeLogin, 'Google');
-            if (result.success) {
-                currentUser = result.user;
-                saveSession(currentUser);
-                updateUI();
-                closeAuth();
-                alert(`✅ Вход через Google выполнен! Ваш логин: ${fakeLogin}`);
-            } else {
-                alert('❌ Ошибка входа через Google');
-            }
-        }
-
-        // ============================================================
         //  ПРОФИЛЬ
         // ============================================================
         function openProfile() {
@@ -447,11 +554,9 @@
             document.getElementById('profileMethod').textContent = currentUser.method || 'Логин/пароль';
             document.getElementById('profileModal').classList.add('open');
         }
-
         function closeProfile() {
             document.getElementById('profileModal').classList.remove('open');
         }
-
         function deleteAccount() {
             if (!currentUser) return;
             if (!confirm(`Удалить аккаунт "${currentUser.login}"?`)) return;
@@ -463,13 +568,11 @@
                 alert('Аккаунт удалён');
             }
         }
-
         function logout() {
             clearSession();
             currentUser = null;
             updateUI();
         }
-
         function updateUI() {
             const guest = document.getElementById('guestButtons');
             const user = document.getElementById('userButtons');
@@ -487,17 +590,12 @@
                 chatStatus.textContent = '(гость)';
             }
         }
-
         function restoreSession() {
             const session = loadSession();
             if (session && session.login) {
                 const users = getUsers();
                 if (users[session.login]) {
-                    currentUser = {
-                        login: session.login,
-                        regDate: users[session.login].regDate,
-                        method: users[session.login].method || 'Логин/пароль'
-                    };
+                    currentUser = { login: session.login, regDate: users[session.login].regDate, method: users[session.login].method || 'Логин/пароль' };
                     updateUI();
                     return true;
                 } else clearSession();
@@ -514,8 +612,7 @@
             const grid = document.getElementById('catalogGrid');
             let items = catalog;
             if (filter !== 'all') items = items.filter(item => item.cat.toLowerCase().includes(filter.toLowerCase()));
-            if (search) { const s = search.toLowerCase();
-                items = items.filter(item => item.name.toLowerCase().includes(s) || item.desc.toLowerCase().includes(s)); }
+            if (search) { const s = search.toLowerCase(); items = items.filter(item => item.name.toLowerCase().includes(s) || item.desc.toLowerCase().includes(s)); }
             document.getElementById('itemCount').textContent = items.length;
             if (items.length === 0) { grid.innerHTML = '<p style="color:#55657d;padding:20px;">Товаров не найдено</p>'; return; }
             grid.innerHTML = items.map(item => `
@@ -529,14 +626,12 @@
                 </div>
             `).join('');
         }
-
         function filterCatalog() {
             const search = document.getElementById('searchInput').value.trim();
             const activeCat = document.querySelector('.cat.active');
             const cat = activeCat ? activeCat.dataset.cat : 'all';
             renderCatalog(cat, search);
         }
-
         function addToCart(id) {
             const item = catalog.find(i => i.id === id);
             if (!item) return;
@@ -545,12 +640,10 @@
             else cart.push({ ...item, qty: 1 });
             updateCart();
         }
-
         function removeFromCart(id) {
             cart = cart.filter(i => i.id !== id);
             updateCart();
         }
-
         function updateCart() {
             const container = document.getElementById('cartItems');
             const count = cart.reduce((s, i) => s + i.qty, 0);
@@ -566,7 +659,6 @@
             }).join('');
             document.getElementById('cartTotal').textContent = cart.reduce((s, i) => s + Math.round(i.price * (1 - i.discount / 100)) * i.qty, 0);
         }
-
         function checkout() {
             if (cart.length === 0) { alert('Корзина пуста'); return; }
             if (!currentUser) { alert('Войдите в аккаунт'); openAuth('login'); return; }
@@ -590,11 +682,9 @@
             document.getElementById('itemQty').value = '1';
             document.getElementById('itemDiscount').value = '0';
         }
-
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('open');
         }
-
         function addItemFromModal() {
             const name = document.getElementById('itemName').value.trim();
             const price = parseInt(document.getElementById('itemPrice').value);
@@ -630,7 +720,6 @@
                 console.error('Ошибка загрузки чата:', e);
             }
         }
-
         function renderChat() {
             const container = document.getElementById('chatMessages');
             if (chatMessages.length === 0) {
@@ -646,7 +735,6 @@
             `).join('');
             container.scrollTop = container.scrollHeight;
         }
-
         async function sendMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
@@ -656,24 +744,14 @@
                 openAuth('login');
                 return;
             }
-
-            const newMsg = {
-                user: currentUser.login,
-                text: text,
-                time: new Date().toLocaleTimeString()
-            };
-
+            const newMsg = { user: currentUser.login, text: text, time: new Date().toLocaleTimeString() };
             chatMessages.push(newMsg);
             renderChat();
             input.value = '';
-
             try {
                 const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': MASTER_KEY
-                    },
+                    headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY },
                     body: JSON.stringify({ messages: chatMessages })
                 });
                 if (!response.ok) {
