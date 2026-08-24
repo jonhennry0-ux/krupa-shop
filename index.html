@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyMarket — чат и магазин</title>
+    <title>SkyMarket — магазин + чат</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         body { background: #0b0e14; color: #e8edf5; min-height: 100vh; display: flex; flex-direction: column; }
@@ -17,6 +17,11 @@
         .btn-outline:hover { border-color: #4fc3f7; color: #4fc3f7; }
         .btn-danger { background: #e8484f; color: #fff; }
         .btn-danger:hover { background: #ff6b72; }
+        .btn-telegram { background: #0088cc; color: #fff; }
+        .btn-telegram:hover { background: #0099dd; transform: scale(1.04); }
+        .btn-google { background: #ea4335; color: #fff; }
+        .btn-google:hover { background: #f05a4a; transform: scale(1.04); }
+        .btn-soc { width: 100%; padding: 10px; border-radius: 30px; border: none; font-weight: 600; cursor: pointer; transition: 0.25s; margin-top: 6px; }
         .container { display: flex; flex: 1; padding: 20px 30px; gap: 25px; flex-wrap: wrap; }
         .catalog { flex: 2; min-width: 280px; }
         .catalog h2 { font-size: 22px; font-weight: 400; margin-bottom: 16px; color: #b0c0d5; }
@@ -74,6 +79,8 @@
         .chat-input-row input { flex: 1; padding: 10px 14px; border-radius: 30px; border: 1px solid #1f2a3c; background: #0b0e14; color: #fff; outline: none; }
         .chat-input-row input:focus { border-color: #4fc3f7; }
         .chat-input-row button { padding: 10px 20px; border: none; border-radius: 30px; background: linear-gradient(135deg, #4fc3f7, #00bcd4); font-weight: 700; color: #0b0e14; cursor: pointer; }
+        .soc-divider { display: flex; align-items: center; gap: 12px; margin: 12px 0; color: #55657d; font-size: 13px; }
+        .soc-divider::before, .soc-divider::after { content: ''; flex: 1; height: 1px; background: #1f2838; }
         @media (max-width: 760px) {
             header { flex-direction: column; align-items: stretch; padding: 12px 16px; }
             .header-controls { flex-direction: column; align-items: stretch; }
@@ -122,7 +129,6 @@
             <div class="items-grid" id="catalogGrid"></div>
         </div>
 
-        <!-- === ГЛОБАЛЬНЫЙ ЧАТ === -->
         <div class="chat-container">
             <h3>💬 Глобальный чат <span id="chatUserStatus">(гость)</span></h3>
             <div class="chat-messages" id="chatMessages"></div>
@@ -140,7 +146,7 @@
         </div>
     </div>
 
-    <!-- МОДАЛКИ -->
+    <!-- МОДАЛКА АВТОРИЗАЦИИ -->
     <div class="modal-overlay" id="authModal">
         <div class="modal">
             <h2 id="authTitle">🔐 Вход</h2>
@@ -148,17 +154,34 @@
             <div id="authForm">
                 <label>Логин</label>
                 <input type="text" id="authLogin" placeholder="Логин">
+
                 <label>Пароль</label>
                 <input type="password" id="authPassword" placeholder="Пароль">
+
+                <!-- Поле подтверждения пароля (только для регистрации) -->
+                <div id="confirmPasswordBlock" style="display:none;">
+                    <label>Подтвердите пароль</label>
+                    <input type="password" id="authPasswordConfirm" placeholder="Повторите пароль">
+                </div>
+
                 <div class="auth-error" id="authError">Ошибка</div>
+
                 <div class="actions">
                     <button class="btn btn-outline" onclick="closeAuth()">Отмена</button>
                     <button class="btn btn-primary" id="authSubmitBtn" onclick="submitAuth()">Войти</button>
                 </div>
+
+                <!-- Разделитель -->
+                <div class="soc-divider">или войдите через</div>
+
+                <!-- КНОПКИ СОЦСЕТЕЙ -->
+                <button class="btn-soc btn-telegram" onclick="authTelegram()">📱 Войти через Telegram</button>
+                <button class="btn-soc btn-google" onclick="authGoogle()">🔑 Войти через Google</button>
             </div>
         </div>
     </div>
 
+    <!-- МОДАЛКА ПРОФИЛЯ -->
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
             <h2>👤 Профиль</h2>
@@ -167,6 +190,7 @@
                 <div class="profile-card">
                     <div class="info"><strong>Логин:</strong> <span id="profileLogin"></span></div>
                     <div class="info"><strong>Дата регистрации:</strong> <span id="profileDate"></span></div>
+                    <div class="info"><strong>Способ входа:</strong> <span id="profileMethod">Логин/пароль</span></div>
                 </div>
                 <div class="actions" style="margin-top:16px;">
                     <button class="btn btn-outline" onclick="closeProfile()">Закрыть</button>
@@ -176,6 +200,7 @@
         </div>
     </div>
 
+    <!-- МОДАЛКА ТОВАРА -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <h2>📤 Новое объявление</h2>
@@ -208,8 +233,15 @@
         // ============================================================
         //  НАСТРОЙКИ JSONBIN (ВСТАВЬ СВОИ КЛЮЧИ!)
         // ============================================================
-        const BIN_ID = "СЮДА_ВСТАВЬ_ID_БИНА";   // например: 67f8a2e8564a7a
-        const MASTER_KEY = "СЮДА_ВСТАВЬ_MASTER_KEY"; // например: $2b$10$abc123...
+        const BIN_ID = "ТВОЙ_ID_БИНА";        // например: 67f8a2e8564a7a
+        const MASTER_KEY = "ТВОЙ_MASTER_KEY"; // например: $2b$10$abc123...
+
+        // ============================================================
+        //  НАСТРОЙКИ TELEGRAM / GOOGLE (замени на свои)
+        // ============================================================
+        const TELEGRAM_BOT_TOKEN = "ТВОЙ_ТОКЕН_ТЕЛЕГРАМ_БОТА"; // от @BotFather
+        const TELEGRAM_REDIRECT_URI = "https://jonhennry0-ux.github.io/krupa-shop/";
+        const GOOGLE_CLIENT_ID = "ТВОЙ_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
 
         // ============================================================
         //  ДАННЫЕ
@@ -253,16 +285,35 @@
             if (users[login]) return { success: false, error: 'Логин занят' };
             if (login.length < 3) return { success: false, error: 'Логин ≥ 3 символов' };
             if (password.length < 4) return { success: false, error: 'Пароль ≥ 4 символов' };
-            users[login] = { password: password, regDate: new Date().toLocaleString() };
+            users[login] = {
+                password: password,
+                regDate: new Date().toLocaleString(),
+                method: 'Логин/пароль'
+            };
             saveUsers(users);
             return { success: true };
         }
+
+        // Регистрация через соцсеть (создаём пользователя с пометкой)
+        function registerSocialUser(login, method) {
+            const users = getUsers();
+            if (users[login]) return { success: false, error: 'Логин занят' };
+            users[login] = {
+                password: 'social_' + Math.random().toString(36).slice(2, 10),
+                regDate: new Date().toLocaleString(),
+                method: method
+            };
+            saveUsers(users);
+            return { success: true, user: { login, regDate: users[login].regDate, method: method } };
+        }
+
         function loginUser(login, password) {
             const users = getUsers();
             if (!users[login]) return { success: false, error: 'Пользователь не найден' };
             if (users[login].password !== password) return { success: false, error: 'Неверный пароль' };
-            return { success: true, user: { login, regDate: users[login].regDate } };
+            return { success: true, user: { login, regDate: users[login].regDate, method: users[login].method || 'Логин/пароль' } };
         }
+
         function deleteUser(login) {
             const users = getUsers();
             if (users[login]) { delete users[login]; saveUsers(users); return true; }
@@ -273,48 +324,151 @@
         //  UI АВТОРИЗАЦИИ
         // ============================================================
         let authMode = 'login';
+
         function openAuth(mode) {
             authMode = mode;
             const modal = document.getElementById('authModal');
-            document.getElementById('authTitle').textContent = mode === 'login' ? '🔐 Вход' : '📝 Регистрация';
-            document.getElementById('authDesc').textContent = mode === 'login' ? 'Введите логин и пароль' : 'Придумайте логин и пароль (≥3 и ≥4)';
-            document.getElementById('authSubmitBtn').textContent = mode === 'login' ? 'Войти' : 'Зарегистрироваться';
-            document.getElementById('authError').style.display = 'none';
-            document.getElementById('authLogin').value = '';
-            document.getElementById('authPassword').value = '';
+            const title = document.getElementById('authTitle');
+            const desc = document.getElementById('authDesc');
+            const btn = document.getElementById('authSubmitBtn');
+            const confirmBlock = document.getElementById('confirmPasswordBlock');
+            const error = document.getElementById('authError');
+            error.style.display = 'none';
+
+            if (mode === 'login') {
+                title.textContent = '🔐 Вход';
+                desc.textContent = 'Введите логин и пароль';
+                btn.textContent = 'Войти';
+                confirmBlock.style.display = 'none';
+                document.getElementById('authLogin').value = '';
+                document.getElementById('authPassword').value = '';
+                document.getElementById('authPasswordConfirm').value = '';
+            } else {
+                title.textContent = '📝 Регистрация';
+                desc.textContent = 'Придумайте логин и пароль (≥3 и ≥4)';
+                btn.textContent = 'Зарегистрироваться';
+                confirmBlock.style.display = 'block';
+                document.getElementById('authLogin').value = '';
+                document.getElementById('authPassword').value = '';
+                document.getElementById('authPasswordConfirm').value = '';
+            }
             modal.classList.add('open');
         }
-        function closeAuth() { document.getElementById('authModal').classList.remove('open'); }
+
+        function closeAuth() {
+            document.getElementById('authModal').classList.remove('open');
+        }
+
         function submitAuth() {
             const login = document.getElementById('authLogin').value.trim();
             const password = document.getElementById('authPassword').value.trim();
+            const confirm = document.getElementById('authPasswordConfirm').value.trim();
             const error = document.getElementById('authError');
-            if (!login || !password) { error.textContent = 'Заполните все поля'; error.style.display = 'block'; return; }
+
+            if (!login || !password) {
+                error.textContent = 'Заполните все поля';
+                error.style.display = 'block';
+                return;
+            }
+
             if (authMode === 'register') {
+                if (password !== confirm) {
+                    error.textContent = 'Пароли не совпадают!';
+                    error.style.display = 'block';
+                    return;
+                }
                 const result = registerUser(login, password);
-                if (!result.success) { error.textContent = result.error; error.style.display = 'block'; return; }
+                if (!result.success) {
+                    error.textContent = result.error;
+                    error.style.display = 'block';
+                    return;
+                }
                 const loginResult = loginUser(login, password);
-                if (loginResult.success) { currentUser = loginResult.user; saveSession(currentUser); updateUI(); closeAuth(); }
+                if (loginResult.success) {
+                    currentUser = loginResult.user;
+                    saveSession(currentUser);
+                    updateUI();
+                    closeAuth();
+                }
             } else {
                 const result = loginUser(login, password);
-                if (!result.success) { error.textContent = result.error; error.style.display = 'block'; return; }
-                currentUser = result.user; saveSession(currentUser); updateUI(); closeAuth();
+                if (!result.success) {
+                    error.textContent = result.error;
+                    error.style.display = 'block';
+                    return;
+                }
+                currentUser = result.user;
+                saveSession(currentUser);
+                updateUI();
+                closeAuth();
             }
         }
 
+        // ============================================================
+        //  ВХОД ЧЕРЕЗ TELEGRAM И GOOGLE (имитация)
+        // ============================================================
+        function authTelegram() {
+            // В реальности здесь должен быть переход на oauth.telegram.org
+            // Сейчас сделаем демо-вход с рандомным логином
+            const fakeLogin = 'tg_' + Math.random().toString(36).slice(2, 8);
+            const result = registerSocialUser(fakeLogin, 'Telegram');
+            if (result.success) {
+                currentUser = result.user;
+                saveSession(currentUser);
+                updateUI();
+                closeAuth();
+                alert(`✅ Вход через Telegram выполнен! Ваш логин: ${fakeLogin}`);
+            } else {
+                alert('❌ Ошибка входа через Telegram');
+            }
+        }
+
+        function authGoogle() {
+            const fakeLogin = 'google_' + Math.random().toString(36).slice(2, 8);
+            const result = registerSocialUser(fakeLogin, 'Google');
+            if (result.success) {
+                currentUser = result.user;
+                saveSession(currentUser);
+                updateUI();
+                closeAuth();
+                alert(`✅ Вход через Google выполнен! Ваш логин: ${fakeLogin}`);
+            } else {
+                alert('❌ Ошибка входа через Google');
+            }
+        }
+
+        // ============================================================
+        //  ПРОФИЛЬ
+        // ============================================================
         function openProfile() {
             if (!currentUser) return;
             document.getElementById('profileLogin').textContent = currentUser.login;
             document.getElementById('profileDate').textContent = currentUser.regDate || 'Неизвестно';
+            document.getElementById('profileMethod').textContent = currentUser.method || 'Логин/пароль';
             document.getElementById('profileModal').classList.add('open');
         }
-        function closeProfile() { document.getElementById('profileModal').classList.remove('open'); }
+
+        function closeProfile() {
+            document.getElementById('profileModal').classList.remove('open');
+        }
+
         function deleteAccount() {
             if (!currentUser) return;
             if (!confirm(`Удалить аккаунт "${currentUser.login}"?`)) return;
-            if (deleteUser(currentUser.login)) { clearSession(); currentUser = null; updateUI(); closeProfile(); alert('Аккаунт удалён'); }
+            if (deleteUser(currentUser.login)) {
+                clearSession();
+                currentUser = null;
+                updateUI();
+                closeProfile();
+                alert('Аккаунт удалён');
+            }
         }
-        function logout() { clearSession(); currentUser = null; updateUI(); }
+
+        function logout() {
+            clearSession();
+            currentUser = null;
+            updateUI();
+        }
 
         function updateUI() {
             const guest = document.getElementById('guestButtons');
@@ -339,7 +493,11 @@
             if (session && session.login) {
                 const users = getUsers();
                 if (users[session.login]) {
-                    currentUser = { login: session.login, regDate: users[session.login].regDate };
+                    currentUser = {
+                        login: session.login,
+                        regDate: users[session.login].regDate,
+                        method: users[session.login].method || 'Логин/пароль'
+                    };
                     updateUI();
                     return true;
                 } else clearSession();
@@ -356,7 +514,8 @@
             const grid = document.getElementById('catalogGrid');
             let items = catalog;
             if (filter !== 'all') items = items.filter(item => item.cat.toLowerCase().includes(filter.toLowerCase()));
-            if (search) { const s = search.toLowerCase(); items = items.filter(item => item.name.toLowerCase().includes(s) || item.desc.toLowerCase().includes(s)); }
+            if (search) { const s = search.toLowerCase();
+                items = items.filter(item => item.name.toLowerCase().includes(s) || item.desc.toLowerCase().includes(s)); }
             document.getElementById('itemCount').textContent = items.length;
             if (items.length === 0) { grid.innerHTML = '<p style="color:#55657d;padding:20px;">Товаров не найдено</p>'; return; }
             grid.innerHTML = items.map(item => `
@@ -370,12 +529,14 @@
                 </div>
             `).join('');
         }
+
         function filterCatalog() {
             const search = document.getElementById('searchInput').value.trim();
             const activeCat = document.querySelector('.cat.active');
             const cat = activeCat ? activeCat.dataset.cat : 'all';
             renderCatalog(cat, search);
         }
+
         function addToCart(id) {
             const item = catalog.find(i => i.id === id);
             if (!item) return;
@@ -384,10 +545,12 @@
             else cart.push({ ...item, qty: 1 });
             updateCart();
         }
+
         function removeFromCart(id) {
             cart = cart.filter(i => i.id !== id);
             updateCart();
         }
+
         function updateCart() {
             const container = document.getElementById('cartItems');
             const count = cart.reduce((s, i) => s + i.qty, 0);
@@ -398,15 +561,16 @@
                 return;
             }
             container.innerHTML = cart.map(i => {
-                const price = Math.round(i.price * (1 - i.discount/100));
+                const price = Math.round(i.price * (1 - i.discount / 100));
                 return `<div class="cart-item"><span>${i.icon} ${i.name} ×${i.qty}</span><span>₽ ${price * i.qty} <span class="remove" onclick="removeFromCart(${i.id})">✕</span></span></div>`;
             }).join('');
-            document.getElementById('cartTotal').textContent = cart.reduce((s, i) => s + Math.round(i.price * (1 - i.discount/100)) * i.qty, 0);
+            document.getElementById('cartTotal').textContent = cart.reduce((s, i) => s + Math.round(i.price * (1 - i.discount / 100)) * i.qty, 0);
         }
+
         function checkout() {
             if (cart.length === 0) { alert('Корзина пуста'); return; }
             if (!currentUser) { alert('Войдите в аккаунт'); openAuth('login'); return; }
-            const total = cart.reduce((s, i) => s + Math.round(i.price * (1 - i.discount/100)) * i.qty, 0);
+            const total = cart.reduce((s, i) => s + Math.round(i.price * (1 - i.discount / 100)) * i.qty, 0);
             if (confirm(`💳 Оформить заказ на ₽ ${total}?`)) {
                 alert(`✅ Заказ оформлен, ${currentUser.login}! С вами свяжутся.`);
                 cart = [];
@@ -426,7 +590,11 @@
             document.getElementById('itemQty').value = '1';
             document.getElementById('itemDiscount').value = '0';
         }
-        function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('open');
+        }
+
         function addItemFromModal() {
             const name = document.getElementById('itemName').value.trim();
             const price = parseInt(document.getElementById('itemPrice').value);
@@ -436,7 +604,7 @@
             const cat = document.getElementById('itemCategory').value;
             if (!name || !price || price < 1) { alert('Заполните название и цену!'); return; }
             const newId = catalog.length ? Math.max(...catalog.map(i => i.id)) + 1 : 1;
-            const icons = ['🎮','💰','🚀','🔥','⭐','🎯','💎','⚡','🛡️','🏆'];
+            const icons = ['🎮', '💰', '🚀', '🔥', '⭐', '🎯', '💎', '⚡', '🛡️', '🏆'];
             catalog.push({ id: newId, name, cat, price, desc, icon: icons[Math.floor(Math.random() * icons.length)], qty, discount: Math.min(discount, 90) });
             renderCatalog();
             closeModal();
@@ -495,12 +663,10 @@
                 time: new Date().toLocaleTimeString()
             };
 
-            // Добавляем локально
             chatMessages.push(newMsg);
             renderChat();
             input.value = '';
 
-            // Сохраняем в JSONBin
             try {
                 const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
                     method: 'PUT',
@@ -549,9 +715,7 @@
         renderCatalog();
         updateCart();
         loadChat();
-        // Обновляем чат каждые 5 секунд
         setInterval(loadChat, 5000);
     </script>
 </body>
 </html>
-           
