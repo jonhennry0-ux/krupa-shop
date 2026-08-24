@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krupa Shop — цифровая площадка</title>
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: #0b0e14;
+            color: #e8edf5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: #141a24;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a3344;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f0b34b, #ff7e5f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            font-weight: 300;
+            background: none;
+            -webkit-text-fill-color: #8899bb;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header-controls input {
+            background: #1e2735;
+            border: 1px solid #2f3b4e;
+            border-radius: 30px;
+            padding: 8px 20px;
+            color: #fff;
+            outline: none;
+            width: 200px;
+            transition: 0.3s;
+        }
+        .header-controls input:focus {
+            border-color: #f0b34b;
+            box-shadow: 0 0 12px rgba(240, 179, 75, 0.2);
+        }
+
+        .btn {
+            padding: 8px 22px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+            background: #2a3344;
+            color: #c8d0dd;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #f0b34b, #e8913a);
+            color: #0b0e14;
+        }
+        .btn-primary:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 20px rgba(240, 179, 75, 0.35);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #3f4b62;
+        }
+        .btn-outline:hover {
+            border-color: #f0b34b;
+            color: #f0b34b;
+        }
+
+        /* ===== КАТЕГОРИИ ===== */
+        .categories {
+            display: flex;
+            gap: 8px;
+            padding: 16px 40px;
+            background: #10161f;
+            border-bottom: 1px solid #1f2838;
+            flex-wrap: wrap;
+        }
+        .categories .cat {
+            padding: 6px 18px;
+            border-radius: 20px;
+            background: #1a2332;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+        .categories .cat:hover,
+        .categories .cat.active {
+            background: #2a3a52;
+            border-color: #f0b34b;
+            color: #f0b34b;
+        }
+
+        /* ===== MAIN ===== */
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 30px 40px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== КАТАЛОГ ===== */
+        .catalog {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .catalog h2 {
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #b0c0d5;
+        }
+        .catalog h2 strong {
+            color: #f0b34b;
+            font-weight: 600;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 20px;
+        }
+
+        .item-card {
+            background: #141c2a;
+            border-radius: 16px;
+            padding: 18px 16px 20px;
+            border: 1px solid #1f2a3c;
+            transition: 0.25s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .item-card:hover {
+            border-color: #f0b34b;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .item-card .badge {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: #e8484f;
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        .item-card .badge.hot {
+            background: #e8913a;
+        }
+
+        .item-card .icon {
+            font-size: 38px;
+            margin-bottom: 8px;
+        }
+        .item-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .item-card .desc {
+            font-size: 13px;
+            color: #8596b0;
+            margin-bottom: 12px;
+            flex: 1;
+        }
+        .item-card .price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #f0b34b;
+            margin-bottom: 12px;
+        }
+        .item-card .price small {
+            font-weight: 400;
+            font-size: 13px;
+            color: #6f7f99;
+            margin-left: 6px;
+        }
+
+        .item-card .btn-add {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #2a3a52, #1f2a3c);
+            color: #c8d0dd;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+        .item-card .btn-add:hover {
+            background: linear-gradient(135deg, #f0b34b, #e8913a);
+            color: #0b0e14;
+        }
+
+        /* ===== КОРЗИНА ===== */
+        .cart {
+            flex: 1;
+            min-width: 260px;
+            background: #10161f;
+            border-radius: 20px;
+            padding: 24px 20px;
+            border: 1px solid #1f2838;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        .cart h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .cart h3 span {
+            color: #f0b34b;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #1a2332;
+            font-size: 14px;
+        }
+        .cart-item .remove {
+            color: #e8484f;
+            cursor: pointer;
+            font-weight: 700;
+            padding: 0 6px;
+        }
+        .cart-item .remove:hover {
+            color: #ff6b72;
+        }
+
+        .cart-total {
+            margin: 18px 0 16px;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: right;
+            color: #f0b34b;
+        }
+
+        .cart .btn-checkout {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #f0b34b, #e8913a);
+            font-weight: 700;
+            font-size: 16px;
+            color: #0b0e14;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cart .btn-checkout:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(240, 179, 75, 0.3);
+        }
+
+        /* ===== МОДАЛКА ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal {
+            background: #141c2a;
+            border-radius: 24px;
+            padding: 32px 36px;
+            max-width: 480px;
+            width: 100%;
+            border: 1px solid #2a3a52;
+        }
+        .modal h2 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+        .modal p {
+            color: #8596b0;
+            margin-bottom: 20px;
+        }
+
+        .modal label {
+            display: block;
+            margin: 12px 0 4px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .modal input,
+        .modal select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #1f2a3c;
+            background: #0b0e14;
+            color: #fff;
+            outline: none;
+            transition: 0.2s;
+        }
+        .modal input:focus,
+        .modal select:focus {
+            border-color: #f0b34b;
+        }
+
+        .modal .row {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .modal .row > * {
+            flex: 1;
+        }
+
+        .modal .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .modal .actions .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 24px 40px 18px;
+            border-top: 1px solid #1a2332;
+            font-size: 14px;
+            color: #55657d;
+        }
+        footer strong {
+            color: #f0b34b;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 760px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 16px 20px;
+            }
+            .header-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .header-controls input {
+                width: 100%;
+            }
+            .container {
+                padding: 16px 20px;
+                flex-direction: column;
+            }
+            .cart {
+                position: static;
+            }
+            .categories {
+                padding: 12px 20px;
+                gap: 6px;
+            }
+            .modal {
+                padding: 24px 20px;
+                margin: 0 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="logo">Krupa<span>Shop</span></div>
+        <div class="header-controls">
+            <input type="text" placeholder="Поиск товаров...">
+            <button class="btn btn-outline">Избранное</button>
+            <button class="btn btn-primary" onclick="openModal()">➕ Продать</button>
+        </div>
+    </header>
+
+    <!-- ========== КАТЕГОРИИ ========== -->
+    <div class="categories">
+        <span class="cat active">🔥 Все</span>
+        <span class="cat">Roblox</span>
+        <span class="cat">Fortnite</span>
+        <span class="cat">Minecraft</span>
+        <span class="cat">Steam</span>
+        <span class="cat">Аккаунты</span>
+        <span class="cat">Валюта</span>
+        <span class="cat">Услуги</span>
+    </div>
+
+    <!-- ========== MAIN ========== -->
+    <div class="container">
+
+        <!-- КАТАЛОГ -->
+        <div class="catalog">
+            <h2>📦 <strong>Товары</strong> · 12 объявлений</h2>
+            <div class="items-grid" id="catalogGrid">
+                <!-- карточки вставятся JS -->
+            </div>
+        </div>
+
+        <!-- КОРЗИНА -->
+        <div class="cart" id="cartPanel">
+            <h3>🛒 Корзина <span id="cartCount">0</span></h3>
+            <div id="cartItems"></div>
+            <div class="cart-total">₽ <span id="cartTotal">0</span></div>
+            <button class="btn-checkout" onclick="checkout()">Оформить заказ</button>
+        </div>
+
+    </div>
+
+    <!-- ========== МОДАЛКА (продажа / заказ) ========== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2 id="modalTitle">📤 Новое объявление</h2>
+            <p id="modalDesc">Заполните форму, чтобы выставить товар на Krupa Shop</p>
+
+            <label>Название товара</label>
+            <input type="text" id="itemName" placeholder="Напр. Аккаунт Roblox 21+">
+
+            <label>Категория</label>
+            <select id="itemCategory">
+                <option>Roblox</option>
+                <option>Fortnite</option>
+                <option>Minecraft</option>
+                <option>Steam</option>
+                <option>Аккаунты</option>
+                <option>Валюта</option>
+                <option>Услуги</option>
+            </select>
+
+            <label>Цена (₽)</label>
+            <input type="number" id="itemPrice" placeholder="490" value="490">
+
+            <label>Описание</label>
+            <input type="text" id="itemDesc" placeholder="Краткое описание">
+
+            <div class="row">
+                <div>
+                    <label>Количество</label>
+                    <input type="number" id="itemQty" value="1" min="1">
+                </div>
+                <div>
+                    <label>Скидка %</label>
+                    <input type="number" id="itemDiscount" value="0" min="0" max="90">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-outline" onclick="closeModal()">Отмена</button>
+                <button class="btn btn-primary" onclick="addItemFromModal()">➕ Добавить в каталог</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        © 2026 <strong>Krupa Shop</strong> · цифровая площадка · все права защищены
+    </footer>
+
+    <script>
+        // =============================================
+        //  ДАННЫЕ (начальный каталог)
+        // =============================================
+        let catalog = [
+            { id: 1, name: 'Roblox аккаунт 21+', cat: 'Roblox', price: 490, desc: 'Верифицирован, голосовой чат', icon: '🎮', qty: 1, discount: 0 },
+            { id: 2, name: '1000 Robux', cat: 'Валюта', price: 350, desc: 'Мгновенная доставка', icon: '💰', qty: 1, discount: 5 },
+            { id: 3, name: 'Fortnite Galaxy Skin', cat: 'Fortnite', price: 1200, desc: 'Редкий скин + VBucks', icon: '🌌', qty: 1, discount: 0 },
+            { id: 4, name: 'Minecraft Premium', cat: 'Minecraft', price: 890, desc: 'Полная версия, лицензия', icon: '⛏️', qty: 1, discount: 10 },
+            { id: 5, name: 'Steam аккаунт (10 игр)', cat: 'Steam', price: 2200, desc: 'CS2, Dota 2, PUBG', icon: '🎯', qty: 1, discount: 0 },
+            { id: 6, name: 'Услуги фарма Roblox', cat: 'Услуги', price: 650, desc: 'Фарм опыта / валюты', icon: '⚡', qty: 1, discount: 0 },
+            { id: 7, name: 'Roblox аккаунт 18+', cat: 'Roblox', price: 390, desc: 'Подтверждённый возраст', icon: '🎮', qty: 1, discount: 0 },
+            { id: 8, name: '5000 Robux', cat: 'Валюта', price: 1450, desc: 'Бонус +100 Robux', icon: '💎', qty: 1, discount: 7 },
+        ];
+
+        let cart = [];
+
+        // =============================================
+        //  РЕНДЕР КАТАЛОГА
+        // =============================================
+        function renderCatalog() {
+            const grid = document.getElementById('catalogGrid');
+            grid.innerHTML = catalog.map(item => `
+                <div class="item-card">
+                    ${item.discount > 0 ? `<span class="badge hot">-${item.discount}%</span>` : ''}
+                    <div class="icon">${item.icon}</div>
+                    <h4>${item.name}</h4>
+                    <div class="desc">${item.desc}</div>
+                    <div class="price">₽ ${Math.round(item.price * (1 - item.discount/100))} <small>${item.discount > 0 ? `скидка ${item.discount}%` : ''}</small></div>
+                    <button class="btn-add" onclick="addToCart(${item.id})">➕ В корзину</button>
+                </div>
+            `).join('');
+        }
+
+        // =============================================
+        //  КОРЗИНА
+        // =============================================
+        function addToCart(id) {
+            const item = catalog.find(i => i.id === id);
+            if (!item) return;
+            const existing = cart.find(i => i.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+            updateCart();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCart();
+        }
+
+        function updateCart() {
+            const container = document.getElementById('cartItems');
+            const count = cart.reduce((s, i) => s + i.qty, 0);
+            document.getElementById('cartCount').textContent = count;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color:#55657d;font-size:14px;margin:16px 0;">Корзина пуста</p>';
+                document.getElementById('cartTotal').textContent = '0';
+                return;
+            }
+
+            container.innerHTML = cart.map(i => {
+                const price = Math.round(i.price * (1 - i.discount/100));
+                return `
+                    <div class="cart-item">
+                        <span>${i.icon} ${i.name} ×${i.qty}</span>
+                        <span>₽ ${price * i.qty} <span class="remove" onclick="removeFromCart(${i.id})">✕</span></span>
+                    </div>
+                `;
+            }).join('');
+
+            const total = cart.reduce((s, i) => s + Math.round(i.price * (1 - i.discount/100)) * i.qty, 0);
+            document.getElementById('cartTotal').textContent = total;
+        }
+
+        // =============================================
+        //  ОФОРМЛЕНИЕ
+        // =============================================
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Корзина пуста! Добавьте товары.');
+                return;
+            }
+            const total = cart.reduce((s, i) => s + Math.round(i.price * (1 - i.discount/100)) * i.qty, 0);
+            const names = cart.map(i => i.name).join(', ');
+            if (confirm(`💳 Оформить заказ на сумму ₽ ${total}?\nТовары: ${names}`)) {
+                alert('✅ Заказ оформлен! С вами свяжется продавец в течение 5 минут.');
+                cart = [];
+                updateCart();
+            }
+        }
+
+        // =============================================
+        //  МОДАЛКА (добавление товара)
+        // =============================================
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('open');
+            document.getElementById('modalTitle').textContent = '📤 Новое объявление';
+            document.getElementById('modalDesc').textContent = 'Заполните форму, чтобы выставить товар на Krupa Shop';
+            // сброс полей
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemPrice').value = '490';
+            document.getElementById('itemDesc').value = '';
+            document.getElementById('itemQty').value = '1';
+            document.getElementById('itemDiscount').value = '0';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('open');
+        }
+
+        function addItemFromModal() {
+            const name = document.getElementById('itemName').value.trim();
+            const price = parseInt(document.getElementById('itemPrice').value);
+            const desc = document.getElementById('itemDesc').value.trim() || 'Без описания';
+            const qty = parseInt(document.getElementById('itemQty').value) || 1;
+            const discount = parseInt(document.getElementById('itemDiscount').value) || 0;
+            const cat = document.getElementById('itemCategory').value;
+
+            if (!name || !price || price < 1) {
+                alert('Заполните название и цену!');
+                return;
+            }
+
+            const newId = catalog.length ? Math.max(...catalog.map(i => i.id)) + 1 : 1;
+            const icons = ['🎮', '💰', '🚀', '🔥', '⭐', '🎯', '💎', '⚡', '🛡️', '🏆'];
+            catalog.push({
+                id: newId,
+                name: name,
+                cat: cat,
+                price: price,
+                desc: desc,
+                icon: icons[Math.floor(Math.random() * icons.length)],
+                qty: qty,
+                discount: Math.min(discount, 90)
+            });
+
+            renderCatalog();
+            closeModal();
+            alert(`✅ Товар "${name}" добавлен в каталог!`);
+        }
+
+        // =============================================
+        //  КЛИК ПО КАТЕГОРИЯМ (фильтр демо)
+        // =============================================
+        document.querySelectorAll('.cat').forEach(el => {
+            el.addEventListener('click', function() {
+                document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                // простая фильтрация по тексту (демо)
+                const filter = this.textContent.trim().toLowerCase();
+                if (filter === 'все' || filter === '🔥 все') {
+                    renderCatalog();
+                    return;
+                }
+                const filtered = catalog.filter(item => item.cat.toLowerCase().includes(filter) || item.name.toLowerCase().includes(filter));
+                const grid = document.getElementById('catalogGrid');
+                grid.innerHTML = filtered.map(item => `
+                    <div class="item-card">
+                        ${item.discount > 0 ? `<span class="badge hot">-${item.discount}%</span>` : ''}
+                        <div class="icon">${item.icon}</div>
+                        <h4>${item.name}</h4>
+                        <div class="desc">${item.desc}</div>
+                        <div class="price">₽ ${Math.round(item.price * (1 - item.discount/100))} <small>${item.discount > 0 ? `скидка ${item.discount}%` : ''}</small></div>
+                        <button class="btn-add" onclick="addToCart(${item.id})">➕ В корзину</button>
+                    </div>
+                `).join('');
+                if (filtered.length === 0) {
+                    grid.innerHTML = '<p style="color:#55657d;padding:20px;">Товаров в этой категории нет</p>';
+                }
+            });
+        });
+
+        // =============================================
+        //  СТАРТ
+        // =============================================
+        renderCatalog();
+        updateCart();
+
+        // закрытие модалки по клику на оверлей
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+
+</body>
+</html>
