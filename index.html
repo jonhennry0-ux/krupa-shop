@@ -147,14 +147,16 @@
             width: 48px;
             height: 48px;
             border-radius: 12px;
-            object-fit: cover;
+            object-fit: contain;
             margin-bottom: 8px;
             display: block;
+            background: transparent;
         }
         .item-card .game-name {
             font-size: 12px;
-            color: #8596b0;
+            color: #4fc3f7;
             margin-bottom: 2px;
+            font-weight: 600;
         }
         .item-card h4 {
             font-size: 15px;
@@ -196,6 +198,23 @@
         .item-card .btn-add:hover {
             background: linear-gradient(135deg, #4fc3f7, #00bcd4);
             color: #0b0e14;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #55657d;
+        }
+        .empty-state .big-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        .empty-state h3 {
+            font-size: 22px;
+            color: #b0c0d5;
+            margin-bottom: 8px;
+        }
+        .empty-state p {
+            font-size: 14px;
         }
         .cart {
             flex: 1;
@@ -382,7 +401,7 @@
             width: 18px;
             height: 18px;
             border-radius: 4px;
-            object-fit: cover;
+            object-fit: contain;
         }
         .auth-error {
             color: #e8484f;
@@ -753,20 +772,28 @@
         <input type="text" id="gameSearchInput" placeholder="Введите название игры..." oninput="filterGames()">
     </div>
 
-    <!-- КАТЕГОРИИ ИГР -->
+    <!-- КАТЕГОРИИ ИГР с цветными логотипами -->
     <div class="categories" id="gameCategories">
         <span class="cat active" data-game="all">🎮 Все</span>
-        <span class="cat" data-game="Roblox"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/roblox.svg" onerror="this.style.display='none'"> Roblox</span>
-        <span class="cat" data-game="Fortnite"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/fortnite.svg" onerror="this.style.display='none'"> Fortnite</span>
-        <span class="cat" data-game="Minecraft"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/minecraft.svg" onerror="this.style.display='none'"> Minecraft</span>
-        <span class="cat" data-game="Steam"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/steam.svg" onerror="this.style.display='none'"> Steam</span>
-        <span class="cat" data-game="PUBG"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pubg.svg" onerror="this.style.display='none'"> PUBG</span>
-        <span class="cat" data-game="Valorant"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/valorant.svg" onerror="this.style.display='none'"> Valorant</span>
-        <span class="cat" data-game="GTA V"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gta.svg" onerror="this.style.display='none'"> GTA V</span>
-        <span class="cat" data-game="Standoff 2"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/standoff2.svg" onerror="this.style.display='none'"> Standoff 2</span>
-        <span class="cat" data-game="Brawl Stars"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/brawlstars.svg" onerror="this.style.display='none'"> Brawl Stars</span>
-        <span class="cat" data-game="Mobile Legends"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/mobilelegends.svg" onerror="this.style.display='none'"> MLBB</span>
-        <span class="cat" data-game="Genshin Impact"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/genshinimpact.svg" onerror="this.style.display='none'"> Genshin</span>
+        <span class="cat" data-game="Roblox"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roblox_logo.svg/64px-Roblox_logo.svg.png" onerror="this.style.display='none'"> Roblox</span>
+        <span class="cat" data-game="Fortnite"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Fortnite_logo.svg/64px-Fortnite_logo.svg.png" onerror="this.style.display='none'"> Fortnite</span>
+        <span class="cat" data-game="Minecraft"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Minecraft_logo.svg/64px-Minecraft_logo.svg.png" onerror="this.style.display='none'"> Minecraft</span>
+        <span class="cat" data-game="Steam"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/64px-Steam_icon_logo.svg.png" onerror="this.style.display='none'"> Steam</span>
+        <span class="cat" data-game="PUBG"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/PUBG_logo.svg/64px-PUBG_logo.svg.png" onerror="this.style.display='none'"> PUBG</span>
+        <span class="cat" data-game="Valorant"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo.svg/64px-Valorant_logo.svg.png" onerror="this.style.display='none'"> Valorant</span>
+        <span class="cat" data-game="GTA V"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Grand_Theft_Auto_V_logo.svg/64px-Grand_Theft_Auto_V_logo.svg.png" onerror="this.style.display='none'"> GTA V</span>
+        <span class="cat" data-game="Standoff 2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Standoff_2_logo.svg/64px-Standoff_2_logo.svg.png" onerror="this.style.display='none'"> Standoff 2</span>
+        <span class="cat" data-game="Brawl Stars"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Brawl_Stars_logo.svg/64px-Brawl_Stars_logo.svg.png" onerror="this.style.display='none'"> Brawl Stars</span>
+        <span class="cat" data-game="Mobile Legends"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Mobile_Legends_Bang_Bang_logo.svg/64px-Mobile_Legends_Bang_Bang_logo.svg.png" onerror="this.style.display='none'"> MLBB</span>
+        <span class="cat" data-game="Genshin Impact"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Genshin_Impact_logo.svg/64px-Genshin_Impact_logo.svg.png" onerror="this.style.display='none'"> Genshin</span>
+        <span class="cat" data-game="Dota 2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Dota_2_logo.svg/64px-Dota_2_logo.svg.png" onerror="this.style.display='none'"> Dota 2</span>
+        <span class="cat" data-game="CS:GO"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/CSGO_logo.svg/64px-CSGO_logo.svg.png" onerror="this.style.display='none'"> CS:GO</span>
+        <span class="cat" data-game="Apex Legends"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Apex_Legends_logo.svg/64px-Apex_Legends_logo.svg.png" onerror="this.style.display='none'"> Apex</span>
+        <span class="cat" data-game="Rust"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Rust_logo.svg/64px-Rust_logo.svg.png" onerror="this.style.display='none'"> Rust</span>
+        <span class="cat" data-game="Warzone"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Call_of_Duty_Warzone_logo.svg/64px-Call_of_Duty_Warzone_logo.svg.png" onerror="this.style.display='none'"> Warzone</span>
+        <span class="cat" data-game="Overwatch"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Overwatch_logo.svg/64px-Overwatch_logo.svg.png" onerror="this.style.display='none'"> Overwatch</span>
+        <span class="cat" data-game="Among Us"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Among_Us_logo.svg/64px-Among_Us_logo.svg.png" onerror="this.style.display='none'"> Among Us</span>
+        <span class="cat" data-game="Fall Guys"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Fall_Guys_logo.svg/64px-Fall_Guys_logo.svg.png" onerror="this.style.display='none'"> Fall Guys</span>
     </div>
 
     <div class="container">
@@ -868,23 +895,8 @@
                             <button class="btn btn-outline" style="padding:4px 16px;font-size:12px;">Автовыдача</button>
                         </div>
                     </div>
-                    <div class="lot-row">
-                        <span style="font-size:14px;">🎮 Roblox аккаунт 21+</span>
-                        <div>
-                            <input type="checkbox" class="lot-checkbox" checked>
-                        </div>
-                    </div>
-                    <div class="lot-row">
-                        <span style="font-size:14px;">💰 1000 Robux</span>
-                        <div>
-                            <input type="checkbox" class="lot-checkbox">
-                        </div>
-                    </div>
-                    <div class="lot-row">
-                        <span style="font-size:14px;">🌌 Fortnite Galaxy Skin</span>
-                        <div>
-                            <input type="checkbox" class="lot-checkbox">
-                        </div>
+                    <div id="userLotsList">
+                        <p style="color:#55657d;font-size:13px;padding:8px 0;">У вас пока нет лотов</p>
                     </div>
                     <div style="margin-top:8px;">
                         <button class="btn btn-gold" style="width:100%;padding:8px;">🚀 Поднять все предложения</button>
@@ -957,6 +969,9 @@
                 <option>Steam</option><option>PUBG</option><option>Valorant</option>
                 <option>GTA V</option><option>Standoff 2</option><option>Brawl Stars</option>
                 <option>Mobile Legends</option><option>Genshin Impact</option>
+                <option>Dota 2</option><option>CS:GO</option><option>Apex Legends</option>
+                <option>Rust</option><option>Warzone</option><option>Overwatch</option>
+                <option>Among Us</option><option>Fall Guys</option>
             </select>
             <label>Цена (₽)</label>
             <input type="number" id="itemPrice" value="490">
@@ -983,41 +998,34 @@
         const MASTER_KEY = "$2a$10$UbizIWI/23kyJ2h81c2Vq.TFG0pYP0xmKtJM33WryjtsT1zMyMFm";
 
         // ============================================================
-        //  ЛОГОТИПЫ ИГР (SVG из CDN)
+        //  ЛОГОТИПЫ ИГР (цветные, из Wikimedia)
         // ============================================================
         const GAME_LOGOS = {
-            'Roblox': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/roblox.svg',
-            'Fortnite': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/fortnite.svg',
-            'Minecraft': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/minecraft.svg',
-            'Steam': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/steam.svg',
-            'PUBG': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pubg.svg',
-            'Valorant': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/valorant.svg',
-            'GTA V': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gta.svg',
-            'Standoff 2': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/standoff2.svg',
-            'Brawl Stars': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/brawlstars.svg',
-            'Mobile Legends': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/mobilelegends.svg',
-            'Genshin Impact': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/genshinimpact.svg'
+            'Roblox': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roblox_logo.svg/64px-Roblox_logo.svg.png',
+            'Fortnite': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Fortnite_logo.svg/64px-Fortnite_logo.svg.png',
+            'Minecraft': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Minecraft_logo.svg/64px-Minecraft_logo.svg.png',
+            'Steam': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/64px-Steam_icon_logo.svg.png',
+            'PUBG': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/PUBG_logo.svg/64px-PUBG_logo.svg.png',
+            'Valorant': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo.svg/64px-Valorant_logo.svg.png',
+            'GTA V': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Grand_Theft_Auto_V_logo.svg/64px-Grand_Theft_Auto_V_logo.svg.png',
+            'Standoff 2': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Standoff_2_logo.svg/64px-Standoff_2_logo.svg.png',
+            'Brawl Stars': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Brawl_Stars_logo.svg/64px-Brawl_Stars_logo.svg.png',
+            'Mobile Legends': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Mobile_Legends_Bang_Bang_logo.svg/64px-Mobile_Legends_Bang_Bang_logo.svg.png',
+            'Genshin Impact': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Genshin_Impact_logo.svg/64px-Genshin_Impact_logo.svg.png',
+            'Dota 2': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Dota_2_logo.svg/64px-Dota_2_logo.svg.png',
+            'CS:GO': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/CSGO_logo.svg/64px-CSGO_logo.svg.png',
+            'Apex Legends': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Apex_Legends_logo.svg/64px-Apex_Legends_logo.svg.png',
+            'Rust': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Rust_logo.svg/64px-Rust_logo.svg.png',
+            'Warzone': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Call_of_Duty_Warzone_logo.svg/64px-Call_of_Duty_Warzone_logo.svg.png',
+            'Overwatch': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Overwatch_logo.svg/64px-Overwatch_logo.svg.png',
+            'Among Us': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Among_Us_logo.svg/64px-Among_Us_logo.svg.png',
+            'Fall Guys': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Fall_Guys_logo.svg/64px-Fall_Guys_logo.svg.png'
         };
 
         // ============================================================
-        //  ДАННЫЕ
+        //  ДАННЫЕ (пустой каталог — продавцы сами добавят)
         // ============================================================
-        let catalog = [
-            { id: 1, name: 'Аккаунт 21+', game: 'Roblox', price: 490, desc: 'Верифицирован, голосовой чат', qty: 1, discount: 0 },
-            { id: 2, name: '1000 Robux', game: 'Roblox', price: 350, desc: 'Мгновенная доставка', qty: 1, discount: 5 },
-            { id: 3, name: 'Galaxy Skin', game: 'Fortnite', price: 1200, desc: 'Редкий скин + VBucks', qty: 1, discount: 0 },
-            { id: 4, name: 'Premium аккаунт', game: 'Minecraft', price: 890, desc: 'Полная версия, лицензия', qty: 1, discount: 10 },
-            { id: 5, name: 'Аккаунт (10 игр)', game: 'Steam', price: 2200, desc: 'CS2, Dota 2, PUBG', qty: 1, discount: 0 },
-            { id: 6, name: 'Фарм опыта', game: 'Roblox', price: 650, desc: 'Фарм опыта / валюты', qty: 1, discount: 0 },
-            { id: 7, name: 'Аккаунт 18+', game: 'Roblox', price: 390, desc: 'Подтверждённый возраст', qty: 1, discount: 0 },
-            { id: 8, name: '5000 Robux', game: 'Roblox', price: 1450, desc: 'Бонус +100 Robux', qty: 1, discount: 7 },
-            { id: 9, name: 'Скин + оружие', game: 'Valorant', price: 750, desc: 'Редкий набор', qty: 1, discount: 0 },
-            { id: 10, name: 'Аккаунт с авто', game: 'GTA V', price: 1800, desc: 'Много денег и машин', qty: 1, discount: 0 },
-            { id: 11, name: 'Аккаунт Standoff', game: 'Standoff 2', price: 500, desc: 'Редкие скины', qty: 1, discount: 0 },
-            { id: 12, name: 'Brawl Pass', game: 'Brawl Stars', price: 400, desc: 'Полный доступ', qty: 1, discount: 0 },
-            { id: 13, name: 'Аккаунт Mobile', game: 'Mobile Legends', price: 700, desc: 'Много героев', qty: 1, discount: 0 },
-            { id: 14, name: 'Аккаунт Genshin', game: 'Genshin Impact', price: 1500, desc: '5★ персонажи', qty: 1, discount: 0 }
-        ];
+        let catalog = [];
         let cart = [];
         let currentUser = null;
         let chatMessages = [];
@@ -1324,6 +1332,22 @@
                 `).join('');
             }
 
+            // Лоты пользователя (если есть)
+            const userLots = catalog.filter(item => item.seller === login);
+            const lotsContainer = document.getElementById('userLotsList');
+            if (userLots.length === 0) {
+                lotsContainer.innerHTML = '<p style="color:#55657d;font-size:13px;padding:8px 0;">У вас пока нет лотов</p>';
+            } else {
+                lotsContainer.innerHTML = userLots.map(item => `
+                    <div class="lot-row">
+                        <span style="font-size:14px;">${item.name}</span>
+                        <div>
+                            <input type="checkbox" class="lot-checkbox" checked>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
             document.getElementById('profileModal').classList.add('open');
         }
 
@@ -1530,7 +1554,13 @@
             document.getElementById('itemCount').textContent = items.length;
 
             if (items.length === 0) {
-                grid.innerHTML = '<p style="color:#55657d;padding:20px;">Товаров не найдено</p>';
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="big-icon">🛒</div>
+                        <h3>Товаров пока нет</h3>
+                        <p>Стань первым продавцом на SkyMarket!<br>Нажми «➕ Продать» и создай свой лот.</p>
+                    </div>
+                `;
                 return;
             }
 
@@ -1630,10 +1660,19 @@
             const game = document.getElementById('itemGame').value;
             if (!name || !price || price < 1) { alert('Заполните название и цену!'); return; }
             const newId = catalog.length ? Math.max(...catalog.map(i => i.id)) + 1 : 1;
-            catalog.push({ id: newId, name, game, price, desc, qty, discount: Math.min(discount, 90) });
+            catalog.push({
+                id: newId,
+                name,
+                game,
+                price,
+                desc,
+                qty,
+                discount: Math.min(discount, 90),
+                seller: currentUser.login
+            });
             renderCatalog(currentGameFilter);
             closeModal();
-            alert(`✅ Товар "${name}" добавлен!`);
+            alert(`✅ Товар "${name}" добавлен! Теперь его видят все пользователи.`);
         }
 
         // ============================================================
