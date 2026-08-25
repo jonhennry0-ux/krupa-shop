@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyMarket — магазин + чат</title>
+    <title>SkyMarket — магазин игр</title>
     <style>
         * {
             margin: 0;
@@ -29,20 +29,24 @@
             gap: 12px;
         }
         .logo {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 800;
             background: linear-gradient(135deg, #4fc3f7, #00bcd4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .logo span {
+            font-weight: 300;
+            -webkit-text-fill-color: #8899bb;
+        }
         .header-controls {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
             flex-wrap: wrap;
         }
         .btn {
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: 30px;
             border: none;
             font-weight: 600;
@@ -50,6 +54,7 @@
             transition: 0.25s;
             background: #2a3344;
             color: #c8d0dd;
+            font-size: 14px;
         }
         .btn-primary {
             background: linear-gradient(135deg, #4fc3f7, #00bcd4);
@@ -80,7 +85,6 @@
         }
         .btn-success:hover {
             background: #66bb6a;
-            transform: scale(1.04);
         }
         .btn-gold {
             background: linear-gradient(135deg, #f0b34b, #e8913a);
@@ -112,7 +116,7 @@
             min-width: 280px;
         }
         .catalog h2 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 400;
             margin-bottom: 16px;
             color: #b0c0d5;
@@ -122,7 +126,7 @@
         }
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 16px;
         }
         .item-card {
@@ -131,15 +135,26 @@
             padding: 16px;
             border: 1px solid #1f2a3c;
             transition: 0.25s;
+            cursor: pointer;
+            position: relative;
         }
         .item-card:hover {
             border-color: #4fc3f7;
             transform: translateY(-4px);
             box-shadow: 0 8px 30px rgba(79, 195, 247, 0.15);
         }
-        .item-card .icon {
-            font-size: 30px;
-            margin-bottom: 6px;
+        .item-card .game-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .item-card .game-name {
+            font-size: 12px;
+            color: #8596b0;
+            margin-bottom: 2px;
         }
         .item-card h4 {
             font-size: 15px;
@@ -155,6 +170,17 @@
             font-weight: 700;
             color: #4fc3f7;
             margin-bottom: 10px;
+        }
+        .item-card .discount-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ff9800;
+            color: #0b0e14;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 12px;
         }
         .item-card .btn-add {
             width: 100%;
@@ -332,21 +358,31 @@
             background: #10161f;
             border-bottom: 1px solid #1f2838;
             flex-wrap: wrap;
+            align-items: center;
         }
         .categories .cat {
-            padding: 6px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
             background: #1a2332;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             transition: 0.2s;
             border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .categories .cat:hover,
         .categories .cat.active {
             background: #2a3a52;
             border-color: #4fc3f7;
             color: #4fc3f7;
+        }
+        .categories .cat img {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            object-fit: cover;
         }
         .auth-error {
             color: #e8484f;
@@ -628,23 +664,31 @@
         .lot-search:focus {
             border-color: #4fc3f7;
         }
-        .modal-avatar-upload {
+        .game-search-row {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             gap: 12px;
-            padding: 12px 0;
+            align-items: center;
+            padding: 12px 30px;
+            background: #10161f;
+            border-bottom: 1px solid #1f2838;
+            flex-wrap: wrap;
         }
-        .modal-avatar-upload .preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4fc3f7;
-            background: #1a2332;
+        .game-search-row input {
+            flex: 1;
+            padding: 10px 18px;
+            border-radius: 30px;
+            border: 1px solid #1f2838;
+            background: #0b0e14;
+            color: #fff;
+            outline: none;
+            min-width: 200px;
         }
-        .modal-avatar-upload input[type="file"] {
-            display: none;
+        .game-search-row input:focus {
+            border-color: #4fc3f7;
+        }
+        .game-search-row .filter-label {
+            color: #8596b0;
+            font-size: 14px;
         }
         @media (max-width: 760px) {
             header {
@@ -674,6 +718,10 @@
                 padding: 10px 16px;
                 gap: 6px;
             }
+            .game-search-row {
+                padding: 10px 16px;
+                flex-direction: column;
+            }
             .items-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
@@ -683,7 +731,7 @@
 <body>
 
     <header>
-        <div class="logo">SkyMarket</div>
+        <div class="logo">Sky<span>Market</span></div>
         <div class="header-controls" id="headerControls">
             <div id="guestButtons">
                 <button class="btn btn-outline" onclick="openAuth('login')">Вход</button>
@@ -694,20 +742,31 @@
                 <button class="btn btn-outline" onclick="openProfile()">👤 Профиль</button>
                 <button class="btn btn-danger" onclick="logout()">Выход</button>
             </div>
-            <input type="text" placeholder="Поиск..." id="searchInput" oninput="filterCatalog()">
+            <input type="text" placeholder="Поиск..." id="searchInput" oninput="filterCatalog()" style="padding:8px 16px;border-radius:30px;border:1px solid #2a3344;background:#0b0e14;color:#fff;outline:none;width:180px;">
             <button class="btn btn-primary" onclick="openModal()">➕ Продать</button>
         </div>
     </header>
 
-    <div class="categories">
-        <span class="cat active" data-cat="all">🔥 Все</span>
-        <span class="cat" data-cat="Roblox">Roblox</span>
-        <span class="cat" data-cat="Fortnite">Fortnite</span>
-        <span class="cat" data-cat="Minecraft">Minecraft</span>
-        <span class="cat" data-cat="Steam">Steam</span>
-        <span class="cat" data-cat="Аккаунты">Аккаунты</span>
-        <span class="cat" data-cat="Валюта">Валюта</span>
-        <span class="cat" data-cat="Услуги">Услуги</span>
+    <!-- ПОИСК ИГР -->
+    <div class="game-search-row">
+        <span class="filter-label">🔍 Поиск игры:</span>
+        <input type="text" id="gameSearchInput" placeholder="Введите название игры..." oninput="filterGames()">
+    </div>
+
+    <!-- КАТЕГОРИИ ИГР -->
+    <div class="categories" id="gameCategories">
+        <span class="cat active" data-game="all">🎮 Все</span>
+        <span class="cat" data-game="Roblox"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/roblox.svg" onerror="this.style.display='none'"> Roblox</span>
+        <span class="cat" data-game="Fortnite"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/fortnite.svg" onerror="this.style.display='none'"> Fortnite</span>
+        <span class="cat" data-game="Minecraft"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/minecraft.svg" onerror="this.style.display='none'"> Minecraft</span>
+        <span class="cat" data-game="Steam"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/steam.svg" onerror="this.style.display='none'"> Steam</span>
+        <span class="cat" data-game="PUBG"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pubg.svg" onerror="this.style.display='none'"> PUBG</span>
+        <span class="cat" data-game="Valorant"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/valorant.svg" onerror="this.style.display='none'"> Valorant</span>
+        <span class="cat" data-game="GTA V"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gta.svg" onerror="this.style.display='none'"> GTA V</span>
+        <span class="cat" data-game="Standoff 2"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/standoff2.svg" onerror="this.style.display='none'"> Standoff 2</span>
+        <span class="cat" data-game="Brawl Stars"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/brawlstars.svg" onerror="this.style.display='none'"> Brawl Stars</span>
+        <span class="cat" data-game="Mobile Legends"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/mobilelegends.svg" onerror="this.style.display='none'"> MLBB</span>
+        <span class="cat" data-game="Genshin Impact"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/genshinimpact.svg" onerror="this.style.display='none'"> Genshin</span>
     </div>
 
     <div class="container">
@@ -760,19 +819,17 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА ПРОФИЛЯ (как FunPay) -->
+    <!-- МОДАЛКА ПРОФИЛЯ -->
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
             <h2 id="profileTitle">👤 Профиль</h2>
             <div id="profileContent">
-                <!-- Аватарка -->
                 <div class="profile-avatar-large" id="avatarContainer" onclick="document.getElementById('avatarInput').click()">
                     <img id="profileAvatar" src="" alt="Аватар">
                     <span id="avatarPlaceholder" style="display:block;">👤</span>
                 </div>
                 <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="uploadAvatar(event)">
 
-                <!-- Основная информация -->
                 <div class="profile-card" style="margin-top:4px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
                         <div>
@@ -787,7 +844,6 @@
                     <div style="margin-top:4px;font-size:13px;color:#8596b0;">Способ входа: <span id="profileMethod">—</span></div>
                 </div>
 
-                <!-- Рейтинг -->
                 <div class="profile-card" style="margin-top:8px;">
                     <div class="profile-rating">
                         <div class="rating-big" id="profileRating">0.0</div>
@@ -798,14 +854,12 @@
                     </div>
                 </div>
 
-                <!-- Описание -->
                 <div class="profile-card" style="margin-top:8px;">
                     <div style="font-weight:600;margin-bottom:4px;">📝 Описание</div>
                     <div id="profileDescription" style="color:#b0c0d5;font-size:14px;">Добавить описание</div>
                     <button class="btn btn-outline" onclick="editDescription()" style="margin-top:6px;padding:4px 16px;font-size:12px;">✏️ Изменить описание</button>
                 </div>
 
-                <!-- Управление лотами -->
                 <div class="lot-management">
                     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
                         <div style="font-weight:600;">📦 Управление лотами</div>
@@ -838,7 +892,6 @@
                     <input type="text" class="lot-search" placeholder="🔍 Поиск по лотам...">
                 </div>
 
-                <!-- Отзывы -->
                 <div style="margin-top:8px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
                         <strong>📝 Отзывы</strong>
@@ -898,10 +951,12 @@
             <p>Заполните форму</p>
             <label>Название</label>
             <input type="text" id="itemName" placeholder="Название товара">
-            <label>Категория</label>
-            <select id="itemCategory">
+            <label>Игра</label>
+            <select id="itemGame">
                 <option>Roblox</option><option>Fortnite</option><option>Minecraft</option>
-                <option>Steam</option><option>Аккаунты</option><option>Валюта</option><option>Услуги</option>
+                <option>Steam</option><option>PUBG</option><option>Valorant</option>
+                <option>GTA V</option><option>Standoff 2</option><option>Brawl Stars</option>
+                <option>Mobile Legends</option><option>Genshin Impact</option>
             </select>
             <label>Цена (₽)</label>
             <input type="number" id="itemPrice" value="490">
@@ -928,32 +983,47 @@
         const MASTER_KEY = "$2a$10$UbizIWI/23kyJ2h81c2Vq.TFG0pYP0xmKtJM33WryjtsT1zMyMFm";
 
         // ============================================================
+        //  ЛОГОТИПЫ ИГР (SVG из CDN)
+        // ============================================================
+        const GAME_LOGOS = {
+            'Roblox': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/roblox.svg',
+            'Fortnite': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/fortnite.svg',
+            'Minecraft': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/minecraft.svg',
+            'Steam': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/steam.svg',
+            'PUBG': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pubg.svg',
+            'Valorant': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/valorant.svg',
+            'GTA V': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gta.svg',
+            'Standoff 2': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/standoff2.svg',
+            'Brawl Stars': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/brawlstars.svg',
+            'Mobile Legends': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/mobilelegends.svg',
+            'Genshin Impact': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/genshinimpact.svg'
+        };
+
+        // ============================================================
         //  ДАННЫЕ
         // ============================================================
         let catalog = [
-            { id: 1, name: 'Roblox аккаунт 21+', cat: 'Roblox', price: 490, desc: 'Верифицирован, голосовой чат',
-                icon: '🎮', qty: 1, discount: 0 },
-            { id: 2, name: '1000 Robux', cat: 'Валюта', price: 350, desc: 'Мгновенная доставка', icon: '💰', qty: 1,
-                discount: 5 },
-            { id: 3, name: 'Fortnite Galaxy Skin', cat: 'Fortnite', price: 1200, desc: 'Редкий скин + VBucks', icon: '🌌',
-                qty: 1, discount: 0 },
-            { id: 4, name: 'Minecraft Premium', cat: 'Minecraft', price: 890, desc: 'Полная версия, лицензия', icon: '⛏️',
-                qty: 1, discount: 10 },
-            { id: 5, name: 'Steam аккаунт (10 игр)', cat: 'Steam', price: 2200, desc: 'CS2, Dota 2, PUBG', icon: '🎯',
-                qty: 1, discount: 0 },
-            { id: 6, name: 'Услуги фарма Roblox', cat: 'Услуги', price: 650, desc: 'Фарм опыта / валюты', icon: '⚡',
-                qty: 1, discount: 0 },
-            { id: 7, name: 'Roblox аккаунт 18+', cat: 'Roblox', price: 390, desc: 'Подтверждённый возраст', icon: '🎮',
-                qty: 1, discount: 0 },
-            { id: 8, name: '5000 Robux', cat: 'Валюта', price: 1450, desc: 'Бонус +100 Robux', icon: '💎', qty: 1,
-                discount: 7 }
+            { id: 1, name: 'Аккаунт 21+', game: 'Roblox', price: 490, desc: 'Верифицирован, голосовой чат', qty: 1, discount: 0 },
+            { id: 2, name: '1000 Robux', game: 'Roblox', price: 350, desc: 'Мгновенная доставка', qty: 1, discount: 5 },
+            { id: 3, name: 'Galaxy Skin', game: 'Fortnite', price: 1200, desc: 'Редкий скин + VBucks', qty: 1, discount: 0 },
+            { id: 4, name: 'Premium аккаунт', game: 'Minecraft', price: 890, desc: 'Полная версия, лицензия', qty: 1, discount: 10 },
+            { id: 5, name: 'Аккаунт (10 игр)', game: 'Steam', price: 2200, desc: 'CS2, Dota 2, PUBG', qty: 1, discount: 0 },
+            { id: 6, name: 'Фарм опыта', game: 'Roblox', price: 650, desc: 'Фарм опыта / валюты', qty: 1, discount: 0 },
+            { id: 7, name: 'Аккаунт 18+', game: 'Roblox', price: 390, desc: 'Подтверждённый возраст', qty: 1, discount: 0 },
+            { id: 8, name: '5000 Robux', game: 'Roblox', price: 1450, desc: 'Бонус +100 Robux', qty: 1, discount: 7 },
+            { id: 9, name: 'Скин + оружие', game: 'Valorant', price: 750, desc: 'Редкий набор', qty: 1, discount: 0 },
+            { id: 10, name: 'Аккаунт с авто', game: 'GTA V', price: 1800, desc: 'Много денег и машин', qty: 1, discount: 0 },
+            { id: 11, name: 'Аккаунт Standoff', game: 'Standoff 2', price: 500, desc: 'Редкие скины', qty: 1, discount: 0 },
+            { id: 12, name: 'Brawl Pass', game: 'Brawl Stars', price: 400, desc: 'Полный доступ', qty: 1, discount: 0 },
+            { id: 13, name: 'Аккаунт Mobile', game: 'Mobile Legends', price: 700, desc: 'Много героев', qty: 1, discount: 0 },
+            { id: 14, name: 'Аккаунт Genshin', game: 'Genshin Impact', price: 1500, desc: '5★ персонажи', qty: 1, discount: 0 }
         ];
         let cart = [];
         let currentUser = null;
         let chatMessages = [];
 
         // ============================================================
-        //  ПОЛЬЗОВАТЕЛИ (LOCALSTORAGE)
+        //  ПОЛЬЗОВАТЕЛИ
         // ============================================================
         function loadUsers() {
             try { return JSON.parse(localStorage.getItem('skymarket_users')) || {}; } catch { return {}; }
@@ -1209,7 +1279,6 @@
             const user = users[login];
             if (!user) { alert('Пользователь не найден'); return; }
 
-            // Основная информация
             document.getElementById('profileLogin').textContent = login;
             document.getElementById('profileDate').textContent = user.regDate || 'Неизвестно';
             document.getElementById('profileMethod').textContent = user.method || 'Логин/пароль';
@@ -1217,7 +1286,6 @@
             document.getElementById('profileStatus').className = 'profile-status ' + (user.status === 'online' ? 'online' :
                 'offline');
 
-            // Рейтинг
             const ratingData = getUserRating(login);
             document.getElementById('profileRating').textContent = ratingData.rating.toFixed(1);
             document.getElementById('profileRatingCount').textContent = ratingData.count;
@@ -1225,10 +1293,8 @@
             const starsStr = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
             document.getElementById('profileRatingStars').textContent = starsStr || '☆☆☆☆☆';
 
-            // Описание
             document.getElementById('profileDescription').textContent = getUserDescription(login);
 
-            // Аватарка
             const avatar = getUserAvatar(login);
             const avatarImg = document.getElementById('profileAvatar');
             const placeholder = document.getElementById('avatarPlaceholder');
@@ -1241,7 +1307,6 @@
                 placeholder.style.display = 'block';
             }
 
-            // Отзывы
             const reviews = getReviews(login);
             const reviewsContainer = document.getElementById('reviewsList');
             if (reviews.length === 0) {
@@ -1277,7 +1342,6 @@
             reader.onload = function(e) {
                 const avatarData = e.target.result;
                 setUserAvatar(currentUser.login, avatarData);
-                // Обновляем отображение
                 const avatarImg = document.getElementById('profileAvatar');
                 const placeholder = document.getElementById('avatarPlaceholder');
                 avatarImg.src = avatarData;
@@ -1450,18 +1514,31 @@
         // ============================================================
         //  КАТАЛОГ И КОРЗИНА
         // ============================================================
+        let currentGameFilter = 'all';
+
         function renderCatalog(filter = 'all', search = '') {
             const grid = document.getElementById('catalogGrid');
             let items = catalog;
-            if (filter !== 'all') items = items.filter(item => item.cat.toLowerCase().includes(filter.toLowerCase()));
-            if (search) { const s = search.toLowerCase();
-                items = items.filter(item => item.name.toLowerCase().includes(s) || item.desc.toLowerCase().includes(s)); }
+            if (filter !== 'all') {
+                items = items.filter(item => item.game.toLowerCase() === filter.toLowerCase());
+            }
+            if (search) {
+                const s = search.toLowerCase();
+                items = items.filter(item => item.name.toLowerCase().includes(s) || item.game.toLowerCase().includes(s) ||
+                    item.desc.toLowerCase().includes(s));
+            }
             document.getElementById('itemCount').textContent = items.length;
-            if (items.length === 0) { grid.innerHTML = '<p style="color:#55657d;padding:20px;">Товаров не найдено</p>'; return; }
+
+            if (items.length === 0) {
+                grid.innerHTML = '<p style="color:#55657d;padding:20px;">Товаров не найдено</p>';
+                return;
+            }
+
             grid.innerHTML = items.map(item => `
                 <div class="item-card">
-                    ${item.discount > 0 ? `<span style="background:#ff9800;font-size:10px;padding:2px 10px;border-radius:20px;display:inline-block;margin-bottom:6px;">-${item.discount}%</span>` : ''}
-                    <div class="icon">${item.icon}</div>
+                    ${item.discount > 0 ? `<span class="discount-badge">-${item.discount}%</span>` : ''}
+                    <img class="game-logo" src="${GAME_LOGOS[item.game] || ''}" onerror="this.style.display='none'" alt="${item.game}">
+                    <div class="game-name">${item.game}</div>
                     <h4>${item.name}</h4>
                     <div class="desc">${item.desc}</div>
                     <div class="price">₽ ${Math.round(item.price * (1 - item.discount/100))}</div>
@@ -1470,12 +1547,21 @@
             `).join('');
         }
 
-        function filterCatalog() {
-            const search = document.getElementById('searchInput').value.trim();
+        function filterGames() {
+            const search = document.getElementById('gameSearchInput').value.trim();
             const activeCat = document.querySelector('.cat.active');
-            const cat = activeCat ? activeCat.dataset.cat : 'all';
-            renderCatalog(cat, search);
+            const game = activeCat ? activeCat.dataset.game : 'all';
+            currentGameFilter = game;
+            renderCatalog(game, search);
         }
+
+        document.querySelectorAll('.cat').forEach(el => {
+            el.addEventListener('click', function() {
+                document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                filterGames();
+            });
+        });
 
         function addToCart(id) {
             const item = catalog.find(i => i.id === id);
@@ -1502,7 +1588,7 @@
             }
             container.innerHTML = cart.map(i => {
                 const price = Math.round(i.price * (1 - i.discount / 100));
-                return `<div class="cart-item"><span>${i.icon} ${i.name} ×${i.qty}</span><span>₽ ${price * i.qty} <span class="remove" onclick="removeFromCart(${i.id})">✕</span></span></div>`;
+                return `<div class="cart-item"><span>${i.name} ×${i.qty}</span><span>₽ ${price * i.qty} <span class="remove" onclick="removeFromCart(${i.id})">✕</span></span></div>`;
             }).join('');
             document.getElementById('cartTotal').textContent = cart.reduce((s, i) => s + Math.round(i.price * (1 - i.discount / 100)) * i.qty, 0);
         }
@@ -1541,13 +1627,11 @@
             const desc = document.getElementById('itemDesc').value.trim() || 'Без описания';
             const qty = parseInt(document.getElementById('itemQty').value) || 1;
             const discount = parseInt(document.getElementById('itemDiscount').value) || 0;
-            const cat = document.getElementById('itemCategory').value;
+            const game = document.getElementById('itemGame').value;
             if (!name || !price || price < 1) { alert('Заполните название и цену!'); return; }
             const newId = catalog.length ? Math.max(...catalog.map(i => i.id)) + 1 : 1;
-            const icons = ['🎮', '💰', '🚀', '🔥', '⭐', '🎯', '💎', '⚡', '🛡️', '🏆'];
-            catalog.push({ id: newId, name, cat, price, desc, icon: icons[Math.floor(Math.random() * icons.length)],
-                qty, discount: Math.min(discount, 90) });
-            renderCatalog();
+            catalog.push({ id: newId, name, game, price, desc, qty, discount: Math.min(discount, 90) });
+            renderCatalog(currentGameFilter);
             closeModal();
             alert(`✅ Товар "${name}" добавлен!`);
         }
@@ -1614,17 +1698,6 @@
                 console.error('Ошибка отправки:', e);
             }
         }
-
-        // ============================================================
-        //  КАТЕГОРИИ
-        // ============================================================
-        document.querySelectorAll('.cat').forEach(el => {
-            el.addEventListener('click', function() {
-                document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                filterCatalog();
-            });
-        });
 
         // ============================================================
         //  ЗАКРЫТИЕ МОДАЛОК
