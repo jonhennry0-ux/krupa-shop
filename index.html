@@ -82,6 +82,14 @@
             background: #66bb6a;
             transform: scale(1.04);
         }
+        .btn-gold {
+            background: linear-gradient(135deg, #f0b34b, #e8913a);
+            color: #0b0e14;
+        }
+        .btn-gold:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 20px rgba(240, 179, 75, 0.35);
+        }
         .btn-soc {
             width: 100%;
             padding: 10px;
@@ -236,7 +244,7 @@
             background: #141c2a;
             border-radius: 24px;
             padding: 28px;
-            max-width: 500px;
+            max-width: 520px;
             width: 100%;
             border: 1px solid #2a3a52;
             max-height: 90vh;
@@ -399,6 +407,10 @@
             font-weight: 700;
             color: #4fc3f7;
             font-size: 13px;
+            cursor: pointer;
+        }
+        .msg .user:hover {
+            text-decoration: underline;
         }
         .msg .text {
             font-size: 14px;
@@ -489,6 +501,10 @@
         .review-item .review-header .reviewer {
             color: #4fc3f7;
             font-weight: 600;
+            cursor: pointer;
+        }
+        .review-item .review-header .reviewer:hover {
+            text-decoration: underline;
         }
         .review-item .review-text {
             font-size: 14px;
@@ -527,6 +543,108 @@
         .reviews-list::-webkit-scrollbar-thumb {
             background: #2a3a52;
             border-radius: 10px;
+        }
+        .profile-avatar-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #4fc3f7;
+            background: #1a2332;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 8px;
+            cursor: pointer;
+            transition: 0.25s;
+            overflow: hidden;
+        }
+        .profile-avatar-large:hover {
+            border-color: #ffc107;
+            transform: scale(1.02);
+        }
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-status {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .profile-status.online {
+            background: #4caf50;
+            color: #fff;
+        }
+        .profile-status.offline {
+            background: #55657d;
+            color: #fff;
+        }
+        .profile-badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #0b0e14;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .lot-management {
+            background: #1a2332;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-top: 8px;
+        }
+        .lot-management .lot-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid #1f2838;
+        }
+        .lot-management .lot-row:last-child {
+            border-bottom: none;
+        }
+        .lot-management .lot-checkbox {
+            accent-color: #4fc3f7;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .lot-search {
+            width: 100%;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: 1px solid #1f2838;
+            background: #0b0e14;
+            color: #fff;
+            outline: none;
+            margin-top: 8px;
+        }
+        .lot-search:focus {
+            border-color: #4fc3f7;
+        }
+        .modal-avatar-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+        }
+        .modal-avatar-upload .preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4fc3f7;
+            background: #1a2332;
+        }
+        .modal-avatar-upload input[type="file"] {
+            display: none;
         }
         @media (max-width: 760px) {
             header {
@@ -642,24 +760,37 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА ПРОФИЛЯ (с отзывами) -->
+    <!-- МОДАЛКА ПРОФИЛЯ (как FunPay) -->
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
-            <h2>👤 Профиль</h2>
+            <h2 id="profileTitle">👤 Профиль</h2>
             <div id="profileContent">
-                <div class="profile-avatar" style="font-size:48px;text-align:center;">👤</div>
-                <div class="profile-card">
-                    <div class="info"><strong>Логин:</strong> <span id="profileLogin"></span></div>
-                    <div class="info"><strong>Дата регистрации:</strong> <span id="profileDate"></span></div>
-                    <div class="info"><strong>Способ входа:</strong> <span id="profileMethod">Логин/пароль</span></div>
+                <!-- Аватарка -->
+                <div class="profile-avatar-large" id="avatarContainer" onclick="document.getElementById('avatarInput').click()">
+                    <img id="profileAvatar" src="" alt="Аватар">
+                    <span id="avatarPlaceholder" style="display:block;">👤</span>
+                </div>
+                <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="uploadAvatar(event)">
+
+                <!-- Основная информация -->
+                <div class="profile-card" style="margin-top:4px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                        <div>
+                            <div style="font-size:20px;font-weight:700;color:#4fc3f7;" id="profileLogin">Логин</div>
+                            <div style="font-size:13px;color:#8596b0;">Дата регистрации: <span id="profileDate">—</span></div>
+                        </div>
+                        <div>
+                            <span class="profile-status online" id="profileStatus">Онлайн</span>
+                            <span class="profile-badge">★ №1</span>
+                        </div>
+                    </div>
+                    <div style="margin-top:4px;font-size:13px;color:#8596b0;">Способ входа: <span id="profileMethod">—</span></div>
                 </div>
 
-                <!-- РЕЙТИНГ -->
+                <!-- Рейтинг -->
                 <div class="profile-card" style="margin-top:8px;">
                     <div class="profile-rating">
-                        <div>
-                            <div class="rating-big" id="profileRating">0.0</div>
-                        </div>
+                        <div class="rating-big" id="profileRating">0.0</div>
                         <div>
                             <div class="rating-stars" id="profileRatingStars">☆☆☆☆☆</div>
                             <div class="rating-count">⭐ <span id="profileRatingCount">0</span> отзывов</div>
@@ -667,9 +798,49 @@
                     </div>
                 </div>
 
-                <!-- ОТЗЫВЫ -->
+                <!-- Описание -->
+                <div class="profile-card" style="margin-top:8px;">
+                    <div style="font-weight:600;margin-bottom:4px;">📝 Описание</div>
+                    <div id="profileDescription" style="color:#b0c0d5;font-size:14px;">Добавить описание</div>
+                    <button class="btn btn-outline" onclick="editDescription()" style="margin-top:6px;padding:4px 16px;font-size:12px;">✏️ Изменить описание</button>
+                </div>
+
+                <!-- Управление лотами -->
+                <div class="lot-management">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                        <div style="font-weight:600;">📦 Управление лотами</div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button class="btn btn-outline" style="padding:4px 16px;font-size:12px;">Все</button>
+                            <button class="btn btn-outline" style="padding:4px 16px;font-size:12px;">Автовыдача</button>
+                        </div>
+                    </div>
+                    <div class="lot-row">
+                        <span style="font-size:14px;">🎮 Roblox аккаунт 21+</span>
+                        <div>
+                            <input type="checkbox" class="lot-checkbox" checked>
+                        </div>
+                    </div>
+                    <div class="lot-row">
+                        <span style="font-size:14px;">💰 1000 Robux</span>
+                        <div>
+                            <input type="checkbox" class="lot-checkbox">
+                        </div>
+                    </div>
+                    <div class="lot-row">
+                        <span style="font-size:14px;">🌌 Fortnite Galaxy Skin</span>
+                        <div>
+                            <input type="checkbox" class="lot-checkbox">
+                        </div>
+                    </div>
+                    <div style="margin-top:8px;">
+                        <button class="btn btn-gold" style="width:100%;padding:8px;">🚀 Поднять все предложения</button>
+                    </div>
+                    <input type="text" class="lot-search" placeholder="🔍 Поиск по лотам...">
+                </div>
+
+                <!-- Отзывы -->
                 <div style="margin-top:8px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
                         <strong>📝 Отзывы</strong>
                         <button class="btn btn-success" onclick="openReviewModal()" style="padding:4px 16px;font-size:12px;">➕ Оставить отзыв</button>
                     </div>
@@ -704,6 +875,18 @@
             <div class="actions">
                 <button class="btn btn-outline" onclick="closeReviewModal()">Отмена</button>
                 <button class="btn btn-primary" onclick="submitReview()">📤 Отправить отзыв</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛКА РЕДАКТИРОВАНИЯ ОПИСАНИЯ -->
+    <div class="modal-overlay" id="descModal">
+        <div class="modal">
+            <h2>✏️ Редактировать описание</h2>
+            <textarea id="descInput" rows="4" placeholder="Напишите описание профиля..."></textarea>
+            <div class="actions">
+                <button class="btn btn-outline" onclick="closeDescModal()">Отмена</button>
+                <button class="btn btn-primary" onclick="saveDescription()">💾 Сохранить</button>
             </div>
         </div>
     </div>
@@ -770,7 +953,7 @@
         let chatMessages = [];
 
         // ============================================================
-        //  ПОЛЬЗОВАТЕЛИ + ОТЗЫВЫ (LOCALSTORAGE)
+        //  ПОЛЬЗОВАТЕЛИ (LOCALSTORAGE)
         // ============================================================
         function loadUsers() {
             try { return JSON.parse(localStorage.getItem('skymarket_users')) || {}; } catch { return {}; }
@@ -803,9 +986,12 @@
                 password: password,
                 regDate: new Date().toLocaleString(),
                 method: method,
-                reviews: [], // массив отзывов [{ from, rating, text, date }]
+                description: 'Добавить описание',
+                avatar: '',
+                reviews: [],
                 rating: 0,
-                ratingCount: 0
+                ratingCount: 0,
+                status: 'online'
             };
             saveUsers(users);
             return { success: true };
@@ -843,7 +1029,6 @@
                 date: new Date().toLocaleString()
             });
 
-            // Пересчёт рейтинга
             const revs = users[targetLogin].reviews;
             const total = revs.reduce((sum, r) => sum + r.rating, 0);
             users[targetLogin].rating = total / revs.length;
@@ -863,6 +1048,32 @@
             const users = getUsers();
             if (!users[login]) return { rating: 0, count: 0 };
             return { rating: users[login].rating || 0, count: users[login].ratingCount || 0 };
+        }
+
+        function getUserDescription(login) {
+            const users = getUsers();
+            if (!users[login]) return 'Добавить описание';
+            return users[login].description || 'Добавить описание';
+        }
+
+        function setUserDescription(login, desc) {
+            const users = getUsers();
+            if (!users[login]) return;
+            users[login].description = desc;
+            saveUsers(users);
+        }
+
+        function getUserAvatar(login) {
+            const users = getUsers();
+            if (!users[login]) return '';
+            return users[login].avatar || '';
+        }
+
+        function setUserAvatar(login, avatarData) {
+            const users = getUsers();
+            if (!users[login]) return;
+            users[login].avatar = avatarData;
+            saveUsers(users);
         }
 
         // ============================================================
@@ -985,9 +1196,9 @@
         }
 
         // ============================================================
-        //  ПРОФИЛЬ С ОТЗЫВАМИ
+        //  ПРОФИЛЬ
         // ============================================================
-        let profileTarget = null; // чей профиль смотрим
+        let profileTarget = null;
 
         function openProfile(targetLogin) {
             const login = targetLogin || (currentUser ? currentUser.login : null);
@@ -998,19 +1209,37 @@
             const user = users[login];
             if (!user) { alert('Пользователь не найден'); return; }
 
+            // Основная информация
             document.getElementById('profileLogin').textContent = login;
             document.getElementById('profileDate').textContent = user.regDate || 'Неизвестно';
             document.getElementById('profileMethod').textContent = user.method || 'Логин/пароль';
+            document.getElementById('profileStatus').textContent = user.status === 'online' ? 'Онлайн' : 'Офлайн';
+            document.getElementById('profileStatus').className = 'profile-status ' + (user.status === 'online' ? 'online' :
+                'offline');
 
             // Рейтинг
             const ratingData = getUserRating(login);
             document.getElementById('profileRating').textContent = ratingData.rating.toFixed(1);
             document.getElementById('profileRatingCount').textContent = ratingData.count;
-
-            // Звёзды
             const fullStars = Math.round(ratingData.rating);
             const starsStr = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
             document.getElementById('profileRatingStars').textContent = starsStr || '☆☆☆☆☆';
+
+            // Описание
+            document.getElementById('profileDescription').textContent = getUserDescription(login);
+
+            // Аватарка
+            const avatar = getUserAvatar(login);
+            const avatarImg = document.getElementById('profileAvatar');
+            const placeholder = document.getElementById('avatarPlaceholder');
+            if (avatar) {
+                avatarImg.src = avatar;
+                avatarImg.style.display = 'block';
+                placeholder.style.display = 'none';
+            } else {
+                avatarImg.style.display = 'none';
+                placeholder.style.display = 'block';
+            }
 
             // Отзывы
             const reviews = getReviews(login);
@@ -1021,7 +1250,7 @@
                 reviewsContainer.innerHTML = reviews.map(r => `
                     <div class="review-item">
                         <div class="review-header">
-                            <span class="reviewer">${r.from}</span>
+                            <span class="reviewer" onclick="openProfile('${r.from}')">${r.from}</span>
                             <span>${r.date}</span>
                         </div>
                         <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
@@ -1035,6 +1264,47 @@
 
         function closeProfile() {
             document.getElementById('profileModal').classList.remove('open');
+        }
+
+        // ============================================================
+        //  АВАТАРКА
+        // ============================================================
+        function uploadAvatar(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const avatarData = e.target.result;
+                setUserAvatar(currentUser.login, avatarData);
+                // Обновляем отображение
+                const avatarImg = document.getElementById('profileAvatar');
+                const placeholder = document.getElementById('avatarPlaceholder');
+                avatarImg.src = avatarData;
+                avatarImg.style.display = 'block';
+                placeholder.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ============================================================
+        //  ОПИСАНИЕ
+        // ============================================================
+        function editDescription() {
+            document.getElementById('descInput').value = getUserDescription(profileTarget || currentUser.login);
+            document.getElementById('descModal').classList.add('open');
+        }
+
+        function closeDescModal() {
+            document.getElementById('descModal').classList.remove('open');
+        }
+
+        function saveDescription() {
+            const desc = document.getElementById('descInput').value.trim() || 'Добавить описание';
+            setUserDescription(profileTarget || currentUser.login, desc);
+            document.getElementById('profileDescription').textContent = desc;
+            closeDescModal();
+            alert('✅ Описание сохранено!');
         }
 
         // ============================================================
@@ -1060,7 +1330,6 @@
             document.getElementById('reviewModal').classList.remove('open');
         }
 
-        // Звёзды
         document.querySelectorAll('.star-rating .star').forEach(el => {
             el.addEventListener('click', function() {
                 const val = parseInt(this.dataset.value);
@@ -1114,7 +1383,6 @@
             if (result.success) {
                 alert('✅ Отзыв оставлен!');
                 closeReviewModal();
-                // Обновляем профиль
                 openProfile(profileTarget);
             } else {
                 alert('❌ ' + result.error);
@@ -1312,7 +1580,7 @@
             }
             container.innerHTML = chatMessages.map(msg => `
                 <div class="msg ${msg.user === currentUser?.login ? 'self' : ''}">
-                    <div class="user">${msg.user}</div>
+                    <div class="user" onclick="openProfile('${msg.user}')">${msg.user}</div>
                     <div class="text">${msg.text}</div>
                     <div class="time">${msg.time || ''}</div>
                 </div>
@@ -1372,6 +1640,9 @@
         });
         document.getElementById('reviewModal').addEventListener('click', function(e) {
             if (e.target === this) closeReviewModal();
+        });
+        document.getElementById('descModal').addEventListener('click', function(e) {
+            if (e.target === this) closeDescModal();
         });
 
         // ============================================================
