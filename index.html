@@ -5,99 +5,560 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyMarket — магазин + чат</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-        body { background: #0b0e14; color: #e8edf5; min-height: 100vh; display: flex; flex-direction: column; }
-        header { background: #141a24; padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a3344; flex-wrap: wrap; gap: 12px; }
-        .logo { font-size: 32px; font-weight: 800; background: linear-gradient(135deg, #4fc3f7, #00bcd4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .header-controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-        .btn { padding: 8px 20px; border-radius: 30px; border: none; font-weight: 600; cursor: pointer; transition: 0.25s; background: #2a3344; color: #c8d0dd; }
-        .btn-primary { background: linear-gradient(135deg, #4fc3f7, #00bcd4); color: #0b0e14; }
-        .btn-primary:hover { transform: scale(1.04); box-shadow: 0 0 20px rgba(79,195,247,0.4); }
-        .btn-outline { background: transparent; border: 1px solid #3f4b62; }
-        .btn-outline:hover { border-color: #4fc3f7; color: #4fc3f7; }
-        .btn-danger { background: #e8484f; color: #fff; }
-        .btn-danger:hover { background: #ff6b72; }
-        .btn-telegram { background: #0088cc; color: #fff; }
-        .btn-telegram:hover { background: #0099dd; transform: scale(1.04); }
-        .btn-google { background: #ea4335; color: #fff; }
-        .btn-google:hover { background: #f05a4a; transform: scale(1.04); }
-        .btn-soc { width: 100%; padding: 10px; border-radius: 30px; border: none; font-weight: 600; cursor: pointer; transition: 0.25s; margin-top: 6px; }
-        .container { display: flex; flex: 1; padding: 20px 30px; gap: 25px; flex-wrap: wrap; }
-        .catalog { flex: 2; min-width: 280px; }
-        .catalog h2 { font-size: 22px; font-weight: 400; margin-bottom: 16px; color: #b0c0d5; }
-        .catalog h2 strong { color: #4fc3f7; }
-        .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
-        .item-card { background: #141c2a; border-radius: 16px; padding: 16px; border: 1px solid #1f2a3c; transition: 0.25s; }
-        .item-card:hover { border-color: #4fc3f7; transform: translateY(-4px); box-shadow: 0 8px 30px rgba(79,195,247,0.15); }
-        .item-card .icon { font-size: 30px; margin-bottom: 6px; }
-        .item-card h4 { font-size: 15px; font-weight: 600; }
-        .item-card .desc { font-size: 12px; color: #8596b0; margin-bottom: 8px; }
-        .item-card .price { font-size: 18px; font-weight: 700; color: #4fc3f7; margin-bottom: 10px; }
-        .item-card .btn-add { width: 100%; padding: 8px; border: none; border-radius: 30px; background: linear-gradient(135deg, #2a3a52, #1f2a3c); color: #c8d0dd; font-weight: 600; cursor: pointer; transition: 0.25s; }
-        .item-card .btn-add:hover { background: linear-gradient(135deg, #4fc3f7, #00bcd4); color: #0b0e14; }
-        .cart { flex: 1; min-width: 240px; background: #10161f; border-radius: 20px; padding: 20px; border: 1px solid #1f2838; height: fit-content; position: sticky; top: 20px; }
-        .cart h3 { font-size: 20px; font-weight: 500; margin-bottom: 16px; display: flex; justify-content: space-between; }
-        .cart h3 span { color: #4fc3f7; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #1a2332; font-size: 14px; }
-        .cart-item .remove { color: #e8484f; cursor: pointer; font-weight: 700; }
-        .cart-total { margin: 16px 0; font-size: 22px; font-weight: 700; text-align: right; color: #4fc3f7; }
-        .cart .btn-checkout { width: 100%; padding: 12px; border: none; border-radius: 40px; background: linear-gradient(135deg, #4fc3f7, #00bcd4); font-weight: 700; color: #0b0e14; cursor: pointer; transition: 0.3s; }
-        .cart .btn-checkout:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(79,195,247,0.3); }
-        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); align-items: center; justify-content: center; z-index: 999; }
-        .modal-overlay.open { display: flex; }
-        .modal { background: #141c2a; border-radius: 24px; padding: 28px; max-width: 450px; width: 100%; border: 1px solid #2a3a52; max-height: 90vh; overflow-y: auto; }
-        .modal h2 { font-size: 22px; margin-bottom: 6px; }
-        .modal p { color: #8596b0; margin-bottom: 16px; }
-        .modal label { display: block; margin: 10px 0 4px; font-weight: 500; font-size: 14px; }
-        .modal input, .modal select, .modal textarea { width: 100%; padding: 10px 14px; border-radius: 12px; border: 1px solid #1f2a3c; background: #0b0e14; color: #fff; outline: none; transition: 0.2s; }
-        .modal input:focus, .modal select:focus, .modal textarea:focus { border-color: #4fc3f7; }
-        .modal .row { display: flex; gap: 12px; margin-top: 8px; }
-        .modal .row > * { flex: 1; }
-        .modal .actions { display: flex; gap: 12px; margin-top: 20px; }
-        .modal .actions .btn { flex: 1; padding: 10px; border-radius: 30px; font-weight: 600; }
-        .profile-card { background: #1a2332; border-radius: 16px; padding: 16px; margin-top: 12px; border: 1px solid #2a3a52; }
-        .profile-card .info { color: #b0c0d5; margin: 4px 0; }
-        .profile-card .info strong { color: #4fc3f7; }
-        footer { margin-top: auto; text-align: center; padding: 18px 20px; border-top: 1px solid #1a2332; font-size: 14px; color: #55657d; }
-        footer strong { color: #4fc3f7; }
-        .categories { display: flex; gap: 8px; padding: 12px 30px; background: #10161f; border-bottom: 1px solid #1f2838; flex-wrap: wrap; }
-        .categories .cat { padding: 6px 16px; border-radius: 20px; background: #1a2332; font-size: 14px; cursor: pointer; transition: 0.2s; border: 1px solid transparent; }
-        .categories .cat:hover, .categories .cat.active { background: #2a3a52; border-color: #4fc3f7; color: #4fc3f7; }
-        .auth-error { color: #e8484f; font-size: 13px; margin-top: 8px; display: none; }
-        .auth-success { color: #4fc3f7; font-size: 13px; margin-top: 8px; display: none; }
-        .chat-container { flex: 0.8; min-width: 280px; background: #10161f; border-radius: 20px; padding: 18px; border: 1px solid #1f2838; height: 500px; display: flex; flex-direction: column; }
-        .chat-container h3 { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .chat-container h3 span { color: #4fc3f7; }
-        .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; padding-right: 6px; }
-        .chat-messages::-webkit-scrollbar { width: 4px; }
-        .chat-messages::-webkit-scrollbar-thumb { background: #2a3a52; border-radius: 10px; }
-        .msg { background: #1a2332; padding: 8px 14px; border-radius: 16px; max-width: 85%; word-wrap: break-word; }
-        .msg .user { font-weight: 700; color: #4fc3f7; font-size: 13px; }
-        .msg .text { font-size: 14px; margin-top: 2px; }
-        .msg .time { font-size: 10px; color: #55657d; text-align: right; margin-top: 4px; }
-        .msg.self { align-self: flex-end; background: #1a2a3a; border: 1px solid #2a4a5a; }
-        .chat-input-row { display: flex; gap: 8px; }
-        .chat-input-row input { flex: 1; padding: 10px 14px; border-radius: 30px; border: 1px solid #1f2a3c; background: #0b0e14; color: #fff; outline: none; }
-        .chat-input-row input:focus { border-color: #4fc3f7; }
-        .chat-input-row button { padding: 10px 20px; border: none; border-radius: 30px; background: linear-gradient(135deg, #4fc3f7, #00bcd4); font-weight: 700; color: #0b0e14; cursor: pointer; }
-        .soc-divider { display: flex; align-items: center; gap: 12px; margin: 12px 0; color: #55657d; font-size: 13px; }
-        .soc-divider::before, .soc-divider::after { content: ''; flex: 1; height: 1px; background: #1f2838; }
-        .social-input { margin-top: 6px; }
-        .social-input input { width: 100%; padding: 10px 14px; border-radius: 12px; border: 1px solid #1f2a3c; background: #0b0e14; color: #fff; outline: none; }
-        .social-input input:focus { border-color: #4fc3f7; }
-        .code-input-row { display: flex; gap: 8px; margin-top: 6px; }
-        .code-input-row input { flex: 1; padding: 10px 14px; border-radius: 12px; border: 1px solid #1f2a3c; background: #0b0e14; color: #fff; outline: none; text-align: center; font-size: 18px; letter-spacing: 4px; }
-        .code-input-row input:focus { border-color: #4fc3f7; }
-        .code-input-row button { padding: 10px 20px; border: none; border-radius: 12px; background: linear-gradient(135deg, #4fc3f7, #00bcd4); font-weight: 700; color: #0b0e14; cursor: pointer; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        body {
+            background: #0b0e14;
+            color: #e8edf5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: #141a24;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a3344;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4fc3f7, #00bcd4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+            background: #2a3344;
+            color: #c8d0dd;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4fc3f7, #00bcd4);
+            color: #0b0e14;
+        }
+        .btn-primary:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 20px rgba(79, 195, 247, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #3f4b62;
+        }
+        .btn-outline:hover {
+            border-color: #4fc3f7;
+            color: #4fc3f7;
+        }
+        .btn-danger {
+            background: #e8484f;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #ff6b72;
+        }
+        .btn-success {
+            background: #4caf50;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #66bb6a;
+            transform: scale(1.04);
+        }
+        .btn-soc {
+            width: 100%;
+            padding: 10px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+            margin-top: 6px;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px 30px;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .catalog {
+            flex: 2;
+            min-width: 280px;
+        }
+        .catalog h2 {
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            color: #b0c0d5;
+        }
+        .catalog h2 strong {
+            color: #4fc3f7;
+        }
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 16px;
+        }
+        .item-card {
+            background: #141c2a;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #1f2a3c;
+            transition: 0.25s;
+        }
+        .item-card:hover {
+            border-color: #4fc3f7;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(79, 195, 247, 0.15);
+        }
+        .item-card .icon {
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+        .item-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .item-card .desc {
+            font-size: 12px;
+            color: #8596b0;
+            margin-bottom: 8px;
+        }
+        .item-card .price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #4fc3f7;
+            margin-bottom: 10px;
+        }
+        .item-card .btn-add {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #2a3a52, #1f2a3c);
+            color: #c8d0dd;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+        .item-card .btn-add:hover {
+            background: linear-gradient(135deg, #4fc3f7, #00bcd4);
+            color: #0b0e14;
+        }
+        .cart {
+            flex: 1;
+            min-width: 240px;
+            background: #10161f;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #1f2838;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        .cart h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .cart h3 span {
+            color: #4fc3f7;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #1a2332;
+            font-size: 14px;
+        }
+        .cart-item .remove {
+            color: #e8484f;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .cart-total {
+            margin: 16px 0;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: right;
+            color: #4fc3f7;
+        }
+        .cart .btn-checkout {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #4fc3f7, #00bcd4);
+            font-weight: 700;
+            color: #0b0e14;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cart .btn-checkout:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(79, 195, 247, 0.3);
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .modal-overlay.open {
+            display: flex;
+        }
+        .modal {
+            background: #141c2a;
+            border-radius: 24px;
+            padding: 28px;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #2a3a52;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal h2 {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+        .modal p {
+            color: #8596b0;
+            margin-bottom: 16px;
+        }
+        .modal label {
+            display: block;
+            margin: 10px 0 4px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .modal input,
+        .modal select,
+        .modal textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #1f2a3c;
+            background: #0b0e14;
+            color: #fff;
+            outline: none;
+            transition: 0.2s;
+        }
+        .modal input:focus,
+        .modal select:focus,
+        .modal textarea:focus {
+            border-color: #4fc3f7;
+        }
+        .modal .row {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .modal .row>* {
+            flex: 1;
+        }
+        .modal .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .modal .actions .btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        .profile-card {
+            background: #1a2332;
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 12px;
+            border: 1px solid #2a3a52;
+        }
+        .profile-card .info {
+            color: #b0c0d5;
+            margin: 4px 0;
+        }
+        .profile-card .info strong {
+            color: #4fc3f7;
+        }
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 18px 20px;
+            border-top: 1px solid #1a2332;
+            font-size: 14px;
+            color: #55657d;
+        }
+        footer strong {
+            color: #4fc3f7;
+        }
+        .categories {
+            display: flex;
+            gap: 8px;
+            padding: 12px 30px;
+            background: #10161f;
+            border-bottom: 1px solid #1f2838;
+            flex-wrap: wrap;
+        }
+        .categories .cat {
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: #1a2332;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+        .categories .cat:hover,
+        .categories .cat.active {
+            background: #2a3a52;
+            border-color: #4fc3f7;
+            color: #4fc3f7;
+        }
+        .auth-error {
+            color: #e8484f;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+        .auth-success {
+            color: #4fc3f7;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+        .chat-container {
+            flex: 0.8;
+            min-width: 280px;
+            background: #10161f;
+            border-radius: 20px;
+            padding: 18px;
+            border: 1px solid #1f2838;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-container h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .chat-container h3 span {
+            color: #4fc3f7;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+            padding-right: 6px;
+        }
+        .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #2a3a52;
+            border-radius: 10px;
+        }
+        .msg {
+            background: #1a2332;
+            padding: 8px 14px;
+            border-radius: 16px;
+            max-width: 85%;
+            word-wrap: break-word;
+        }
+        .msg .user {
+            font-weight: 700;
+            color: #4fc3f7;
+            font-size: 13px;
+        }
+        .msg .text {
+            font-size: 14px;
+            margin-top: 2px;
+        }
+        .msg .time {
+            font-size: 10px;
+            color: #55657d;
+            text-align: right;
+            margin-top: 4px;
+        }
+        .msg.self {
+            align-self: flex-end;
+            background: #1a2a3a;
+            border: 1px solid #2a4a5a;
+        }
+        .chat-input-row {
+            display: flex;
+            gap: 8px;
+        }
+        .chat-input-row input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 30px;
+            border: 1px solid #1f2a3c;
+            background: #0b0e14;
+            color: #fff;
+            outline: none;
+        }
+        .chat-input-row input:focus {
+            border-color: #4fc3f7;
+        }
+        .chat-input-row button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #4fc3f7, #00bcd4);
+            font-weight: 700;
+            color: #0b0e14;
+            cursor: pointer;
+        }
+        .soc-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 12px 0;
+            color: #55657d;
+            font-size: 13px;
+        }
+        .soc-divider::before,
+        .soc-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #1f2838;
+        }
+        .star-rating {
+            display: flex;
+            gap: 4px;
+            font-size: 28px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .star-rating .star {
+            color: #55657d;
+            transition: 0.2s;
+        }
+        .star-rating .star.active {
+            color: #ffc107;
+        }
+        .star-rating .star:hover {
+            transform: scale(1.2);
+        }
+        .review-item {
+            background: #1a2332;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-left: 3px solid #4fc3f7;
+        }
+        .review-item .review-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #8596b0;
+            margin-bottom: 4px;
+        }
+        .review-item .review-header .reviewer {
+            color: #4fc3f7;
+            font-weight: 600;
+        }
+        .review-item .review-text {
+            font-size: 14px;
+        }
+        .review-item .review-stars {
+            color: #ffc107;
+            font-size: 14px;
+        }
+        .profile-rating {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 8px 0;
+        }
+        .profile-rating .rating-big {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffc107;
+        }
+        .profile-rating .rating-stars {
+            font-size: 20px;
+            color: #ffc107;
+        }
+        .profile-rating .rating-count {
+            color: #8596b0;
+            font-size: 14px;
+        }
+        .reviews-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 8px;
+        }
+        .reviews-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .reviews-list::-webkit-scrollbar-thumb {
+            background: #2a3a52;
+            border-radius: 10px;
+        }
         @media (max-width: 760px) {
-            header { flex-direction: column; align-items: stretch; padding: 12px 16px; }
-            .header-controls { flex-direction: column; align-items: stretch; }
-            .container { flex-direction: column; padding: 16px; }
-            .cart { position: static; }
-            .chat-container { height: 350px; }
-            .modal { padding: 20px; margin: 0 16px; }
-            .categories { padding: 10px 16px; gap: 6px; }
-            .items-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            header {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 12px 16px;
+            }
+            .header-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .container {
+                flex-direction: column;
+                padding: 16px;
+            }
+            .cart {
+                position: static;
+            }
+            .chat-container {
+                height: 350px;
+            }
+            .modal {
+                padding: 20px;
+                margin: 0 16px;
+            }
+            .categories {
+                padding: 10px 16px;
+                gap: 6px;
+            }
+            .items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
         }
     </style>
 </head>
@@ -175,28 +636,13 @@
                     <button class="btn btn-primary" id="authSubmitBtn" onclick="submitAuth()">Войти</button>
                 </div>
                 <div class="soc-divider">или войдите через</div>
-                <button class="btn-soc btn-telegram" onclick="showTelegramInput()">📱 Войти через Telegram</button>
-                <div id="telegramInputBlock" style="display:none; margin-top:8px;" class="social-input">
-                    <input type="text" id="telegramLogin" placeholder="Введите ваш @username в Telegram">
-                    <button class="btn btn-primary" style="width:100%; margin-top:6px;" onclick="authTelegram()">📨 Отправить код в Telegram</button>
-                </div>
-                <button class="btn-soc btn-google" onclick="showGoogleInput()">🔑 Войти через Google</button>
-                <div id="googleInputBlock" style="display:none; margin-top:8px;" class="social-input">
-                    <input type="email" id="googleLogin" placeholder="Введите ваш email">
-                    <button class="btn btn-primary" style="width:100%; margin-top:6px;" onclick="authGoogle()">📨 Отправить код в Telegram</button>
-                </div>
-                <div id="codeInputBlock" style="display:none; margin-top:12px;">
-                    <div class="code-input-row">
-                        <input type="text" id="codeInput" placeholder="Введите код" maxlength="6">
-                        <button onclick="verifyCode()">✅ Проверить</button>
-                    </div>
-                    <div id="codeStatus" style="color:#55657d;font-size:13px;margin-top:4px;"></div>
-                </div>
+                <button class="btn-soc btn-telegram" onclick="authTelegram()" style="background:#0088cc;color:#fff;">📱 Войти через Telegram</button>
+                <button class="btn-soc btn-google" onclick="authGoogle()" style="background:#ea4335;color:#fff;">🔑 Войти через Google</button>
             </div>
         </div>
     </div>
 
-    <!-- МОДАЛКА ПРОФИЛЯ -->
+    <!-- МОДАЛКА ПРОФИЛЯ (с отзывами) -->
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
             <h2>👤 Профиль</h2>
@@ -207,10 +653,57 @@
                     <div class="info"><strong>Дата регистрации:</strong> <span id="profileDate"></span></div>
                     <div class="info"><strong>Способ входа:</strong> <span id="profileMethod">Логин/пароль</span></div>
                 </div>
+
+                <!-- РЕЙТИНГ -->
+                <div class="profile-card" style="margin-top:8px;">
+                    <div class="profile-rating">
+                        <div>
+                            <div class="rating-big" id="profileRating">0.0</div>
+                        </div>
+                        <div>
+                            <div class="rating-stars" id="profileRatingStars">☆☆☆☆☆</div>
+                            <div class="rating-count">⭐ <span id="profileRatingCount">0</span> отзывов</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ОТЗЫВЫ -->
+                <div style="margin-top:8px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <strong>📝 Отзывы</strong>
+                        <button class="btn btn-success" onclick="openReviewModal()" style="padding:4px 16px;font-size:12px;">➕ Оставить отзыв</button>
+                    </div>
+                    <div class="reviews-list" id="reviewsList">
+                        <p style="color:#55657d;font-size:13px;padding:8px 0;">Отзывов пока нет</p>
+                    </div>
+                </div>
+
                 <div class="actions" style="margin-top:16px;">
                     <button class="btn btn-outline" onclick="closeProfile()">Закрыть</button>
-                    <button class="btn btn-danger" onclick="deleteAccount()">Удалить</button>
+                    <button class="btn btn-danger" onclick="deleteAccount()">Удалить аккаунт</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛКА ОТЗЫВА -->
+    <div class="modal-overlay" id="reviewModal">
+        <div class="modal">
+            <h2>✍️ Оставить отзыв</h2>
+            <p>Оцените пользователя и напишите отзыв</p>
+            <label>Оценка</label>
+            <div class="star-rating" id="starRating">
+                <span class="star" data-value="1">☆</span>
+                <span class="star" data-value="2">☆</span>
+                <span class="star" data-value="3">☆</span>
+                <span class="star" data-value="4">☆</span>
+                <span class="star" data-value="5">☆</span>
+            </div>
+            <label>Текст отзыва</label>
+            <textarea id="reviewText" rows="3" placeholder="Напишите ваш отзыв..."></textarea>
+            <div class="actions">
+                <button class="btn btn-outline" onclick="closeReviewModal()">Отмена</button>
+                <button class="btn btn-primary" onclick="submitReview()">📤 Отправить отзыв</button>
             </div>
         </div>
     </div>
@@ -246,51 +739,59 @@
 
     <script>
         // ============================================================
-        //  НАСТРОЙКИ (ВСЁ ГОТОВО, НИЧЕГО НЕ МЕНЯЙ!)
+        //  НАСТРОЙКИ JSONBIN
         // ============================================================
         const BIN_ID = "6a8cc3dcd3a8895dfe0c62ab";
         const MASTER_KEY = "$2a$10$UbizIWI/23kyJ2h81c2Vq.TFG0pYP0xmKtJM33WryjtsT1zMyMFm";
-        const TELEGRAM_BOT_TOKEN = "8711562937:AAGn2tFMNeXvGDY40-nKUx2N_HRtrlQi1j4";
-        const ADMIN_TELEGRAM_ID = "1025491633";
 
         // ============================================================
         //  ДАННЫЕ
         // ============================================================
         let catalog = [
-            { id: 1, name: 'Roblox аккаунт 21+', cat: 'Roblox', price: 490, desc: 'Верифицирован, голосовой чат', icon: '🎮', qty: 1, discount: 0 },
-            { id: 2, name: '1000 Robux', cat: 'Валюта', price: 350, desc: 'Мгновенная доставка', icon: '💰', qty: 1, discount: 5 },
-            { id: 3, name: 'Fortnite Galaxy Skin', cat: 'Fortnite', price: 1200, desc: 'Редкий скин + VBucks', icon: '🌌', qty: 1, discount: 0 },
-            { id: 4, name: 'Minecraft Premium', cat: 'Minecraft', price: 890, desc: 'Полная версия, лицензия', icon: '⛏️', qty: 1, discount: 10 },
-            { id: 5, name: 'Steam аккаунт (10 игр)', cat: 'Steam', price: 2200, desc: 'CS2, Dota 2, PUBG', icon: '🎯', qty: 1, discount: 0 },
-            { id: 6, name: 'Услуги фарма Roblox', cat: 'Услуги', price: 650, desc: 'Фарм опыта / валюты', icon: '⚡', qty: 1, discount: 0 },
-            { id: 7, name: 'Roblox аккаунт 18+', cat: 'Roblox', price: 390, desc: 'Подтверждённый возраст', icon: '🎮', qty: 1, discount: 0 },
-            { id: 8, name: '5000 Robux', cat: 'Валюта', price: 1450, desc: 'Бонус +100 Robux', icon: '💎', qty: 1, discount: 7 }
+            { id: 1, name: 'Roblox аккаунт 21+', cat: 'Roblox', price: 490, desc: 'Верифицирован, голосовой чат',
+                icon: '🎮', qty: 1, discount: 0 },
+            { id: 2, name: '1000 Robux', cat: 'Валюта', price: 350, desc: 'Мгновенная доставка', icon: '💰', qty: 1,
+                discount: 5 },
+            { id: 3, name: 'Fortnite Galaxy Skin', cat: 'Fortnite', price: 1200, desc: 'Редкий скин + VBucks', icon: '🌌',
+                qty: 1, discount: 0 },
+            { id: 4, name: 'Minecraft Premium', cat: 'Minecraft', price: 890, desc: 'Полная версия, лицензия', icon: '⛏️',
+                qty: 1, discount: 10 },
+            { id: 5, name: 'Steam аккаунт (10 игр)', cat: 'Steam', price: 2200, desc: 'CS2, Dota 2, PUBG', icon: '🎯',
+                qty: 1, discount: 0 },
+            { id: 6, name: 'Услуги фарма Roblox', cat: 'Услуги', price: 650, desc: 'Фарм опыта / валюты', icon: '⚡',
+                qty: 1, discount: 0 },
+            { id: 7, name: 'Roblox аккаунт 18+', cat: 'Roblox', price: 390, desc: 'Подтверждённый возраст', icon: '🎮',
+                qty: 1, discount: 0 },
+            { id: 8, name: '5000 Robux', cat: 'Валюта', price: 1450, desc: 'Бонус +100 Robux', icon: '💎', qty: 1,
+                discount: 7 }
         ];
         let cart = [];
         let currentUser = null;
         let chatMessages = [];
-        let generatedCode = null;
-        let pendingLogin = null;
-        let pendingMethod = null;
 
         // ============================================================
-        //  ПОЛЬЗОВАТЕЛИ (LOCALSTORAGE)
+        //  ПОЛЬЗОВАТЕЛИ + ОТЗЫВЫ (LOCALSTORAGE)
         // ============================================================
         function loadUsers() {
             try { return JSON.parse(localStorage.getItem('skymarket_users')) || {}; } catch { return {}; }
         }
+
         function saveUsers(users) {
             localStorage.setItem('skymarket_users', JSON.stringify(users));
         }
+
         function loadSession() {
             try { return JSON.parse(localStorage.getItem('skymarket_session')); } catch { return null; }
         }
+
         function saveSession(user) {
             localStorage.setItem('skymarket_session', JSON.stringify(user));
         }
+
         function clearSession() {
             localStorage.removeItem('skymarket_session');
         }
+
         function getUsers() { return loadUsers(); }
 
         function registerUser(login, password, method = 'Логин/пароль') {
@@ -298,173 +799,77 @@
             if (users[login]) return { success: false, error: 'Логин занят' };
             if (login.length < 3) return { success: false, error: 'Логин ≥ 3 символов' };
             if (password.length < 4) return { success: false, error: 'Пароль ≥ 4 символов' };
-            users[login] = { password: password, regDate: new Date().toLocaleString(), method: method };
+            users[login] = {
+                password: password,
+                regDate: new Date().toLocaleString(),
+                method: method,
+                reviews: [], // массив отзывов [{ from, rating, text, date }]
+                rating: 0,
+                ratingCount: 0
+            };
             saveUsers(users);
             return { success: true };
         }
+
         function loginUser(login, password) {
             const users = getUsers();
             if (!users[login]) return { success: false, error: 'Пользователь не найден' };
             if (users[login].password !== password) return { success: false, error: 'Неверный пароль' };
-            return { success: true, user: { login, regDate: users[login].regDate, method: users[login].method || 'Логин/пароль' } };
+            return { success: true, user: { login, regDate: users[login].regDate, method: users[login].method ||
+                        'Логин/пароль' } };
         }
+
         function deleteUser(login) {
             const users = getUsers();
-            if (users[login]) { delete users[login]; saveUsers(users); return true; }
+            if (users[login]) { delete users[login];
+                saveUsers(users); return true; }
             return false;
         }
 
         // ============================================================
-        //  ОТПРАВКА КОДА В TELEGRAM
+        //  ОТЗЫВЫ
         // ============================================================
-        async function sendCodeToTelegram(chatId, code) {
-            const token = TELEGRAM_BOT_TOKEN;
-            const url = `https://api.telegram.org/bot${token}/sendMessage`;
-            const text = `🔐 Ваш код подтверждения для SkyMarket: *${code}*\n\nВведите его на сайте для входа.`;
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'Markdown' })
-                });
-                const result = await response.json();
-                return result.ok;
-            } catch (e) {
-                console.error('Ошибка отправки в Telegram:', e);
-                return false;
-            }
+        function addReview(targetLogin, fromLogin, rating, text) {
+            const users = getUsers();
+            if (!users[targetLogin]) return { success: false, error: 'Пользователь не найден' };
+            if (!users[fromLogin]) return { success: false, error: 'Вы не зарегистрированы' };
+            if (targetLogin === fromLogin) return { success: false, error: 'Нельзя оставить отзыв самому себе' };
+
+            if (!users[targetLogin].reviews) users[targetLogin].reviews = [];
+            users[targetLogin].reviews.push({
+                from: fromLogin,
+                rating: rating,
+                text: text || 'Без текста',
+                date: new Date().toLocaleString()
+            });
+
+            // Пересчёт рейтинга
+            const revs = users[targetLogin].reviews;
+            const total = revs.reduce((sum, r) => sum + r.rating, 0);
+            users[targetLogin].rating = total / revs.length;
+            users[targetLogin].ratingCount = revs.length;
+
+            saveUsers(users);
+            return { success: true };
         }
 
-        // ============================================================
-        //  TELEGRAM ВХОД
-        // ============================================================
-        function showTelegramInput() {
-            const block = document.getElementById('telegramInputBlock');
-            block.style.display = block.style.display === 'none' ? 'block' : 'none';
-            document.getElementById('googleInputBlock').style.display = 'none';
-            document.getElementById('codeInputBlock').style.display = 'none';
-            document.getElementById('authError').style.display = 'none';
-            document.getElementById('authSuccess').style.display = 'none';
-        }
-        async function authTelegram() {
-            const username = document.getElementById('telegramLogin').value.trim();
-            const error = document.getElementById('authError');
-            const success = document.getElementById('authSuccess');
-            if (!username) {
-                error.textContent = 'Введите ваш @username в Telegram';
-                error.style.display = 'block';
-                return;
-            }
-            const cleanUsername = username.startsWith('@') ? username.slice(1) : username;
-            const finalLogin = 'tg_' + cleanUsername;
-            generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
-            pendingLogin = finalLogin;
-            pendingMethod = 'Telegram';
-            const sent = await sendCodeToTelegram(ADMIN_TELEGRAM_ID, generatedCode);
-            if (sent) {
-                success.textContent = `✅ Код отправлен в Telegram (@KrupaSkyMarket_bot)`;
-                success.style.display = 'block';
-                error.style.display = 'none';
-                document.getElementById('codeInputBlock').style.display = 'block';
-                document.getElementById('codeStatus').textContent = 'Введите код из 6 цифр';
-                document.getElementById('codeStatus').style.color = '#55657d';
-                document.getElementById('codeInput').value = '';
-                document.getElementById('codeInput').focus();
-            } else {
-                error.textContent = '❌ Не удалось отправить код. Напишите боту @KrupaSkyMarket_bot команду /start и попробуйте снова.';
-                error.style.display = 'block';
-            }
+        function getReviews(login) {
+            const users = getUsers();
+            if (!users[login]) return [];
+            return users[login].reviews || [];
         }
 
-        // ============================================================
-        //  GOOGLE ВХОД
-        // ============================================================
-        function showGoogleInput() {
-            const block = document.getElementById('googleInputBlock');
-            block.style.display = block.style.display === 'none' ? 'block' : 'none';
-            document.getElementById('telegramInputBlock').style.display = 'none';
-            document.getElementById('codeInputBlock').style.display = 'none';
-            document.getElementById('authError').style.display = 'none';
-            document.getElementById('authSuccess').style.display = 'none';
-        }
-        async function authGoogle() {
-            const email = document.getElementById('googleLogin').value.trim();
-            const error = document.getElementById('authError');
-            const success = document.getElementById('authSuccess');
-            if (!email || !email.includes('@')) {
-                error.textContent = 'Введите корректный email';
-                error.style.display = 'block';
-                return;
-            }
-            const finalLogin = 'google_' + email.replace(/[^a-zA-Z0-9]/g, '_');
-            generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
-            pendingLogin = finalLogin;
-            pendingMethod = 'Google';
-            const sent = await sendCodeToTelegram(ADMIN_TELEGRAM_ID, generatedCode);
-            if (sent) {
-                success.textContent = `✅ Код отправлен в Telegram (@KrupaSkyMarket_bot)`;
-                success.style.display = 'block';
-                error.style.display = 'none';
-                document.getElementById('codeInputBlock').style.display = 'block';
-                document.getElementById('codeStatus').textContent = 'Введите код из 6 цифр';
-                document.getElementById('codeStatus').style.color = '#55657d';
-                document.getElementById('codeInput').value = '';
-                document.getElementById('codeInput').focus();
-            } else {
-                error.textContent = '❌ Не удалось отправить код. Напишите боту @KrupaSkyMarket_bot команду /start и попробуйте снова.';
-                error.style.display = 'block';
-            }
-        }
-
-        // ============================================================
-        //  ПРОВЕРКА КОДА
-        // ============================================================
-        function verifyCode() {
-            const code = document.getElementById('codeInput').value.trim();
-            const status = document.getElementById('codeStatus');
-            const error = document.getElementById('authError');
-            if (!code || code.length !== 6) {
-                status.textContent = 'Введите 6-значный код';
-                status.style.color = '#e8484f';
-                return;
-            }
-            if (code === generatedCode) {
-                status.textContent = '✅ Код подтверждён! Вход выполнен.';
-                status.style.color = '#4fc3f7';
-                const login = pendingLogin;
-                const users = getUsers();
-                if (users[login]) {
-                    const user = { login, regDate: users[login].regDate, method: pendingMethod };
-                    currentUser = user;
-                    saveSession(currentUser);
-                    updateUI();
-                    closeAuth();
-                } else {
-                    const result = registerUser(login, 'code_' + Math.random().toString(36).slice(2, 10), pendingMethod);
-                    if (result.success) {
-                        const user = { login, regDate: new Date().toLocaleString(), method: pendingMethod };
-                        currentUser = user;
-                        saveSession(currentUser);
-                        updateUI();
-                        closeAuth();
-                        alert(`✅ Добро пожаловать, ${login}!`);
-                    } else {
-                        error.textContent = result.error;
-                        error.style.display = 'block';
-                    }
-                }
-            } else {
-                status.textContent = '❌ Неверный код. Попробуйте снова.';
-                status.style.color = '#e8484f';
-                document.getElementById('codeInput').value = '';
-                document.getElementById('codeInput').focus();
-            }
+        function getUserRating(login) {
+            const users = getUsers();
+            if (!users[login]) return { rating: 0, count: 0 };
+            return { rating: users[login].rating || 0, count: users[login].ratingCount || 0 };
         }
 
         // ============================================================
         //  UI АВТОРИЗАЦИИ
         // ============================================================
         let authMode = 'login';
+
         function openAuth(mode) {
             authMode = mode;
             const modal = document.getElementById('authModal');
@@ -473,12 +878,7 @@
             const btn = document.getElementById('authSubmitBtn');
             const confirmBlock = document.getElementById('confirmPasswordBlock');
             const error = document.getElementById('authError');
-            const success = document.getElementById('authSuccess');
             error.style.display = 'none';
-            success.style.display = 'none';
-            document.getElementById('codeInputBlock').style.display = 'none';
-            document.getElementById('telegramInputBlock').style.display = 'none';
-            document.getElementById('googleInputBlock').style.display = 'none';
             if (mode === 'login') {
                 title.textContent = '🔐 Вход';
                 desc.textContent = 'Введите логин и пароль';
@@ -498,19 +898,23 @@
             }
             modal.classList.add('open');
         }
+
         function closeAuth() {
             document.getElementById('authModal').classList.remove('open');
         }
+
         function submitAuth() {
             const login = document.getElementById('authLogin').value.trim();
             const password = document.getElementById('authPassword').value.trim();
             const confirm = document.getElementById('authPasswordConfirm').value.trim();
             const error = document.getElementById('authError');
+
             if (!login || !password) {
                 error.textContent = 'Заполните все поля';
                 error.style.display = 'block';
                 return;
             }
+
             if (authMode === 'register') {
                 if (password !== confirm) {
                     error.textContent = 'Пароли не совпадают!';
@@ -545,18 +949,181 @@
         }
 
         // ============================================================
-        //  ПРОФИЛЬ
+        //  TELEGRAM ВХОД (демо)
         // ============================================================
-        function openProfile() {
-            if (!currentUser) return;
-            document.getElementById('profileLogin').textContent = currentUser.login;
-            document.getElementById('profileDate').textContent = currentUser.regDate || 'Неизвестно';
-            document.getElementById('profileMethod').textContent = currentUser.method || 'Логин/пароль';
+        function authTelegram() {
+            const fakeLogin = 'tg_' + Math.random().toString(36).slice(2, 8);
+            const result = registerUser(fakeLogin, 'telegram_' + Math.random().toString(36).slice(2, 10), 'Telegram');
+            if (result.success) {
+                const user = { login: fakeLogin, regDate: new Date().toLocaleString(), method: 'Telegram' };
+                currentUser = user;
+                saveSession(currentUser);
+                updateUI();
+                closeAuth();
+                alert(`✅ Вход через Telegram выполнен! Ваш логин: ${fakeLogin}`);
+            } else {
+                alert('❌ Ошибка входа через Telegram');
+            }
+        }
+
+        // ============================================================
+        //  GOOGLE ВХОД (демо)
+        // ============================================================
+        function authGoogle() {
+            const fakeLogin = 'google_' + Math.random().toString(36).slice(2, 8);
+            const result = registerUser(fakeLogin, 'google_' + Math.random().toString(36).slice(2, 10), 'Google');
+            if (result.success) {
+                const user = { login: fakeLogin, regDate: new Date().toLocaleString(), method: 'Google' };
+                currentUser = user;
+                saveSession(currentUser);
+                updateUI();
+                closeAuth();
+                alert(`✅ Вход через Google выполнен! Ваш логин: ${fakeLogin}`);
+            } else {
+                alert('❌ Ошибка входа через Google');
+            }
+        }
+
+        // ============================================================
+        //  ПРОФИЛЬ С ОТЗЫВАМИ
+        // ============================================================
+        let profileTarget = null; // чей профиль смотрим
+
+        function openProfile(targetLogin) {
+            const login = targetLogin || (currentUser ? currentUser.login : null);
+            if (!login) { alert('Войдите в аккаунт'); return; }
+
+            profileTarget = login;
+            const users = getUsers();
+            const user = users[login];
+            if (!user) { alert('Пользователь не найден'); return; }
+
+            document.getElementById('profileLogin').textContent = login;
+            document.getElementById('profileDate').textContent = user.regDate || 'Неизвестно';
+            document.getElementById('profileMethod').textContent = user.method || 'Логин/пароль';
+
+            // Рейтинг
+            const ratingData = getUserRating(login);
+            document.getElementById('profileRating').textContent = ratingData.rating.toFixed(1);
+            document.getElementById('profileRatingCount').textContent = ratingData.count;
+
+            // Звёзды
+            const fullStars = Math.round(ratingData.rating);
+            const starsStr = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
+            document.getElementById('profileRatingStars').textContent = starsStr || '☆☆☆☆☆';
+
+            // Отзывы
+            const reviews = getReviews(login);
+            const reviewsContainer = document.getElementById('reviewsList');
+            if (reviews.length === 0) {
+                reviewsContainer.innerHTML = '<p style="color:#55657d;font-size:13px;padding:8px 0;">Отзывов пока нет</p>';
+            } else {
+                reviewsContainer.innerHTML = reviews.map(r => `
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="reviewer">${r.from}</span>
+                            <span>${r.date}</span>
+                        </div>
+                        <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+                        <div class="review-text">${r.text}</div>
+                    </div>
+                `).join('');
+            }
+
             document.getElementById('profileModal').classList.add('open');
         }
+
         function closeProfile() {
             document.getElementById('profileModal').classList.remove('open');
         }
+
+        // ============================================================
+        //  ОТЗЫВЫ (МОДАЛКА)
+        // ============================================================
+        let selectedRating = 0;
+
+        function openReviewModal() {
+            if (!currentUser) { alert('Войдите в аккаунт'); return; }
+            if (!profileTarget) { alert('Выберите пользователя для отзыва'); return; }
+            if (profileTarget === currentUser.login) { alert('Нельзя оставить отзыв самому себе'); return; }
+
+            selectedRating = 0;
+            document.querySelectorAll('.star-rating .star').forEach(el => {
+                el.classList.remove('active');
+                el.textContent = '☆';
+            });
+            document.getElementById('reviewText').value = '';
+            document.getElementById('reviewModal').classList.add('open');
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').classList.remove('open');
+        }
+
+        // Звёзды
+        document.querySelectorAll('.star-rating .star').forEach(el => {
+            el.addEventListener('click', function() {
+                const val = parseInt(this.dataset.value);
+                selectedRating = val;
+                document.querySelectorAll('.star-rating .star').forEach(s => {
+                    const v = parseInt(s.dataset.value);
+                    if (v <= val) {
+                        s.classList.add('active');
+                        s.textContent = '★';
+                    } else {
+                        s.classList.remove('active');
+                        s.textContent = '☆';
+                    }
+                });
+            });
+
+            el.addEventListener('mouseenter', function() {
+                const val = parseInt(this.dataset.value);
+                document.querySelectorAll('.star-rating .star').forEach(s => {
+                    const v = parseInt(s.dataset.value);
+                    if (v <= val) {
+                        s.textContent = '★';
+                        s.style.color = '#ffc107';
+                    } else {
+                        s.textContent = '☆';
+                        s.style.color = '#55657d';
+                    }
+                });
+            });
+
+            el.addEventListener('mouseleave', function() {
+                document.querySelectorAll('.star-rating .star').forEach(s => {
+                    const v = parseInt(s.dataset.value);
+                    if (v <= selectedRating) {
+                        s.textContent = '★';
+                        s.style.color = '#ffc107';
+                    } else {
+                        s.textContent = '☆';
+                        s.style.color = '#55657d';
+                    }
+                });
+            });
+        });
+
+        function submitReview() {
+            const text = document.getElementById('reviewText').value.trim();
+            if (selectedRating === 0) { alert('Выберите оценку!'); return; }
+            if (!text) { alert('Напишите текст отзыва'); return; }
+
+            const result = addReview(profileTarget, currentUser.login, selectedRating, text);
+            if (result.success) {
+                alert('✅ Отзыв оставлен!');
+                closeReviewModal();
+                // Обновляем профиль
+                openProfile(profileTarget);
+            } else {
+                alert('❌ ' + result.error);
+            }
+        }
+
+        // ============================================================
+        //  ВЫХОД
+        // ============================================================
         function deleteAccount() {
             if (!currentUser) return;
             if (!confirm(`Удалить аккаунт "${currentUser.login}"?`)) return;
@@ -568,11 +1135,13 @@
                 alert('Аккаунт удалён');
             }
         }
+
         function logout() {
             clearSession();
             currentUser = null;
             updateUI();
         }
+
         function updateUI() {
             const guest = document.getElementById('guestButtons');
             const user = document.getElementById('userButtons');
@@ -590,12 +1159,17 @@
                 chatStatus.textContent = '(гость)';
             }
         }
+
         function restoreSession() {
             const session = loadSession();
             if (session && session.login) {
                 const users = getUsers();
                 if (users[session.login]) {
-                    currentUser = { login: session.login, regDate: users[session.login].regDate, method: users[session.login].method || 'Логин/пароль' };
+                    currentUser = {
+                        login: session.login,
+                        regDate: users[session.login].regDate,
+                        method: users[session.login].method || 'Логин/пароль'
+                    };
                     updateUI();
                     return true;
                 } else clearSession();
@@ -612,7 +1186,8 @@
             const grid = document.getElementById('catalogGrid');
             let items = catalog;
             if (filter !== 'all') items = items.filter(item => item.cat.toLowerCase().includes(filter.toLowerCase()));
-            if (search) { const s = search.toLowerCase(); items = items.filter(item => item.name.toLowerCase().includes(s) || item.desc.toLowerCase().includes(s)); }
+            if (search) { const s = search.toLowerCase();
+                items = items.filter(item => item.name.toLowerCase().includes(s) || item.desc.toLowerCase().includes(s)); }
             document.getElementById('itemCount').textContent = items.length;
             if (items.length === 0) { grid.innerHTML = '<p style="color:#55657d;padding:20px;">Товаров не найдено</p>'; return; }
             grid.innerHTML = items.map(item => `
@@ -626,12 +1201,14 @@
                 </div>
             `).join('');
         }
+
         function filterCatalog() {
             const search = document.getElementById('searchInput').value.trim();
             const activeCat = document.querySelector('.cat.active');
             const cat = activeCat ? activeCat.dataset.cat : 'all';
             renderCatalog(cat, search);
         }
+
         function addToCart(id) {
             const item = catalog.find(i => i.id === id);
             if (!item) return;
@@ -640,10 +1217,12 @@
             else cart.push({ ...item, qty: 1 });
             updateCart();
         }
+
         function removeFromCart(id) {
             cart = cart.filter(i => i.id !== id);
             updateCart();
         }
+
         function updateCart() {
             const container = document.getElementById('cartItems');
             const count = cart.reduce((s, i) => s + i.qty, 0);
@@ -659,6 +1238,7 @@
             }).join('');
             document.getElementById('cartTotal').textContent = cart.reduce((s, i) => s + Math.round(i.price * (1 - i.discount / 100)) * i.qty, 0);
         }
+
         function checkout() {
             if (cart.length === 0) { alert('Корзина пуста'); return; }
             if (!currentUser) { alert('Войдите в аккаунт'); openAuth('login'); return; }
@@ -682,9 +1262,11 @@
             document.getElementById('itemQty').value = '1';
             document.getElementById('itemDiscount').value = '0';
         }
+
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('open');
         }
+
         function addItemFromModal() {
             const name = document.getElementById('itemName').value.trim();
             const price = parseInt(document.getElementById('itemPrice').value);
@@ -695,7 +1277,8 @@
             if (!name || !price || price < 1) { alert('Заполните название и цену!'); return; }
             const newId = catalog.length ? Math.max(...catalog.map(i => i.id)) + 1 : 1;
             const icons = ['🎮', '💰', '🚀', '🔥', '⭐', '🎯', '💎', '⚡', '🛡️', '🏆'];
-            catalog.push({ id: newId, name, cat, price, desc, icon: icons[Math.floor(Math.random() * icons.length)], qty, discount: Math.min(discount, 90) });
+            catalog.push({ id: newId, name, cat, price, desc, icon: icons[Math.floor(Math.random() * icons.length)],
+                qty, discount: Math.min(discount, 90) });
             renderCatalog();
             closeModal();
             alert(`✅ Товар "${name}" добавлен!`);
@@ -720,6 +1303,7 @@
                 console.error('Ошибка загрузки чата:', e);
             }
         }
+
         function renderChat() {
             const container = document.getElementById('chatMessages');
             if (chatMessages.length === 0) {
@@ -735,6 +1319,7 @@
             `).join('');
             container.scrollTop = container.scrollHeight;
         }
+
         async function sendMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
@@ -784,6 +1369,9 @@
         });
         document.getElementById('profileModal').addEventListener('click', function(e) {
             if (e.target === this) closeProfile();
+        });
+        document.getElementById('reviewModal').addEventListener('click', function(e) {
+            if (e.target === this) closeReviewModal();
         });
 
         // ============================================================
