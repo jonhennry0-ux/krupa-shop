@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyMarket PRO — игровой маркетплейс</title>
     <style>
-        /* ============================================================
-           CSS-ПЕРЕМЕННЫЕ
-           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
         :root {
             --bg-primary: #0b0e14;
             --bg-secondary: #141a24;
@@ -25,7 +28,7 @@
             --border-light: #2a3344;
             --accent: #4fc3f7;
             --accent-gradient: linear-gradient(135deg, #4fc3f7, #00bcd4);
-            --shadow: 0 8px 30px rgba(79,195,247,0.15);
+            --shadow: 0 8px 30px rgba(79, 195, 247, 0.15);
             --scrollbar-track: #1a2332;
             --scrollbar-thumb: #2a3a52;
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -34,7 +37,6 @@
             --green: #4caf50;
             --red: #e8484f;
         }
-
         [data-theme="light"] {
             --bg-primary: #f5f7fa;
             --bg-secondary: #ffffff;
@@ -52,13 +54,13 @@
             --border-light: #c9cbd1;
             --accent: #1453ff;
             --accent-gradient: linear-gradient(135deg, #1453ff, #3d71ff);
-            --shadow: 0 8px 30px rgba(20,83,255,0.15);
+            --shadow: 0 8px 30px rgba(20, 83, 255, 0.15);
             --scrollbar-track: #e1e3e8;
             --scrollbar-thumb: #c9cbd1;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             background: var(--bg-primary);
             color: var(--text-primary);
@@ -67,10 +69,16 @@
             flex-direction: column;
             transition: background var(--transition), color var(--transition);
         }
-        body::-webkit-scrollbar { width: 6px; }
-        body::-webkit-scrollbar-track { background: var(--scrollbar-track); }
-        body::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
-
+        body::-webkit-scrollbar {
+            width: 6px;
+        }
+        body::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+        body::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 10px;
+        }
         .btn {
             padding: 8px 18px;
             border-radius: 30px;
@@ -86,17 +94,46 @@
             gap: 6px;
             text-decoration: none;
         }
-        .btn:hover { transform: translateY(-1px); }
-        .btn-primary { background: var(--accent-gradient); color: var(--text-inverse); }
-        .btn-primary:hover { box-shadow: 0 0 24px rgba(79,195,247,0.35); }
-        .btn-outline { background: transparent; border: 1px solid var(--border-light); }
-        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-        .btn-danger { background: var(--red); color: #fff; }
-        .btn-danger:hover { background: #ff6b72; }
-        .btn-success { background: var(--green); color: #fff; }
-        .btn-success:hover { background: #66bb6a; }
-        .btn-gold { background: linear-gradient(135deg, #f0b34b, #e8913a); color: #0b0e14; }
-        .btn-gold:hover { transform: scale(1.04); box-shadow: 0 0 20px rgba(240,179,75,0.35); }
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: var(--text-inverse);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 24px rgba(79, 195, 247, 0.35);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-light);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-danger {
+            background: var(--red);
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #ff6b72;
+        }
+        .btn-success {
+            background: var(--green);
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #66bb6a;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #f0b34b, #e8913a);
+            color: #0b0e14;
+        }
+        .btn-gold:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 20px rgba(240, 179, 75, 0.35);
+        }
         .btn-icon {
             width: 40px;
             height: 40px;
@@ -112,9 +149,11 @@
             transition: var(--transition);
             font-size: 18px;
         }
-        .btn-icon:hover { background: var(--bg-category-hover); border-color: var(--accent); color: var(--accent); }
-
-        /* HEADER */
+        .btn-icon:hover {
+            background: var(--bg-category-hover);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
         header {
             background: var(--bg-secondary);
             padding: 8px 20px;
@@ -139,7 +178,10 @@
             align-items: center;
             gap: 6px;
         }
-        .logo span { font-weight: 300; -webkit-text-fill-color: var(--text-muted); }
+        .logo span {
+            font-weight: 300;
+            -webkit-text-fill-color: var(--text-muted);
+        }
         .logo .badge {
             font-size: 10px;
             background: var(--green);
@@ -148,7 +190,6 @@
             border-radius: 12px;
             -webkit-text-fill-color: #fff;
         }
-
         .header-controls {
             display: flex;
             align-items: center;
@@ -171,14 +212,16 @@
             transition: var(--transition);
             font-size: 13px;
         }
-        .header-controls .search-wrap input:focus { border-color: var(--accent); width: 240px; }
+        .header-controls .search-wrap input:focus {
+            border-color: var(--accent);
+            width: 240px;
+        }
         .header-controls .search-wrap .search-icon {
             position: absolute;
             left: 10px;
             color: var(--text-muted);
             font-size: 14px;
         }
-
         .header-user {
             display: flex;
             align-items: center;
@@ -208,8 +251,6 @@
             color: var(--accent);
             font-size: 13px;
         }
-
-        /* НАВИГАЦИЯ */
         .nav-bar {
             background: var(--bg-secondary);
             padding: 6px 20px;
@@ -230,8 +271,13 @@
             transition: var(--transition);
             cursor: pointer;
         }
-        .nav-bar a:hover { color: var(--accent); }
-        .nav-bar a.active { color: var(--accent); border-bottom-color: var(--accent); }
+        .nav-bar a:hover {
+            color: var(--accent);
+        }
+        .nav-bar a.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
         .nav-bar .nav-badge {
             background: var(--red);
             color: #fff;
@@ -246,8 +292,6 @@
             color: var(--accent);
             font-size: 14px;
         }
-
-        /* БАННЕРЫ */
         .banner-row {
             display: flex;
             gap: 16px;
@@ -265,13 +309,20 @@
             position: relative;
             overflow: hidden;
         }
-        .banner:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .banner:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
         .banner-gold {
             background: linear-gradient(135deg, #2a1a0a, #1a0d00);
             border-color: var(--gold);
         }
-        .banner-gold .banner-title { color: var(--gold); }
-        .banner-gold .banner-sub { color: #ff9800; }
+        .banner-gold .banner-title {
+            color: var(--gold);
+        }
+        .banner-gold .banner-sub {
+            color: #ff9800;
+        }
         .banner-gold .banner-btn {
             background: var(--gold);
             color: #0b0e14;
@@ -282,18 +333,37 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        .banner-gold .banner-btn:hover { transform: scale(1.04); box-shadow: 0 0 24px rgba(255,193,7,0.4); }
+        .banner-gold .banner-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 24px rgba(255, 193, 7, 0.4);
+        }
         .banner-blue {
             background: linear-gradient(135deg, #0a1a3a, #050d2a);
             border-color: var(--accent);
         }
-        .banner-blue .banner-title { color: var(--accent); }
-        .banner-blue .banner-sub { color: #00bcd4; }
-        .banner .banner-title { font-size: 20px; font-weight: 700; }
-        .banner .banner-sub { font-size: 14px; opacity: 0.8; margin: 4px 0 10px; }
-        .banner .banner-icon { font-size: 40px; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); opacity: 0.2; }
-
-        /* СВАЙПЕР КАТЕГОРИЙ */
+        .banner-blue .banner-title {
+            color: var(--accent);
+        }
+        .banner-blue .banner-sub {
+            color: #00bcd4;
+        }
+        .banner .banner-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .banner .banner-sub {
+            font-size: 14px;
+            opacity: 0.8;
+            margin: 4px 0 10px;
+        }
+        .banner .banner-icon {
+            font-size: 40px;
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.2;
+        }
         .categories-swiper-wrap {
             position: relative;
             padding: 0 36px;
@@ -307,7 +377,9 @@
             padding: 4px 0 10px;
             scrollbar-width: none;
         }
-        .categories-swiper::-webkit-scrollbar { display: none; }
+        .categories-swiper::-webkit-scrollbar {
+            display: none;
+        }
         .categories-swiper .cat {
             flex-shrink: 0;
             padding: 6px 14px;
@@ -331,7 +403,11 @@
             color: var(--accent);
             transform: scale(1.04);
         }
-        .categories-swiper .cat svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .categories-swiper .cat svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
         .swiper-btn {
             position: absolute;
             top: 50%;
@@ -349,13 +425,19 @@
             align-items: center;
             justify-content: center;
             font-size: 13px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
         }
-        .swiper-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-        .swiper-btn-left { left: 0; }
-        .swiper-btn-right { right: 0; }
-
-        /* КОНТЕЙНЕР */
+        .swiper-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .swiper-btn-left {
+            left: 0;
+        }
+        .swiper-btn-right {
+            right: 0;
+        }
         .container {
             display: flex;
             flex: 1;
@@ -366,18 +448,25 @@
             margin: 0 auto;
             width: 100%;
         }
-        .main-content { flex: 2.5; min-width: 280px; }
-        .sidebar { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 14px; }
-
-        /* СТРАНИЦЫ (сообщения, продажи, финансы) */
+        .main-content {
+            flex: 2.5;
+            min-width: 280px;
+        }
+        .sidebar {
+            flex: 1;
+            min-width: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
         .page {
             display: none;
             flex-direction: column;
             gap: 12px;
         }
-        .page.active { display: flex; }
-
-        /* КАРТОЧКИ ТОВАРОВ */
+        .page.active {
+            display: flex;
+        }
         .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -397,13 +486,45 @@
             transform: translateY(-4px);
             box-shadow: var(--shadow);
         }
-        .item-card .game-logo { display: flex; justify-content: center; margin-bottom: 4px; }
-        .item-card .game-logo svg { width: 44px; height: 44px; border-radius: 12px; transition: var(--transition); }
-        .item-card:hover .game-logo svg { transform: scale(1.08); }
-        .item-card .game-name { font-size: 11px; color: var(--accent); font-weight: 600; text-align: center; }
-        .item-card h4 { font-size: 14px; font-weight: 600; text-align: center; margin: 2px 0; }
-        .item-card .desc { font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 6px; }
-        .item-card .price { font-size: 17px; font-weight: 700; color: var(--accent); text-align: center; margin-bottom: 8px; }
+        .item-card .game-logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 4px;
+        }
+        .item-card .game-logo svg {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+        .item-card:hover .game-logo svg {
+            transform: scale(1.08);
+        }
+        .item-card .game-name {
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 600;
+            text-align: center;
+        }
+        .item-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            margin: 2px 0;
+        }
+        .item-card .desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        .item-card .price {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 8px;
+        }
         .item-card .discount-badge {
             position: absolute;
             top: 6px;
@@ -415,8 +536,17 @@
             padding: 2px 8px;
             border-radius: 10px;
         }
-        .item-card .seller { font-size: 11px; color: var(--text-muted); text-align: center; cursor: pointer; margin-bottom: 4px; }
-        .item-card .seller:hover { color: var(--accent); text-decoration: underline; }
+        .item-card .seller {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 4px;
+        }
+        .item-card .seller:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
         .item-card .guarantee-badge {
             display: inline-block;
             background: var(--green);
@@ -439,9 +569,10 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        .item-card .btn-add:hover { background: var(--accent-gradient); color: var(--text-inverse); }
-
-        /* СООБЩЕНИЯ */
+        .item-card .btn-add:hover {
+            background: var(--accent-gradient);
+            color: var(--text-inverse);
+        }
         .messages-list {
             display: flex;
             flex-direction: column;
@@ -460,8 +591,12 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        .msg-item:last-child { border-bottom: none; }
-        .msg-item:hover { background: var(--bg-card-hover); }
+        .msg-item:last-child {
+            border-bottom: none;
+        }
+        .msg-item:hover {
+            background: var(--bg-card-hover);
+        }
         .msg-item .msg-avatar {
             width: 40px;
             height: 40px;
@@ -475,21 +610,26 @@
             font-size: 16px;
             flex-shrink: 0;
         }
-        .msg-item .msg-info { flex: 1; min-width: 0; }
-        .msg-item .msg-info .msg-name { font-weight: 600; font-size: 14px; }
-        .msg-item .msg-info .msg-preview { font-size: 13px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .msg-item .msg-time { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
-        .msg-item .msg-badge {
-            background: var(--accent);
-            color: var(--text-inverse);
-            font-size: 10px;
-            padding: 1px 8px;
-            border-radius: 12px;
-            font-weight: 700;
+        .msg-item .msg-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .msg-item .msg-info .msg-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .msg-item .msg-info .msg-preview {
+            font-size: 13px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .msg-item .msg-time {
+            font-size: 11px;
+            color: var(--text-muted);
             flex-shrink: 0;
         }
-
-        /* ПРОДАЖИ / ФИНАНСЫ */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -503,10 +643,20 @@
             text-align: center;
             transition: var(--transition);
         }
-        .stat-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-        .stat-card .stat-value { font-size: 24px; font-weight: 700; color: var(--accent); }
-        .stat-card .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .stat-card .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .stat-card .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
         .stat-row {
             display: flex;
             justify-content: space-between;
@@ -514,14 +664,25 @@
             border-bottom: 1px solid var(--border-color);
             font-size: 13px;
         }
-        .stat-row:last-child { border-bottom: none; }
-        .stat-row .label { color: var(--text-secondary); }
-        .stat-row .value { font-weight: 600; color: var(--text-primary); }
-        .stat-row .value.green { color: var(--green); }
-        .stat-row .value.gold { color: var(--gold); }
-        .stat-row .value.red { color: var(--red); }
-
-        /* КАЗИНО SKYMARKET */
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+        .stat-row .label {
+            color: var(--text-secondary);
+        }
+        .stat-row .value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .stat-row .value.green {
+            color: var(--green);
+        }
+        .stat-row .value.gold {
+            color: var(--gold);
+        }
+        .stat-row .value.red {
+            color: var(--red);
+        }
         .slot-machine {
             background: var(--bg-card);
             border-radius: var(--radius);
@@ -536,7 +697,7 @@
             font-weight: 800;
             color: var(--gold);
             margin-bottom: 12px;
-            text-shadow: 0 0 30px rgba(255,193,7,0.3);
+            text-shadow: 0 0 30px rgba(255, 193, 7, 0.3);
         }
         .slot-reels {
             display: flex;
@@ -563,31 +724,47 @@
             transition: var(--transition);
             font-weight: 700;
         }
-        .slot-reel.spinning { animation: spin 0.1s infinite linear; }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .slot-reel.spinning {
+            animation: spin 0.1s infinite linear;
         }
-        .slot-reel.win { border-color: var(--gold); box-shadow: 0 0 30px rgba(255,193,7,0.5); }
-        .slot-reel.lose { border-color: var(--red); box-shadow: 0 0 30px rgba(232,72,79,0.3); }
-
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .slot-reel.win {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(255, 193, 7, 0.5);
+        }
+        .slot-reel.lose {
+            border-color: var(--red);
+            box-shadow: 0 0 30px rgba(232, 72, 79, 0.3);
+        }
         .slot-buttons {
             display: flex;
             gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
         }
-        .slot-buttons .btn { padding: 10px 24px; font-size: 16px; }
+        .slot-buttons .btn {
+            padding: 10px 24px;
+            font-size: 16px;
+        }
         .slot-result {
             font-size: 18px;
             font-weight: 700;
             margin-top: 12px;
             min-height: 30px;
         }
-        .slot-result.win { color: var(--gold); }
-        .slot-result.lose { color: var(--red); }
-
-        /* САЙДБАР */
+        .slot-result.win {
+            color: var(--gold);
+        }
+        .slot-result.lose {
+            color: var(--red);
+        }
         .sidebar-block {
             background: var(--bg-sidebar);
             border-radius: var(--radius);
@@ -603,8 +780,9 @@
             align-items: center;
             color: var(--text-secondary);
         }
-        .sidebar-block h3 .count { color: var(--accent); }
-
+        .sidebar-block h3 .count {
+            color: var(--accent);
+        }
         .top-seller {
             display: flex;
             align-items: center;
@@ -613,11 +791,22 @@
             border-bottom: 1px solid var(--border-color);
             font-size: 13px;
         }
-        .top-seller .rank { font-weight: 700; color: var(--gold); width: 20px; }
-        .top-seller .name { flex: 1; cursor: pointer; }
-        .top-seller .name:hover { color: var(--accent); }
-        .top-seller .stars { color: var(--gold); font-size: 11px; }
-
+        .top-seller .rank {
+            font-weight: 700;
+            color: var(--gold);
+            width: 20px;
+        }
+        .top-seller .name {
+            flex: 1;
+            cursor: pointer;
+        }
+        .top-seller .name:hover {
+            color: var(--accent);
+        }
+        .top-seller .stars {
+            color: var(--gold);
+            font-size: 11px;
+        }
         .dispute-item {
             background: var(--bg-card);
             border-radius: 10px;
@@ -632,19 +821,37 @@
             font-size: 11px;
             color: var(--text-muted);
         }
-        .dispute-item .dispute-title { font-weight: 600; margin: 2px 0; }
-        .dispute-item .dispute-status { font-size: 10px; padding: 2px 8px; border-radius: 8px; }
-        .dispute-item .dispute-status.open { background: #ff9800; color: #0b0e14; }
-        .dispute-item .dispute-status.closed { background: var(--text-muted); color: #fff; }
-        .dispute-item .dispute-status.resolved { background: var(--green); color: #fff; }
-
+        .dispute-item .dispute-title {
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .dispute-item .dispute-status {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 8px;
+        }
+        .dispute-item .dispute-status.open {
+            background: #ff9800;
+            color: #0b0e14;
+        }
+        .dispute-item .dispute-status.closed {
+            background: var(--text-muted);
+            color: #fff;
+        }
+        .dispute-item .dispute-status.resolved {
+            background: var(--green);
+            color: #fff;
+        }
         .rules-box {
             background: var(--bg-card);
             border-radius: 10px;
             padding: 10px 14px;
             border: 1px solid var(--border-color);
         }
-        .rules-box ul { list-style: none; padding: 0; }
+        .rules-box ul {
+            list-style: none;
+            padding: 0;
+        }
         .rules-box ul li {
             padding: 3px 0;
             font-size: 12px;
@@ -653,9 +860,11 @@
             gap: 6px;
             align-items: start;
         }
-        .rules-box ul li::before { content: '•'; color: var(--accent); font-weight: 700; }
-
-        /* КОРЗИНА */
+        .rules-box ul li::before {
+            content: '•';
+            color: var(--accent);
+            font-weight: 700;
+        }
         .cart-block {
             background: var(--bg-sidebar);
             border-radius: var(--radius);
@@ -670,7 +879,9 @@
             align-items: center;
             color: var(--text-secondary);
         }
-        .cart-block h3 .count { color: var(--accent); }
+        .cart-block h3 .count {
+            color: var(--accent);
+        }
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -679,7 +890,11 @@
             border-bottom: 1px solid var(--border-color);
             font-size: 13px;
         }
-        .cart-item .remove { color: var(--red); cursor: pointer; font-weight: 700; }
+        .cart-item .remove {
+            color: var(--red);
+            cursor: pointer;
+            font-weight: 700;
+        }
         .cart-total {
             margin: 10px 0;
             font-size: 18px;
@@ -698,9 +913,10 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        .cart-block .btn-checkout:hover { transform: scale(1.02); box-shadow: var(--shadow); }
-
-        /* ЧАТ */
+        .cart-block .btn-checkout:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow);
+        }
         .chat-container {
             background: var(--bg-sidebar);
             border-radius: var(--radius);
@@ -721,9 +937,14 @@
             font-size: 14px;
             font-weight: 600;
         }
-        .chat-container .chat-header span { color: var(--accent); }
-        .chat-container .chat-header .online { font-size: 12px; font-weight: 400; color: var(--text-muted); }
-
+        .chat-container .chat-header span {
+            color: var(--accent);
+        }
+        .chat-container .chat-header .online {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
         .chat-messages {
             flex: 1;
             overflow-y: auto;
@@ -733,8 +954,13 @@
             margin-bottom: 8px;
             padding-right: 4px;
         }
-        .chat-messages::-webkit-scrollbar { width: 4px; }
-        .chat-messages::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
+        .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 10px;
+        }
         .msg {
             background: var(--bg-card);
             padding: 6px 12px;
@@ -749,17 +975,54 @@
             font-size: 12px;
             cursor: pointer;
         }
-        .msg .user:hover { text-decoration: underline; }
-        .msg .text { font-size: 13px; margin-top: 2px; }
-        .msg .time { font-size: 9px; color: var(--text-muted); text-align: right; margin-top: 2px; }
-        .msg.self { align-self: flex-end; background: var(--bg-category-hover); border: 1px solid var(--accent); }
-        .msg.system { align-self: center; background: var(--bg-category); font-size: 11px; color: var(--text-muted); max-width: 90%; text-align: center; }
-
-        .msg .attachment { margin-top: 4px; border-radius: 8px; overflow: hidden; max-width: 100%; cursor: pointer; }
-        .msg .attachment img { width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px; }
-        .msg .attachment video { width: 100%; max-height: 200px; border-radius: 8px; }
-        .msg .attachment audio { width: 100%; border-radius: 8px; }
-
+        .msg .user:hover {
+            text-decoration: underline;
+        }
+        .msg .text {
+            font-size: 13px;
+            margin-top: 2px;
+        }
+        .msg .time {
+            font-size: 9px;
+            color: var(--text-muted);
+            text-align: right;
+            margin-top: 2px;
+        }
+        .msg.self {
+            align-self: flex-end;
+            background: var(--bg-category-hover);
+            border: 1px solid var(--accent);
+        }
+        .msg.system {
+            align-self: center;
+            background: var(--bg-category);
+            font-size: 11px;
+            color: var(--text-muted);
+            max-width: 90%;
+            text-align: center;
+        }
+        .msg .attachment {
+            margin-top: 4px;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 100%;
+            cursor: pointer;
+        }
+        .msg .attachment img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .msg .attachment video {
+            width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+        }
+        .msg .attachment audio {
+            width: 100%;
+            border-radius: 8px;
+        }
         .chat-input-row {
             display: flex;
             gap: 6px;
@@ -778,7 +1041,9 @@
             font-size: 13px;
             min-width: 100px;
         }
-        .chat-input-row input[type="text"]:focus { border-color: var(--accent); }
+        .chat-input-row input[type="text"]:focus {
+            border-color: var(--accent);
+        }
         .chat-input-row .chat-btns {
             display: flex;
             gap: 4px;
@@ -806,22 +1071,26 @@
             color: var(--text-inverse);
             font-weight: 700;
         }
-        .chat-input-row .chat-btns .send-btn:hover { transform: scale(1.04); }
-        .hidden-input { display: none; }
-
-        /* МОДАЛКИ */
+        .chat-input-row .chat-btns .send-btn:hover {
+            transform: scale(1.04);
+        }
+        .hidden-input {
+            display: none;
+        }
         .modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(6px);
             align-items: center;
             justify-content: center;
             z-index: 999;
             padding: 16px;
         }
-        .modal-overlay.open { display: flex; }
+        .modal-overlay.open {
+            display: flex;
+        }
         .modal {
             background: var(--bg-secondary);
             border-radius: 20px;
@@ -833,10 +1102,26 @@
             overflow-y: auto;
             transition: background var(--transition), border-color var(--transition);
         }
-        .modal h2 { font-size: 20px; margin-bottom: 4px; color: var(--text-primary); }
-        .modal p { color: var(--text-muted); margin-bottom: 12px; font-size: 14px; }
-        .modal label { display: block; margin: 8px 0 4px; font-weight: 500; font-size: 13px; color: var(--text-secondary); }
-        .modal input, .modal select, .modal textarea {
+        .modal h2 {
+            font-size: 20px;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+        .modal p {
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .modal label {
+            display: block;
+            margin: 8px 0 4px;
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .modal input,
+        .modal select,
+        .modal textarea {
             width: 100%;
             padding: 8px 12px;
             border-radius: 10px;
@@ -847,10 +1132,23 @@
             transition: var(--transition);
             font-size: 14px;
         }
-        .modal input:focus, .modal select:focus, .modal textarea:focus { border-color: var(--accent); }
-        .modal .actions { display: flex; gap: 10px; margin-top: 16px; }
-        .modal .actions .btn { flex: 1; padding: 10px; border-radius: 30px; font-weight: 600; text-align: center; }
-
+        .modal input:focus,
+        .modal select:focus,
+        .modal textarea:focus {
+            border-color: var(--accent);
+        }
+        .modal .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .modal .actions .btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-align: center;
+        }
         .profile-card {
             background: var(--bg-card);
             border-radius: var(--radius);
@@ -858,8 +1156,14 @@
             margin-top: 10px;
             border: 1px solid var(--border-color);
         }
-        .profile-card .info { color: var(--text-secondary); margin: 3px 0; font-size: 13px; }
-        .profile-card .info strong { color: var(--accent); }
+        .profile-card .info {
+            color: var(--text-secondary);
+            margin: 3px 0;
+            font-size: 13px;
+        }
+        .profile-card .info strong {
+            color: var(--accent);
+        }
         .profile-avatar-large {
             width: 72px;
             height: 72px;
@@ -875,8 +1179,15 @@
             transition: var(--transition);
             overflow: hidden;
         }
-        .profile-avatar-large:hover { border-color: var(--gold); transform: scale(1.02); }
-        .profile-avatar-large img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-avatar-large:hover {
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .profile-status {
             display: inline-block;
             padding: 2px 10px;
@@ -884,18 +1195,33 @@
             font-size: 11px;
             font-weight: 600;
         }
-        .profile-status.online { background: var(--green); color: #fff; }
-        .profile-status.offline { background: var(--text-muted); color: #fff; }
+        .profile-status.online {
+            background: var(--green);
+            color: #fff;
+        }
+        .profile-status.offline {
+            background: var(--text-muted);
+            color: #fff;
+        }
         .profile-rating {
             display: flex;
             align-items: center;
             gap: 12px;
             margin: 6px 0;
         }
-        .profile-rating .rating-big { font-size: 28px; font-weight: 700; color: var(--gold); }
-        .profile-rating .rating-stars { font-size: 18px; color: var(--gold); }
-        .profile-rating .rating-count { color: var(--text-muted); font-size: 13px; }
-
+        .profile-rating .rating-big {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .profile-rating .rating-stars {
+            font-size: 18px;
+            color: var(--gold);
+        }
+        .profile-rating .rating-count {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
         .review-item {
             background: var(--bg-card);
             border-radius: 10px;
@@ -910,11 +1236,21 @@
             font-size: 12px;
             color: var(--text-muted);
         }
-        .review-item .review-header .reviewer { color: var(--accent); font-weight: 600; cursor: pointer; }
-        .review-item .review-header .reviewer:hover { text-decoration: underline; }
-        .review-item .review-text { font-size: 13px; }
-        .review-item .review-stars { color: var(--gold); font-size: 13px; }
-
+        .review-item .review-header .reviewer {
+            color: var(--accent);
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .review-item .review-header .reviewer:hover {
+            text-decoration: underline;
+        }
+        .review-item .review-text {
+            font-size: 13px;
+        }
+        .review-item .review-stars {
+            color: var(--gold);
+            font-size: 13px;
+        }
         .lot-management .lot-row {
             display: flex;
             justify-content: space-between;
@@ -923,8 +1259,9 @@
             border-bottom: 1px solid var(--border-color);
             font-size: 13px;
         }
-        .lot-management .lot-row:last-child { border-bottom: none; }
-
+        .lot-management .lot-row:last-child {
+            border-bottom: none;
+        }
         footer {
             margin-top: auto;
             text-align: center;
@@ -934,1348 +1271,1591 @@
             color: var(--text-muted);
             transition: border-color var(--transition);
         }
-        footer strong { color: var(--accent); }
-
+        footer strong {
+            color: var(--accent);
+        }
         @media (max-width: 768px) {
-            header { flex-direction: column; align-items: stretch; padding: 8px 12px; }
-            .header-controls { flex-direction: column; align-items: stretch; gap: 4px; }
-            .header-controls .search-wrap input { width: 100%; }
-            .header-controls .search-wrap input:focus { width: 100%; }
-            .nav-bar { padding: 6px 12px; gap: 10px; font-size: 12px; flex-wrap: wrap; }
-            .nav-bar .nav-balance { margin-left: 0; }
-            .banner-row { padding: 8px 12px; flex-direction: column; }
-            .categories-swiper-wrap { padding: 0 28px; }
-            .container { flex-direction: column; padding: 8px 12px; }
-            .sidebar { order: 2; }
-            .main-content { order: 1; }
-            .chat-container { margin: 0 12px 12px; height: 320px; }
-            .modal { padding: 16px; margin: 0 4px; }
-            .items-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-            .swiper-btn { width: 24px; height: 24px; font-size: 11px; }
-            .banner .banner-title { font-size: 16px; }
-            .banner .banner-icon { font-size: 30px; }
-            .slot-reel { font-size: 32px; width: 44px; height: 44px; }
-            .slot-machine { padding: 12px; }
+            header {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 8px 12px;
+            }
+            .header-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
+            }
+            .header-controls .search-wrap input {
+                width: 100%;
+            }
+            .header-controls .search-wrap input:focus {
+                width: 100%;
+            }
+            .nav-bar {
+                padding: 6px 12px;
+                gap: 10px;
+                font-size: 12px;
+                flex-wrap: wrap;
+            }
+            .nav-bar .nav-balance {
+                margin-left: 0;
+            }
+            .banner-row {
+                padding: 8px 12px;
+                flex-direction: column;
+            }
+            .categories-swiper-wrap {
+                padding: 0 28px;
+            }
+            .container {
+                flex-direction: column;
+                padding: 8px 12px;
+            }
+            .sidebar {
+                order: 2;
+            }
+            .main-content {
+                order: 1;
+            }
+            .chat-container {
+                margin: 0 12px 12px;
+                height: 320px;
+            }
+            .modal {
+                padding: 16px;
+                margin: 0 4px;
+            }
+            .items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+            .swiper-btn {
+                width: 24px;
+                height: 24px;
+                font-size: 11px;
+            }
+            .banner .banner-title {
+                font-size: 16px;
+            }
+            .banner .banner-icon {
+                font-size: 30px;
+            }
+            .slot-reel {
+                font-size: 32px;
+                width: 44px;
+                height: 44px;
+            }
+            .slot-machine {
+                padding: 12px;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- ============================================================
-HEADER
-============================================================ -->
-<header>
-    <div class="logo">Sky<span>Market</span><span class="badge">PRO</span></div>
-    <div class="header-controls">
-        <div class="search-wrap">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="Поиск по играм..." oninput="filterCatalog()">
-        </div>
-        <button class="btn-icon" onclick="toggleTheme()" id="themeToggle" title="Тема">🌙</button>
-        <div id="guestButtons">
-            <button class="btn btn-outline" onclick="openAuth('login')">Вход</button>
-            <button class="btn btn-primary" onclick="openAuth('register')">Регистрация</button>
-        </div>
-        <div id="userButtons" style="display:none;">
-            <span class="header-user">
-                <span class="avatar" id="userAvatarSmall" onclick="openProfile()">👤</span>
-                <span id="userNameDisplay" style="color:var(--accent);font-weight:600;font-size:13px;"></span>
-                <span class="balance" id="headerBalance">0 ₽</span>
-            </span>
-            <button class="btn btn-outline" onclick="openProfile()">Профиль</button>
-            <button class="btn btn-danger" onclick="logout()">Выход</button>
-        </div>
-        <button class="btn btn-primary" onclick="openModal()">➕ Продать</button>
-    </div>
-</header>
-
-<!-- ============================================================
-НАВИГАЦИЯ
-============================================================ -->
-<div class="nav-bar">
-    <a href="#" class="active" data-page="catalog" onclick="switchPage('catalog'); return false;">🏷️ Каталог</a>
-    <a href="#" data-page="messages" onclick="switchPage('messages'); return false;">💬 Сообщения</a>
-    <a href="#" data-page="sales" onclick="switchPage('sales'); return false;">📦 Продажи</a>
-    <a href="#" data-page="finance" onclick="switchPage('finance'); return false;">💰 Финансы</a>
-    <span class="nav-balance" id="navBalance">Баланс: 0 ₽</span>
-</div>
-
-<!-- ============================================================
-БАННЕРЫ
-============================================================ -->
-<div class="banner-row">
-    <div class="banner banner-gold">
-        <div class="banner-icon">🎰</div>
-        <div class="banner-title">НОВОЕ СОБЫТИЕ</div>
-        <div class="banner-sub">ПОВОРОТ УДАЧИ</div>
-        <button class="banner-btn" onclick="openCasino()">Крутить 🔥</button>
-    </div>
-    <div class="banner banner-blue">
-        <div class="banner-icon">🚀</div>
-        <div class="banner-title">ТОПОВЫЕ ПРИЛОЖЕНИЯ</div>
-        <div class="banner-sub">ЛУЧШИЕ СЕРВИСЫ В ОДНОМ МЕСТЕ!</div>
-        <button class="btn btn-primary" onclick="alert('📱 Список топовых приложений')">Смотреть</button>
-    </div>
-</div>
-
-<!-- ============================================================
-СВАЙПЕР КАТЕГОРИЙ
-============================================================ -->
-<div class="categories-swiper-wrap">
-    <button class="swiper-btn swiper-btn-left" onclick="scrollCategories(-1)">◀</button>
-    <div class="categories-swiper" id="categoriesSwiper">
-        <span class="cat active" data-game="all"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="var(--accent)"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="var(--text-inverse)" text-anchor="middle">★</text></svg> Все</span>
-        <span class="cat" data-game="Roblox"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#00bcd4" text-anchor="middle">R</text></svg> Roblox</span>
-        <span class="cat" data-game="Fortnite"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff6b6b" text-anchor="middle">F</text></svg> Fortnite</span>
-        <span class="cat" data-game="Minecraft"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#4caf50" text-anchor="middle">M</text></svg> Minecraft</span>
-        <span class="cat" data-game="GTA V"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff9800" text-anchor="middle">G</text></svg> GTA V</span>
-        <span class="cat" data-game="Valorant"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff4655" text-anchor="middle">V</text></svg> Valorant</span>
-        <span class="cat" data-game="CS:GO"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="11" font-weight="900" fill="#f5c842" text-anchor="middle">CS</text></svg> CS:GO</span>
-        <span class="cat" data-game="Dota 2"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff6b35" text-anchor="middle">D</text></svg> Dota 2</span>
-        <span class="cat" data-game="PUBG"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#f5a623" text-anchor="middle">P</text></svg> PUBG</span>
-        <span class="cat" data-game="Steam"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#00adee" text-anchor="middle">S</text></svg> Steam</span>
-        <span class="cat" data-game="Discord"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#5865f2" text-anchor="middle">D</text></svg> Discord</span>
-        <span class="cat" data-game="Genshin Impact"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="11" font-weight="900" fill="#4fc3f7" text-anchor="middle">GI</text></svg> Genshin</span>
-        <span class="cat" data-game="League of Legends"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#f0c040" text-anchor="middle">L</text></svg> LoL</span>
-        <span class="cat" data-game="World of Warcraft"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ffc107" text-anchor="middle">W</text></svg> WoW</span>
-        <span class="cat" data-game="Escape from Tarkov"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="10" font-weight="900" fill="#d4af37" text-anchor="middle">EFT</text></svg> EFT</span>
-    </div>
-    <button class="swiper-btn swiper-btn-right" onclick="scrollCategories(1)">▶</button>
-</div>
-
-<!-- ============================================================
-MAIN CONTAINER
-============================================================ -->
-<div class="container">
-    <div class="main-content">
-        <!-- СТРАНИЦА: КАТАЛОГ -->
-        <div class="page active" id="page-catalog">
-            <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;align-items:center;">
-                <input type="text" id="gameSearchInput" placeholder="🔍 Поиск игры..." oninput="filterGames()" style="flex:1;padding:8px 16px;border-radius:30px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;min-width:180px;transition:var(--transition);font-size:13px;">
-                <select id="sortSelect" onchange="sortCatalog()" style="padding:6px 14px;border-radius:30px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;font-size:13px;">
-                    <option value="popular">По популярности</option>
-                    <option value="price_asc">Цена ↑</option>
-                    <option value="price_desc">Цена ↓</option>
-                    <option value="newest">Новые</option>
-                </select>
-                <button class="btn btn-outline" onclick="toggleGuaranteeOnly()" style="font-size:12px;">🛡️ Гарант</button>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">Sky<span>Market</span><span class="badge">PRO</span></div>
+        <div class="header-controls">
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Поиск по играм..." oninput="filterCatalog()">
             </div>
-            <h2 style="font-weight:400;margin-bottom:12px;color:var(--text-secondary);font-size:18px;">📦 Товары · <span id="itemCount">0</span></h2>
-            <div class="items-grid" id="catalogGrid"></div>
-        </div>
-
-        <!-- СТРАНИЦА: СООБЩЕНИЯ -->
-        <div class="page" id="page-messages">
-            <h2 style="font-weight:400;margin-bottom:8px;color:var(--text-secondary);font-size:18px;">💬 Сообщения</h2>
-            <div class="messages-list" id="messagesList"></div>
-        </div>
-
-        <!-- СТРАНИЦА: ПРОДАЖИ -->
-        <div class="page" id="page-sales">
-            <h2 style="font-weight:400;margin-bottom:8px;color:var(--text-secondary);font-size:18px;">📦 Мои продажи</h2>
-            <div class="stats-grid" id="salesStats"></div>
-            <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px;border:1px solid var(--border-color);">
-                <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;">📊 Детальная статистика</h3>
-                <div id="salesDetail"></div>
+            <button class="btn-icon" onclick="toggleTheme()" id="themeToggle" title="Тема">🌙</button>
+            <div id="guestButtons">
+                <button class="btn btn-outline" onclick="openAuth('login')">Вход</button>
+                <button class="btn btn-primary" onclick="openAuth('register')">Регистрация</button>
             </div>
+            <div id="userButtons" style="display:none;">
+                <span class="header-user">
+                    <span class="avatar" id="userAvatarSmall" onclick="openProfile()">👤</span>
+                    <span id="userNameDisplay" style="color:var(--accent);font-weight:600;font-size:13px;"></span>
+                    <span class="balance" id="headerBalance">0 ₽</span>
+                </span>
+                <button class="btn btn-outline" onclick="openProfile()">Профиль</button>
+                <button class="btn btn-danger" onclick="logout()">Выход</button>
+            </div>
+            <button class="btn btn-primary" onclick="openModal()">➕ Продать</button>
         </div>
+    </header>
 
-        <!-- СТРАНИЦА: ФИНАНСЫ -->
-        <div class="page" id="page-finance">
-            <h2 style="font-weight:400;margin-bottom:8px;color:var(--text-secondary);font-size:18px;">💰 Финансы</h2>
-            <div class="stats-grid" id="financeStats"></div>
-            <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px;border:1px solid var(--border-color);">
-                <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;">📋 История транзакций</h3>
-                <div id="transactionHistory"></div>
+    <!-- НАВИГАЦИЯ -->
+    <div class="nav-bar">
+        <a href="#" class="active" data-page="catalog" onclick="switchPage('catalog'); return false;">🏷️ Каталог</a>
+        <a href="#" data-page="messages" onclick="switchPage('messages'); return false;">💬 Сообщения</a>
+        <a href="#" data-page="sales" onclick="switchPage('sales'); return false;">📦 Продажи</a>
+        <a href="#" data-page="finance" onclick="switchPage('finance'); return false;">💰 Финансы</a>
+        <span class="nav-balance" id="navBalance">Баланс: 0 ₽</span>
+    </div>
+
+    <!-- БАННЕРЫ -->
+    <div class="banner-row">
+        <div class="banner banner-gold">
+            <div class="banner-icon">🎰</div>
+            <div class="banner-title">НОВОЕ СОБЫТИЕ</div>
+            <div class="banner-sub">ПОВОРОТ УДАЧИ</div>
+            <button class="banner-btn" onclick="openCasino()">Крутить 🔥</button>
+        </div>
+        <div class="banner banner-blue">
+            <div class="banner-icon">🚀</div>
+            <div class="banner-title">ТОПОВЫЕ ПРИЛОЖЕНИЯ</div>
+            <div class="banner-sub">ЛУЧШИЕ СЕРВИСЫ В ОДНОМ МЕСТЕ!</div>
+            <button class="btn btn-primary" onclick="alert('📱 Список топовых приложений')">Смотреть</button>
+        </div>
+    </div>
+
+    <!-- КАТЕГОРИИ -->
+    <div class="categories-swiper-wrap">
+        <button class="swiper-btn swiper-btn-left" onclick="scrollCategories(-1)">◀</button>
+        <div class="categories-swiper" id="categoriesSwiper">
+            <span class="cat active" data-game="all"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="var(--accent)"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="var(--text-inverse)" text-anchor="middle">★</text></svg> Все</span>
+            <span class="cat" data-game="Roblox"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#00bcd4" text-anchor="middle">R</text></svg> Roblox</span>
+            <span class="cat" data-game="Fortnite"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff6b6b" text-anchor="middle">F</text></svg> Fortnite</span>
+            <span class="cat" data-game="Minecraft"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#4caf50" text-anchor="middle">M</text></svg> Minecraft</span>
+            <span class="cat" data-game="GTA V"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff9800" text-anchor="middle">G</text></svg> GTA V</span>
+            <span class="cat" data-game="Valorant"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff4655" text-anchor="middle">V</text></svg> Valorant</span>
+            <span class="cat" data-game="CS:GO"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="11" font-weight="900" fill="#f5c842" text-anchor="middle">CS</text></svg> CS:GO</span>
+            <span class="cat" data-game="Dota 2"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff6b35" text-anchor="middle">D</text></svg> Dota 2</span>
+            <span class="cat" data-game="PUBG"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#f5a623" text-anchor="middle">P</text></svg> PUBG</span>
+            <span class="cat" data-game="Steam"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#00adee" text-anchor="middle">S</text></svg> Steam</span>
+            <span class="cat" data-game="Discord"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#5865f2" text-anchor="middle">D</text></svg> Discord</span>
+            <span class="cat" data-game="Genshin Impact"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="11" font-weight="900" fill="#4fc3f7" text-anchor="middle">GI</text></svg> Genshin</span>
+            <span class="cat" data-game="League of Legends"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#f0c040" text-anchor="middle">L</text></svg> LoL</span>
+            <span class="cat" data-game="World of Warcraft"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ffc107" text-anchor="middle">W</text></svg> WoW</span>
+            <span class="cat" data-game="Escape from Tarkov"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="10" font-weight="900" fill="#d4af37" text-anchor="middle">EFT</text></svg> EFT</span>
+        </div>
+        <button class="swiper-btn swiper-btn-right" onclick="scrollCategories(1)">▶</button>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <div class="main-content">
+
+            <!-- КАТАЛОГ -->
+            <div class="page active" id="page-catalog">
+                <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;align-items:center;">
+                    <input type="text" id="gameSearchInput" placeholder="🔍 Поиск игры..." oninput="filterGames()" style="flex:1;padding:8px 16px;border-radius:30px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;min-width:180px;transition:var(--transition);font-size:13px;">
+                    <select id="sortSelect" onchange="sortCatalog()" style="padding:6px 14px;border-radius:30px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;font-size:13px;">
+                        <option value="popular">По популярности</option>
+                        <option value="price_asc">Цена ↑</option>
+                        <option value="price_desc">Цена ↓</option>
+                        <option value="newest">Новые</option>
+                    </select>
+                    <button class="btn btn-outline" onclick="toggleGuaranteeOnly()" style="font-size:12px;">🛡️ Гарант</button>
+                </div>
+                <h2 style="font-weight:400;margin-bottom:12px;color:var(--text-secondary);font-size:18px;">📦 Товары · <span id="itemCount">0</span></h2>
+                <div class="items-grid" id="catalogGrid"></div>
+            </div>
+
+            <!-- СООБЩЕНИЯ (ДИНАМИЧЕСКИЕ) -->
+            <div class="page" id="page-messages">
+                <h2 style="font-weight:400;margin-bottom:8px;color:var(--text-secondary);font-size:18px;">💬 Сообщения</h2>
+                <div class="messages-list" id="messagesList"></div>
+            </div>
+
+            <!-- ПРОДАЖИ -->
+            <div class="page" id="page-sales">
+                <h2 style="font-weight:400;margin-bottom:8px;color:var(--text-secondary);font-size:18px;">📦 Мои продажи</h2>
+                <div class="stats-grid" id="salesStats"></div>
+                <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px;border:1px solid var(--border-color);">
+                    <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;">📊 Детальная статистика</h3>
+                    <div id="salesDetail"></div>
+                </div>
+            </div>
+
+            <!-- ФИНАНСЫ -->
+            <div class="page" id="page-finance">
+                <h2 style="font-weight:400;margin-bottom:8px;color:var(--text-secondary);font-size:18px;">💰 Финансы</h2>
+                <div class="stats-grid" id="financeStats"></div>
+                <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px;border:1px solid var(--border-color);">
+                    <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;">📋 История транзакций</h3>
+                    <div id="transactionHistory"></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="sidebar">
-        <!-- КОРЗИНА -->
-        <div class="cart-block">
-            <h3>🛒 Корзина <span class="count" id="cartCount">0</span></h3>
-            <div id="cartItems"></div>
-            <div class="cart-total">₽ <span id="cartTotal">0</span></div>
-            <button class="btn-checkout" onclick="checkout()">Оформить</button>
-        </div>
+        <!-- САЙДБАР -->
+        <div class="sidebar">
 
-        <!-- ТОП ПРОДАВЦОВ -->
-        <div class="sidebar-block">
-            <h3>🏆 Топ-продавцы <span class="count">🔥</span></h3>
-            <div id="topSellersList"></div>
-        </div>
+            <!-- КОРЗИНА -->
+            <div class="cart-block">
+                <h3>🛒 Корзина <span class="count" id="cartCount">0</span></h3>
+                <div id="cartItems"></div>
+                <div class="cart-total">₽ <span id="cartTotal">0</span></div>
+                <button class="btn-checkout" onclick="checkout()">Оформить</button>
+            </div>
 
-        <!-- СПОРЫ -->
-        <div class="sidebar-block">
-            <h3>🛡️ Активные споры <span class="count" id="disputeCount">0</span></h3>
-            <div id="disputesList"></div>
-            <button class="btn btn-outline" style="width:100%;margin-top:6px;font-size:12px;" onclick="openSupport()">Открыть спор</button>
-        </div>
+            <!-- ТОП ПРОДАВЦОВ -->
+            <div class="sidebar-block">
+                <h3>🏆 Топ-продавцы <span class="count">🔥</span></h3>
+                <div id="topSellersList"></div>
+            </div>
 
-        <!-- ПРАВИЛА -->
-        <div class="sidebar-block">
-            <h3>📜 Правила</h3>
-            <div class="rules-box">
-                <ul>
-                    <li>Все сделки через <strong style="color:var(--accent);">гаранта</strong></li>
-                    <li>Продавец передаёт товар в течение 24 ч</li>
-                    <li>Покупатель подтверждает получение</li>
-                    <li>Споры рассматриваются 48 ч</li>
-                    <li>Мошенничество = бан</li>
-                </ul>
+            <!-- СПОРЫ -->
+            <div class="sidebar-block">
+                <h3>🛡️ Активные споры <span class="count" id="disputeCount">0</span></h3>
+                <div id="disputesList"></div>
+                <button class="btn btn-outline" style="width:100%;margin-top:6px;font-size:12px;" onclick="openSupport()">Открыть спор</button>
+            </div>
+
+            <!-- ПРАВИЛА -->
+            <div class="sidebar-block">
+                <h3>📜 Правила</h3>
+                <div class="rules-box">
+                    <ul>
+                        <li>Все сделки через <strong style="color:var(--accent);">гаранта</strong></li>
+                        <li>Продавец передаёт товар в течение 24 ч</li>
+                        <li>Покупатель подтверждает получение</li>
+                        <li>Споры рассматриваются 48 ч</li>
+                        <li>Мошенничество = бан</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- ============================================================
-ЧАТ
-============================================================ -->
-<div class="chat-container">
-    <div class="chat-header">
-        <span>💬 Общий чат <span class="online">Онлайн: <span id="onlineUsers">0</span></span></span>
-        <span style="font-size:12px;color:var(--text-muted);">🟢</span>
-    </div>
-    <div class="chat-messages" id="chatMessages"></div>
-    <div class="chat-input-row">
-        <input type="text" id="chatInput" placeholder="Напишите сообщение..." onkeypress="if(event.key==='Enter') sendMessage()">
-        <div class="chat-btns">
-            <button onclick="document.getElementById('chatFileInput').click()" title="Фото/Видео">📎</button>
-            <button onclick="document.getElementById('chatAudioInput').click()" title="Голосовое">🎤</button>
-            <button class="send-btn" onclick="sendMessage()">➤</button>
+    <!-- ГЛОБАЛЬНЫЙ ЧАТ -->
+    <div class="chat-container">
+        <div class="chat-header">
+            <span>💬 Общий чат <span class="online">Онлайн: <span id="onlineUsers">0</span></span></span>
+            <span style="font-size:12px;color:var(--text-muted);">🟢</span>
         </div>
-    </div>
-    <input type="file" id="chatFileInput" class="hidden-input" accept="image/*,video/*" multiple onchange="handleFileUpload(event)">
-    <input type="file" id="chatAudioInput" class="hidden-input" accept="audio/*" onchange="handleAudioUpload(event)">
-</div>
-
-<!-- ============================================================
-МОДАЛКИ
-============================================================ -->
-<!-- Авторизация -->
-<div class="modal-overlay" id="authModal">
-    <div class="modal">
-        <h2 id="authTitle">🔐 Вход</h2>
-        <p id="authDesc">Введите логин и пароль</p>
-        <label>Логин</label>
-        <input type="text" id="authLogin" placeholder="Логин">
-        <label>Пароль</label>
-        <input type="password" id="authPassword" placeholder="Пароль">
-        <div id="confirmPasswordBlock" style="display:none;">
-            <label>Подтвердите пароль</label>
-            <input type="password" id="authPasswordConfirm" placeholder="Повторите пароль">
-        </div>
-        <div id="authError" style="color:var(--red);font-size:12px;margin-top:6px;display:none;"></div>
-        <button class="btn btn-primary" style="width:100%;margin-top:10px;padding:10px;" onclick="submitAuth()">Войти</button>
-        <div class="soc-divider" style="display:flex;gap:10px;margin:10px 0;color:var(--text-muted);font-size:12px;align-items:center;"><span style="flex:1;height:1px;background:var(--border-color);"></span>или<span style="flex:1;height:1px;background:var(--border-color);"></span></div>
-        <button class="btn" style="width:100%;background:#0088cc;color:#fff;padding:8px;border-radius:30px;border:none;font-weight:600;cursor:pointer;" onclick="authTelegram()">Telegram</button>
-        <button class="btn" style="width:100%;background:#db4437;color:#fff;padding:8px;border-radius:30px;border:none;font-weight:600;cursor:pointer;margin-top:4px;" onclick="authGoogle()">Google</button>
-        <div class="actions" style="margin-top:12px;">
-            <button class="btn btn-outline" onclick="closeAuth()">Закрыть</button>
-        </div>
-    </div>
-</div>
-
-<!-- Профиль -->
-<div class="modal-overlay" id="profileModal">
-    <div class="modal">
-        <h2>👤 Профиль</h2>
-        <div class="profile-avatar-large" onclick="document.getElementById('avatarUpload').click()">
-            <span id="avatarPlaceholder">👤</span>
-            <img id="profileAvatar" style="display:none;">
-        </div>
-        <input type="file" id="avatarUpload" accept="image/*" style="display:none;" onchange="uploadAvatar(event)">
-        <div class="profile-card">
-            <div class="info"><strong>Логин:</strong> <span id="profileLogin"></span></div>
-            <div class="info"><strong>Дата:</strong> <span id="profileDate"></span></div>
-            <div class="info"><strong>Метод:</strong> <span id="profileMethod"></span></div>
-            <div class="info"><strong>Статус:</strong> <span id="profileStatus" class="profile-status online">Онлайн</span></div>
-            <div class="profile-rating">
-                <span class="rating-big" id="profileRating">0.0</span>
-                <span class="rating-stars" id="profileRatingStars">☆☆☆☆☆</span>
-                <span class="rating-count">(<span id="profileRatingCount">0</span> отзывов)</span>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-row">
+            <input type="text" id="chatInput" placeholder="Напишите сообщение..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <div class="chat-btns">
+                <button onclick="document.getElementById('chatFileInput').click()" title="Фото/Видео">📎</button>
+                <button id="voiceBtn" onclick="startRecording()" title="Голосовое">🎤</button>
+                <button class="send-btn" onclick="sendMessage()">➤</button>
             </div>
-            <div class="info"><strong>Описание:</strong></div>
-            <textarea id="profileDescriptionInput" rows="2" style="width:100%;background:var(--bg-input);color:var(--text-primary);border:1px solid var(--border-color);border-radius:8px;padding:6px;margin-top:2px;font-size:13px;" onchange="updateDescription()"></textarea>
         </div>
-        <h4 style="margin-top:12px;color:var(--text-secondary);font-size:14px;">📝 Отзывы</h4>
-        <div class="reviews-list" id="reviewsList"></div>
-        <h4 style="margin-top:12px;color:var(--text-secondary);font-size:14px;">📦 Мои лоты</h4>
-        <div class="lot-management" id="userLotsList"></div>
-        <div class="actions" style="margin-top:12px;">
-            <button class="btn btn-danger" onclick="deleteAccount()" style="flex:0.5;font-size:12px;">Удалить</button>
-            <button class="btn btn-outline" onclick="closeProfile()" style="flex:1;">Закрыть</button>
-        </div>
+        <input type="file" id="chatFileInput" class="hidden-input" accept="image/*,video/*" multiple onchange="handleFileUpload(event)">
+        <input type="file" id="chatAudioInput" class="hidden-input" accept="audio/*" onchange="handleAudioUpload(event)">
     </div>
-</div>
 
-<!-- Продажа -->
-<div class="modal-overlay" id="sellModal">
-    <div class="modal">
-        <h2>➕ Продать товар</h2>
-        <p>Заполните все поля</p>
-        <label>Название</label>
-        <input type="text" id="sellName" placeholder="Аккаунт 21+">
-        <label>Игра</label>
-        <select id="sellGame">
-            <option value="Roblox">Roblox</option>
-            <option value="Fortnite">Fortnite</option>
-            <option value="Minecraft">Minecraft</option>
-            <option value="GTA V">GTA V</option>
-            <option value="Valorant">Valorant</option>
-            <option value="CS:GO">CS:GO</option>
-            <option value="Dota 2">Dota 2</option>
-            <option value="PUBG">PUBG</option>
-            <option value="Steam">Steam</option>
-            <option value="Discord">Discord</option>
-            <option value="Genshin Impact">Genshin Impact</option>
-            <option value="League of Legends">League of Legends</option>
-            <option value="World of Warcraft">World of Warcraft</option>
-            <option value="Escape from Tarkov">Escape from Tarkov</option>
-        </select>
-        <label>Цена (₽)</label>
-        <input type="number" id="sellPrice" placeholder="490">
-        <label>Описание</label>
-        <textarea id="sellDesc" rows="2" placeholder="Краткое описание"></textarea>
-        <label>Скидка (%)</label>
-        <input type="number" id="sellDiscount" placeholder="0" value="0">
-        <label style="display:flex;align-items:center;gap:6px;margin-top:6px;font-size:13px;">
-            <input type="checkbox" id="sellGuarantee" checked> 🛡️ Сделка с гарантом
-        </label>
-        <div class="actions" style="margin-top:12px;">
-            <button class="btn btn-success" onclick="publishLot()" style="flex:1;">Опубликовать</button>
-            <button class="btn btn-outline" onclick="closeSellModal()">Закрыть</button>
-        </div>
-    </div>
-</div>
+    <!-- МОДАЛКИ -->
 
-<!-- Поддержка / Спор -->
-<div class="modal-overlay" id="supportModal">
-    <div class="modal">
-        <h2>🛡️ Поддержка / Спор</h2>
-        <p>Создайте обращение — администратор рассмотрит в течение 24 часов</p>
-        <label>Тема</label>
-        <input type="text" id="supportSubject" placeholder="Проблема с заказом #1234">
-        <label>Сообщение</label>
-        <textarea id="supportMessage" rows="3" placeholder="Опишите ситуацию..."></textarea>
-        <label>Ссылка на скриншот</label>
-        <input type="text" id="supportLink" placeholder="https://imgur.com/...">
-        <div class="actions" style="margin-top:12px;">
-            <button class="btn btn-primary" onclick="createSupportTicket()" style="flex:1;">Отправить</button>
-            <button class="btn btn-outline" onclick="closeSupport()">Закрыть</button>
-        </div>
-        <h4 style="margin-top:12px;color:var(--text-secondary);font-size:14px;">Мои обращения</h4>
-        <div id="supportTicketsList" style="max-height:180px;overflow-y:auto;"></div>
-    </div>
-</div>
-
-<!-- КАЗИНО SKYMARKET -->
-<div class="modal-overlay" id="casinoModal">
-    <div class="modal" style="max-width:600px;">
-        <div class="slot-machine">
-            <div class="slot-title">🎰 SkyMarket</div>
-            <p style="color:var(--text-muted);font-size:13px;">Крути барабаны и выигрывай бонусы!</p>
-            <div class="slot-reels" id="slotReels">
-                <div class="slot-reel" id="reel1">🍌</div>
-                <div class="slot-reel" id="reel2">🍇</div>
-                <div class="slot-reel" id="reel3">🔔</div>
-                <div class="slot-reel" id="reel4">🍌</div>
-                <div class="slot-reel" id="reel5">7️⃣</div>
+    <!-- АВТОРИЗАЦИЯ -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal">
+            <h2 id="authTitle">🔐 Вход</h2>
+            <p id="authDesc">Введите логин и пароль</p>
+            <label>Логин</label>
+            <input type="text" id="authLogin" placeholder="Логин">
+            <label>Пароль</label>
+            <input type="password" id="authPassword" placeholder="Пароль">
+            <div id="confirmPasswordBlock" style="display:none;">
+                <label>Подтвердите пароль</label>
+                <input type="password" id="authPasswordConfirm" placeholder="Повторите пароль">
             </div>
-            <div class="slot-result" id="slotResult"></div>
-            <div class="slot-buttons">
-                <button class="btn btn-gold" onclick="spinSlot()">🎰 Крутить (1 ₽)</button>
-                <button class="btn btn-outline" onclick="closeCasino()">Закрыть</button>
-            </div>
-            <div style="margin-top:10px;font-size:12px;color:var(--text-muted);">
-                💰 Бонус: <span id="slotBonus">0</span> ₽ | 🎯 Выигрыши: <span id="slotWins">0</span>
+            <div id="authError" style="color:var(--red);font-size:12px;margin-top:6px;display:none;"></div>
+            <button class="btn btn-primary" style="width:100%;margin-top:10px;padding:10px;" onclick="submitAuth()">Войти</button>
+            <div class="soc-divider" style="display:flex;gap:10px;margin:10px 0;color:var(--text-muted);font-size:12px;align-items:center;"><span style="flex:1;height:1px;background:var(--border-color);"></span>или<span style="flex:1;height:1px;background:var(--border-color);"></span></div>
+            <button class="btn" style="width:100%;background:#0088cc;color:#fff;padding:8px;border-radius:30px;border:none;font-weight:600;cursor:pointer;" onclick="authTelegram()">Telegram</button>
+            <button class="btn" style="width:100%;background:#db4437;color:#fff;padding:8px;border-radius:30px;border:none;font-weight:600;cursor:pointer;margin-top:4px;" onclick="authGoogle()">Google</button>
+            <div class="actions" style="margin-top:12px;">
+                <button class="btn btn-outline" onclick="closeAuth()">Закрыть</button>
             </div>
         </div>
     </div>
-</div>
 
-<!-- FOOTER -->
-<footer>
-    © 2026 <strong>SkyMarket PRO</strong> · защита гаранта · честные сделки · 24/7 поддержка
-</footer>
-
-<!-- ============================================================
-JAVASCRIPT
-============================================================ -->
-<script>
-// ============================================================
-//  ТЕМА
-// ============================================================
-function getTheme() { return localStorage.getItem('theme') || 'dark'; }
-function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    document.getElementById('themeToggle').textContent = theme === 'dark' ? '🌙' : '☀️';
-}
-function toggleTheme() { const current = getTheme(); setTheme(current === 'dark' ? 'light' : 'dark'); }
-setTheme(getTheme());
-
-// ============================================================
-//  СВАЙПЕР
-// ============================================================
-function scrollCategories(direction) {
-    const container = document.getElementById('categoriesSwiper');
-    container.scrollBy({ left: direction * 200, behavior: 'smooth' });
-}
-
-// ============================================================
-//  ДАННЫЕ
-// ============================================================
-let catalog = [
-    { id: 1, name: 'Аккаунт 21+ (Roblox)', game: 'Roblox', price: 490, desc: 'Верифицированный голосовой чат', qty: 1, discount: 0, seller: 'Player_Pro', status: 'active', guarantee: true },
-    { id: 2, name: '1000 Robux', game: 'Roblox', price: 350, desc: 'Мгновенная доставка', qty: 1, discount: 5, seller: 'User_Pro', status: 'active', guarantee: true },
-    { id: 3, name: 'Galaxy Skin', game: 'Fortnite', price: 1200, desc: 'Редкий скин + 500 VBucks', qty: 1, discount: 0, seller: 'Skins_Master', status: 'active', guarantee: true },
-    { id: 4, name: 'Premium Minecraft', game: 'Minecraft', price: 890, desc: 'Лицензионный аккаунт', qty: 1, discount: 10, seller: 'Miner_X', status: 'active', guarantee: false },
-    { id: 5, name: 'Аккаунт Steam', game: 'Steam', price: 2200, desc: 'CS2, Dota 2, PUBG', qty: 1, discount: 0, seller: 'Gamer_King', status: 'active', guarantee: true },
-    { id: 6, name: 'Фарм опыта', game: 'Roblox', price: 650, desc: 'Фарм опыта в любых играх', qty: 1, discount: 0, seller: 'Farming_Pro', status: 'active', guarantee: false },
-    { id: 7, name: '5000 Robux', game: 'Roblox', price: 1450, desc: 'Бонус +100 Robux', qty: 1, discount: 7, seller: 'Roblox_Shop', status: 'active', guarantee: true },
-    { id: 8, name: 'Скин + оружие', game: 'Valorant', price: 750, desc: 'Редкий набор скинов', qty: 1, discount: 0, seller: 'Valorant_Elite', status: 'active', guarantee: true },
-    { id: 9, name: 'GTA V аккаунт', game: 'GTA V', price: 1800, desc: 'Более 100 млн $', qty: 1, discount: 0, seller: 'GTA_Master', status: 'active', guarantee: false },
-    { id: 10, name: 'Discord Boost', game: 'Discord', price: 900, desc: 'Полный доступ к бусту', qty: 1, discount: 0, seller: 'Discord_Bot', status: 'active', guarantee: true },
-    { id: 11, name: 'Аккаунт Genshin 5★', game: 'Genshin Impact', price: 1500, desc: '5★ персонажи', qty: 1, discount: 0, seller: 'Genshin_God', status: 'active', guarantee: true },
-    { id: 12, name: 'Dota 2 скины', game: 'Dota 2', price: 1200, desc: 'Более 50 скинов', qty: 1, discount: 0, seller: 'Dota_Collector', status: 'active', guarantee: false },
-    { id: 13, name: 'PUBG аккаунт', game: 'PUBG', price: 950, desc: 'Редкие скины', qty: 1, discount: 0, seller: 'PUBG_Pro', status: 'active', guarantee: true },
-    { id: 14, name: 'WoW голда', game: 'World of Warcraft', price: 700, desc: '500k голды', qty: 1, discount: 0, seller: 'WoW_Farmer', status: 'active', guarantee: true },
-    { id: 15, name: 'EFT аккаунт', game: 'Escape from Tarkov', price: 1600, desc: 'Много денег и лута', qty: 1, discount: 0, seller: 'Tarkov_King', status: 'active', guarantee: true }
-];
-
-let cart = [];
-let currentUser = null;
-let chatMessages = [];
-let disputes = [];
-let supportTickets = [];
-let nextDisputeId = 1;
-let nextTicketId = 1;
-let guaranteeOnly = false;
-let userBalance = 0;
-let slotWins = 0;
-let slotBonus = 0;
-
-// ============================================================
-//  ПОЛЬЗОВАТЕЛИ (localStorage)
-// ============================================================
-function loadUsers() { try { return JSON.parse(localStorage.getItem('skymarket_users')) || {}; } catch { return {}; } }
-function saveUsers(users) { localStorage.setItem('skymarket_users', JSON.stringify(users)); }
-function loadSession() { try { return JSON.parse(localStorage.getItem('skymarket_session')); } catch { return null; } }
-function saveSession(user) { localStorage.setItem('skymarket_session', JSON.stringify(user)); }
-function clearSession() { localStorage.removeItem('skymarket_session'); }
-function getUsers() { return loadUsers(); }
-
-function registerUser(login, password, method = 'Логин/пароль') {
-    const users = getUsers();
-    if (users[login]) return { success: false, error: 'Логин занят' };
-    if (login.length < 3) return { success: false, error: 'Логин ≥ 3 символов' };
-    if (password.length < 4) return { success: false, error: 'Пароль ≥ 4 символов' };
-    users[login] = {
-        password: password,
-        regDate: new Date().toLocaleString(),
-        method: method,
-        description: 'Добавить описание',
-        avatar: '',
-        reviews: [],
-        rating: 0,
-        ratingCount: 0,
-        status: 'online',
-        bans: 0,
-        warns: 0,
-        balance: 0,
-        transactions: [],
-        sales: 0,
-        closedSales: 0,
-        uniqueBuyers: 0,
-        totalEarned: 0
-    };
-    saveUsers(users);
-    return { success: true };
-}
-
-function loginUser(login, password) {
-    const users = getUsers();
-    if (!users[login]) return { success: false, error: 'Пользователь не найден' };
-    if (users[login].password !== password) return { success: false, error: 'Неверный пароль' };
-    if (users[login].bans >= 3) return { success: false, error: 'Аккаунт заблокирован' };
-    return { success: true, user: { login, regDate: users[login].regDate, method: users[login].method || 'Логин/пароль' } };
-}
-
-function deleteUser(login) {
-    const users = getUsers();
-    if (users[login]) { delete users[login]; saveUsers(users); return true; }
-    return false;
-}
-
-function getUserRating(login) {
-    const users = getUsers();
-    if (!users[login]) return { rating: 0, count: 0 };
-    return { rating: users[login].rating || 0, count: users[login].ratingCount || 0 };
-}
-
-function getUserDescription(login) {
-    const users = getUsers();
-    if (!users[login]) return 'Добавить описание';
-    return users[login].description || 'Добавить описание';
-}
-
-function setUserDescription(login, desc) {
-    const users = getUsers();
-    if (!users[login]) return;
-    users[login].description = desc;
-    saveUsers(users);
-}
-
-function getUserAvatar(login) {
-    const users = getUsers();
-    if (!users[login]) return '';
-    return users[login].avatar || '';
-}
-
-function setUserAvatar(login, avatarData) {
-    const users = getUsers();
-    if (!users[login]) return;
-    users[login].avatar = avatarData;
-    saveUsers(users);
-}
-
-function addReview(targetLogin, fromLogin, rating, text) {
-    const users = getUsers();
-    if (!users[targetLogin]) return { success: false, error: 'Пользователь не найден' };
-    if (!users[fromLogin]) return { success: false, error: 'Вы не зарегистрированы' };
-    if (targetLogin === fromLogin) return { success: false, error: 'Нельзя отзыв самому себе' };
-    if (!users[targetLogin].reviews) users[targetLogin].reviews = [];
-    users[targetLogin].reviews.push({
-        from: fromLogin,
-        rating: rating,
-        text: text || 'Без текста',
-        date: new Date().toLocaleString()
-    });
-    const revs = users[targetLogin].reviews;
-    const total = revs.reduce((sum, r) => sum + r.rating, 0);
-    users[targetLogin].rating = total / revs.length;
-    users[targetLogin].ratingCount = revs.length;
-    saveUsers(users);
-    return { success: true };
-}
-
-function getReviews(login) {
-    const users = getUsers();
-    if (!users[login]) return [];
-    return users[login].reviews || [];
-}
-
-function getUserBalance(login) {
-    const users = getUsers();
-    if (!users[login]) return 0;
-    return users[login].balance || 0;
-}
-
-function updateUserBalance(login, amount) {
-    const users = getUsers();
-    if (!users[login]) return;
-    users[login].balance = (users[login].balance || 0) + amount;
-    saveUsers(users);
-}
-
-// ============================================================
-//  ЛОГОТИПЫ ИГР (SVG)
-// ============================================================
-function getGameLogo(game) {
-    const logos = {
-        'Roblox': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#00bcd4" text-anchor="middle">R</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#00bcd4" stroke-width="2"/></svg>`,
-        'Fortnite': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff6b6b" text-anchor="middle">F</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff6b6b" stroke-width="2"/></svg>`,
-        'Minecraft': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#4caf50" text-anchor="middle">M</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#4caf50" stroke-width="2"/></svg>`,
-        'GTA V': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff9800" text-anchor="middle">G</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff9800" stroke-width="2"/></svg>`,
-        'Valorant': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff4655" text-anchor="middle">V</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff4655" stroke-width="2"/></svg>`,
-        'CS:GO': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="16" font-weight="900" fill="#f5c842" text-anchor="middle">CS</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#f5c842" stroke-width="2"/></svg>`,
-        'Dota 2': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff6b35" text-anchor="middle">D</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff6b35" stroke-width="2"/></svg>`,
-        'PUBG': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#f5a623" text-anchor="middle">P</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#f5a623" stroke-width="2"/></svg>`,
-        'Steam': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#00adee" text-anchor="middle">S</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#00adee" stroke-width="2"/></svg>`,
-        'Discord': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#5865f2" text-anchor="middle">D</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#5865f2" stroke-width="2"/></svg>`,
-        'Genshin Impact': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="16" font-weight="900" fill="#4fc3f7" text-anchor="middle">GI</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#4fc3f7" stroke-width="2"/></svg>`,
-        'League of Legends': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#f0c040" text-anchor="middle">L</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#f0c040" stroke-width="2"/></svg>`,
-        'World of Warcraft': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ffc107" text-anchor="middle">W</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ffc107" stroke-width="2"/></svg>`,
-        'Escape from Tarkov': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="14" font-weight="900" fill="#d4af37" text-anchor="middle">EFT</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#d4af37" stroke-width="2"/></svg>`
-    };
-    return logos[game] || `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" fill="#55657d" text-anchor="middle">🎮</text></svg>`;
-}
-
-// ============================================================
-//  АВТОРИЗАЦИЯ
-// ============================================================
-let authMode = 'login';
-
-function openAuth(mode) {
-    authMode = mode;
-    document.getElementById('authModal').classList.add('open');
-    document.getElementById('authTitle').textContent = mode === 'login' ? '🔐 Вход' : '📝 Регистрация';
-    document.getElementById('authDesc').textContent = mode === 'login' ? 'Введите логин и пароль' : 'Придумайте логин и пароль (≥3 и ≥4)';
-    document.getElementById('confirmPasswordBlock').style.display = mode === 'register' ? 'block' : 'none';
-    document.getElementById('authError').style.display = 'none';
-    document.getElementById('authLogin').value = '';
-    document.getElementById('authPassword').value = '';
-    document.getElementById('authPasswordConfirm').value = '';
-}
-
-function closeAuth() { document.getElementById('authModal').classList.remove('open'); }
-
-function submitAuth() {
-    const login = document.getElementById('authLogin').value.trim();
-    const password = document.getElementById('authPassword').value.trim();
-    const confirm = document.getElementById('authPasswordConfirm').value.trim();
-    const error = document.getElementById('authError');
-    if (!login || !password) { error.textContent = 'Заполните все поля'; error.style.display = 'block'; return; }
-    if (authMode === 'register') {
-        if (password !== confirm) { error.textContent = 'Пароли не совпадают!'; error.style.display = 'block'; return; }
-        const result = registerUser(login, password);
-        if (!result.success) { error.textContent = result.error; error.style.display = 'block'; return; }
-        const loginResult = loginUser(login, password);
-        if (loginResult.success) { currentUser = loginResult.user; saveSession(currentUser); updateUI(); closeAuth(); }
-    } else {
-        const result = loginUser(login, password);
-        if (!result.success) { error.textContent = result.error; error.style.display = 'block'; return; }
-        currentUser = result.user;
-        saveSession(currentUser);
-        updateUI();
-        closeAuth();
-    }
-}
-
-function authTelegram() {
-    const fakeLogin = 'tg_' + Math.random().toString(36).slice(2, 8);
-    const result = registerUser(fakeLogin, 'telegram_' + Math.random().toString(36).slice(2, 10), 'Telegram');
-    if (result.success) {
-        currentUser = { login: fakeLogin, regDate: new Date().toLocaleString(), method: 'Telegram' };
-        saveSession(currentUser);
-        updateUI();
-        closeAuth();
-        alert('✅ Вход через Telegram выполнен! Логин: ' + fakeLogin);
-    } else { alert('❌ Ошибка'); }
-}
-
-function authGoogle() {
-    const fakeLogin = 'google_' + Math.random().toString(36).slice(2, 8);
-    const result = registerUser(fakeLogin, 'google_' + Math.random().toString(36).slice(2, 10), 'Google');
-    if (result.success) {
-        currentUser = { login: fakeLogin, regDate: new Date().toLocaleString(), method: 'Google' };
-        saveSession(currentUser);
-        updateUI();
-        closeAuth();
-        alert('✅ Вход через Google выполнен! Логин: ' + fakeLogin);
-    } else { alert('❌ Ошибка'); }
-}
-
-function logout() {
-    currentUser = null;
-    clearSession();
-    updateUI();
-}
-
-// ============================================================
-//  КАТАЛОГ
-// ============================================================
-function renderCatalog(items) {
-    const grid = document.getElementById('catalogGrid');
-    if (!items || items.length === 0) {
-        grid.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-muted);"><div style="font-size:48px;margin-bottom:12px;">📭</div><h3 style="color:var(--text-secondary);font-size:16px;">Товаров нет</h3></div>';
-        document.getElementById('itemCount').textContent = '0';
-        return;
-    }
-    grid.innerHTML = items.map(item => `
-        <div class="item-card" data-id="${item.id}">
-            ${item.discount > 0 ? `<span class="discount-badge">-${item.discount}%</span>` : ''}
-            <div class="game-logo">${getGameLogo(item.game)}</div>
-            <div class="game-name">${item.game}</div>
-            ${item.guarantee ? '<div class="guarantee-badge">🛡️ Гарант</div>' : ''}
-            <h4>${item.name}</h4>
-            <div class="desc">${item.desc}</div>
-            <div class="seller" onclick="openProfile('${item.seller}')">👤 ${item.seller}</div>
-            <div class="price">₽ ${item.discount > 0 ? Math.round(item.price * (1 - item.discount/100)) : item.price}</div>
-            ${item.status === 'active' ? `<button class="btn-add" onclick="addToCart(${item.id})">🛒 В корзину</button>` : '<span style="color:var(--red);text-align:center;display:block;font-size:12px;">Продано</span>'}
+    <!-- ПРОФИЛЬ -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal">
+            <h2>👤 Профиль</h2>
+            <div class="profile-avatar-large" onclick="document.getElementById('avatarUpload').click()">
+                <span id="avatarPlaceholder">👤</span>
+                <img id="profileAvatar" style="display:none;">
+            </div>
+            <input type="file" id="avatarUpload" accept="image/*" style="display:none;" onchange="uploadAvatar(event)">
+            <div class="profile-card">
+                <div class="info"><strong>Логин:</strong> <span id="profileLogin"></span></div>
+                <div class="info"><strong>Дата:</strong> <span id="profileDate"></span></div>
+                <div class="info"><strong>Метод:</strong> <span id="profileMethod"></span></div>
+                <div class="info"><strong>Статус:</strong> <span id="profileStatus" class="profile-status online">Онлайн</span></div>
+                <div class="profile-rating">
+                    <span class="rating-big" id="profileRating">0.0</span>
+                    <span class="rating-stars" id="profileRatingStars">☆☆☆☆☆</span>
+                    <span class="rating-count">(<span id="profileRatingCount">0</span> отзывов)</span>
+                </div>
+                <div class="info"><strong>Описание:</strong></div>
+                <textarea id="profileDescriptionInput" rows="2" style="width:100%;background:var(--bg-input);color:var(--text-primary);border:1px solid var(--border-color);border-radius:8px;padding:6px;margin-top:2px;font-size:13px;" onchange="updateDescription()"></textarea>
+            </div>
+            <h4 style="margin-top:12px;color:var(--text-secondary);font-size:14px;">📝 Отзывы</h4>
+            <div class="reviews-list" id="reviewsList"></div>
+            <h4 style="margin-top:12px;color:var(--text-secondary);font-size:14px;">📦 Мои лоты</h4>
+            <div class="lot-management" id="userLotsList"></div>
+            <div class="actions" style="margin-top:12px;">
+                <button class="btn btn-danger" onclick="deleteAccount()" style="flex:0.5;font-size:12px;">Удалить</button>
+                <button class="btn btn-outline" onclick="closeProfile()" style="flex:1;">Закрыть</button>
+            </div>
         </div>
-    `).join('');
-    document.getElementById('itemCount').textContent = items.length;
-}
+    </div>
 
-let selectedGame = 'all';
-
-function filterCatalog() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
-    let filtered = catalog.filter(item => {
-        const matchGame = selectedGame === 'all' || item.game === selectedGame;
-        const matchQuery = item.name.toLowerCase().includes(query) || item.game.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
-        return matchGame && matchQuery && item.status === 'active';
-    });
-    if (guaranteeOnly) filtered = filtered.filter(item => item.guarantee);
-    renderCatalog(filtered);
-}
-
-function filterGames() {
-    const query = document.getElementById('gameSearchInput').value.toLowerCase();
-    document.querySelectorAll('.cat').forEach(cat => {
-        const game = cat.dataset.game;
-        if (game === 'all') { cat.style.display = query ? 'none' : 'flex'; } 
-        else { cat.style.display = game.toLowerCase().includes(query) ? 'flex' : 'none'; }
-    });
-    filterCatalog();
-}
-
-function sortCatalog() {
-    const sort = document.getElementById('sortSelect').value;
-    let sorted = [...catalog.filter(item => item.status === 'active')];
-    if (sort === 'price_asc') sorted.sort((a,b) => (a.discount ? Math.round(a.price*(1-a.discount/100)) : a.price) - (b.discount ? Math.round(b.price*(1-b.discount/100)) : b.price));
-    else if (sort === 'price_desc') sorted.sort((a,b) => (b.discount ? Math.round(b.price*(1-b.discount/100)) : b.price) - (a.discount ? Math.round(a.price*(1-a.discount/100)) : a.price));
-    else if (sort === 'newest') sorted.sort((a,b) => b.id - a.id);
-    else sorted.sort((a,b) => (getUserRating(b.seller).rating + b.price/1000) - (getUserRating(a.seller).rating + a.price/1000));
-    renderCatalog(sorted);
-}
-
-function toggleGuaranteeOnly() {
-    guaranteeOnly = !guaranteeOnly;
-    filterCatalog();
-}
-
-document.querySelectorAll('.cat').forEach(cat => {
-    cat.addEventListener('click', function() {
-        document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
-        this.classList.add('active');
-        selectedGame = this.dataset.game;
-        filterCatalog();
-    });
-});
-
-// ============================================================
-//  КОРЗИНА
-// ============================================================
-function addToCart(itemId) {
-    const item = catalog.find(i => i.id === itemId);
-    if (!item || item.status !== 'active') return;
-    const existing = cart.find(i => i.id === itemId);
-    if (existing) existing.qty += 1;
-    else cart.push({ ...item, qty: 1 });
-    updateCartUI();
-}
-
-function removeFromCart(itemId) {
-    cart = cart.filter(i => i.id !== itemId);
-    updateCartUI();
-}
-
-function updateCartUI() {
-    const container = document.getElementById('cartItems');
-    const count = document.getElementById('cartCount');
-    const total = document.getElementById('cartTotal');
-    const qty = cart.reduce((sum, i) => sum + i.qty, 0);
-    count.textContent = qty;
-    if (cart.length === 0) {
-        container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">Корзина пуста</p>';
-        total.textContent = '0';
-        return;
-    }
-    container.innerHTML = cart.map(item => `
-        <div class="cart-item">
-            <span>${item.name} (${item.qty})</span>
-            <span>₽ ${(item.discount > 0 ? Math.round(item.price * (1 - item.discount/100)) : item.price) * item.qty}</span>
-            <span class="remove" onclick="removeFromCart(${item.id})">✕</span>
+    <!-- ПРОДАЖА ТОВАРА -->
+    <div class="modal-overlay" id="sellModal">
+        <div class="modal">
+            <h2>➕ Продать товар</h2>
+            <p>Заполните все поля</p>
+            <label>Название</label>
+            <input type="text" id="sellName" placeholder="Аккаунт 21+">
+            <label>Игра</label>
+            <select id="sellGame">
+                <option value="Roblox">Roblox</option>
+                <option value="Fortnite">Fortnite</option>
+                <option value="Minecraft">Minecraft</option>
+                <option value="GTA V">GTA V</option>
+                <option value="Valorant">Valorant</option>
+                <option value="CS:GO">CS:GO</option>
+                <option value="Dota 2">Dota 2</option>
+                <option value="PUBG">PUBG</option>
+                <option value="Steam">Steam</option>
+                <option value="Discord">Discord</option>
+                <option value="Genshin Impact">Genshin Impact</option>
+                <option value="League of Legends">League of Legends</option>
+                <option value="World of Warcraft">World of Warcraft</option>
+                <option value="Escape from Tarkov">Escape from Tarkov</option>
+            </select>
+            <label>Цена (₽)</label>
+            <input type="number" id="sellPrice" placeholder="490">
+            <label>Описание</label>
+            <textarea id="sellDesc" rows="2" placeholder="Краткое описание"></textarea>
+            <label>Скидка (%)</label>
+            <input type="number" id="sellDiscount" placeholder="0" value="0">
+            <label style="display:flex;align-items:center;gap:6px;margin-top:6px;font-size:13px;">
+                <input type="checkbox" id="sellGuarantee" checked> 🛡️ Сделка с гарантом
+            </label>
+            <div class="actions" style="margin-top:12px;">
+                <button class="btn btn-success" onclick="publishLot()" style="flex:1;">Опубликовать</button>
+                <button class="btn btn-outline" onclick="closeSellModal()">Закрыть</button>
+            </div>
         </div>
-    `).join('');
-    const sum = cart.reduce((acc, i) => acc + (i.discount > 0 ? Math.round(i.price * (1 - i.discount/100)) : i.price) * i.qty, 0);
-    total.textContent = sum;
-}
+    </div>
 
-function checkout() {
-    if (!currentUser) { alert('Войдите в аккаунт'); return; }
-    if (cart.length === 0) { alert('Корзина пуста'); return; }
-    const total = cart.reduce((acc, i) => acc + (i.discount > 0 ? Math.round(i.price * (1 - i.discount/100)) : i.price) * i.qty, 0);
-    if (confirm(`Оформить заказ на ₽${total} через гаранта?`)) {
-        alert('✅ Заказ оформлен! Свяжитесь с продавцом в чате.');
-        // Добавляем транзакцию
-        const users = getUsers();
-        if (users[currentUser.login]) {
-            users[currentUser.login].transactions = users[currentUser.login].transactions || [];
-            users[currentUser.login].transactions.push({
-                type: 'Покупка',
-                amount: -total,
-                date: new Date().toLocaleString(),
-                desc: cart.map(i => i.name).join(', ')
-            });
-            users[currentUser.login].balance = (users[currentUser.login].balance || 0) - total;
+    <!-- ПОДДЕРЖКА / СПОР -->
+    <div class="modal-overlay" id="supportModal">
+        <div class="modal">
+            <h2>🛡️ Поддержка / Спор</h2>
+            <p>Создайте обращение — администратор рассмотрит в течение 24 часов</p>
+            <label>Тема</label>
+            <input type="text" id="supportSubject" placeholder="Проблема с заказом #1234">
+            <label>Сообщение</label>
+            <textarea id="supportMessage" rows="3" placeholder="Опишите ситуацию..."></textarea>
+            <label>Ссылка на скриншот</label>
+            <input type="text" id="supportLink" placeholder="https://imgur.com/...">
+            <div class="actions" style="margin-top:12px;">
+                <button class="btn btn-primary" onclick="createSupportTicket()" style="flex:1;">Отправить</button>
+                <button class="btn btn-outline" onclick="closeSupport()">Закрыть</button>
+            </div>
+            <h4 style="margin-top:12px;color:var(--text-secondary);font-size:14px;">Мои обращения</h4>
+            <div id="supportTicketsList" style="max-height:180px;overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- КАЗИНО SKYMARKET -->
+    <div class="modal-overlay" id="casinoModal">
+        <div class="modal" style="max-width:600px;">
+            <div class="slot-machine">
+                <div class="slot-title">🎰 SkyMarket</div>
+                <p style="color:var(--text-muted);font-size:13px;">Крути барабаны и выигрывай бонусы!</p>
+                <div class="slot-reels" id="slotReels">
+                    <div class="slot-reel" id="reel1">🍌</div>
+                    <div class="slot-reel" id="reel2">🍇</div>
+                    <div class="slot-reel" id="reel3">🔔</div>
+                    <div class="slot-reel" id="reel4">🍌</div>
+                    <div class="slot-reel" id="reel5">7️⃣</div>
+                </div>
+                <div class="slot-result" id="slotResult"></div>
+                <div class="slot-buttons">
+                    <button class="btn btn-gold" onclick="spinSlot()">🎰 Крутить (1 ₽)</button>
+                    <button class="btn btn-outline" onclick="closeCasino()">Закрыть</button>
+                </div>
+                <div style="margin-top:10px;font-size:12px;color:var(--text-muted);">
+                    💰 Бонус: <span id="slotBonus">0</span> ₽ | 🎯 Выигрыши: <span id="slotWins">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 <strong>SkyMarket PRO</strong> · защита гаранта · честные сделки · 24/7 поддержка
+    </footer>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        //  ТЕМА
+        // ============================================================
+        function getTheme() { return localStorage.getItem('theme') || 'dark'; }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            document.getElementById('themeToggle').textContent = theme === 'dark' ? '🌙' : '☀️';
+        }
+
+        function toggleTheme() { const current = getTheme();
+            setTheme(current === 'dark' ? 'light' : 'dark'); }
+        setTheme(getTheme());
+
+        // ============================================================
+        //  СВАЙПЕР
+        // ============================================================
+        function scrollCategories(direction) {
+            const container = document.getElementById('categoriesSwiper');
+            container.scrollBy({ left: direction * 200, behavior: 'smooth' });
+        }
+
+        // ============================================================
+        //  ДАННЫЕ
+        // ============================================================
+        let catalog = [
+            { id: 1, name: 'Аккаунт 21+ (Roblox)', game: 'Roblox', price: 490, desc: 'Верифицированный голосовой чат', qty: 1,
+                discount: 0, seller: 'Player_Pro', status: 'active', guarantee: true },
+            { id: 2, name: '1000 Robux', game: 'Roblox', price: 350, desc: 'Мгновенная доставка', qty: 1, discount: 5,
+                seller: 'User_Pro', status: 'active', guarantee: true },
+            { id: 3, name: 'Galaxy Skin', game: 'Fortnite', price: 1200, desc: 'Редкий скин + 500 VBucks', qty: 1, discount: 0,
+                seller: 'Skins_Master', status: 'active', guarantee: true },
+            { id: 4, name: 'Premium Minecraft', game: 'Minecraft', price: 890, desc: 'Лицензионный аккаунт', qty: 1,
+                discount: 10, seller: 'Miner_X', status: 'active', guarantee: false },
+            { id: 5, name: 'Аккаунт Steam', game: 'Steam', price: 2200, desc: 'CS2, Dota 2, PUBG', qty: 1, discount: 0,
+                seller: 'Gamer_King', status: 'active', guarantee: true },
+            { id: 6, name: 'Фарм опыта', game: 'Roblox', price: 650, desc: 'Фарм опыта в любых играх', qty: 1, discount: 0,
+                seller: 'Farming_Pro', status: 'active', guarantee: false },
+            { id: 7, name: '5000 Robux', game: 'Roblox', price: 1450, desc: 'Бонус +100 Robux', qty: 1, discount: 7,
+                seller: 'Roblox_Shop', status: 'active', guarantee: true },
+            { id: 8, name: 'Скин + оружие', game: 'Valorant', price: 750, desc: 'Редкий набор скинов', qty: 1, discount: 0,
+                seller: 'Valorant_Elite', status: 'active', guarantee: true },
+            { id: 9, name: 'GTA V аккаунт', game: 'GTA V', price: 1800, desc: 'Более 100 млн $', qty: 1, discount: 0,
+                seller: 'GTA_Master', status: 'active', guarantee: false },
+            { id: 10, name: 'Discord Boost', game: 'Discord', price: 900, desc: 'Полный доступ к бусту', qty: 1, discount: 0,
+                seller: 'Discord_Bot', status: 'active', guarantee: true },
+            { id: 11, name: 'Аккаунт Genshin 5★', game: 'Genshin Impact', price: 1500, desc: '5★ персонажи', qty: 1,
+                discount: 0, seller: 'Genshin_God', status: 'active', guarantee: true },
+            { id: 12, name: 'Dota 2 скины', game: 'Dota 2', price: 1200, desc: 'Более 50 скинов', qty: 1, discount: 0,
+                seller: 'Dota_Collector', status: 'active', guarantee: false },
+            { id: 13, name: 'PUBG аккаунт', game: 'PUBG', price: 950, desc: 'Редкие скины', qty: 1, discount: 0,
+                seller: 'PUBG_Pro', status: 'active', guarantee: true },
+            { id: 14, name: 'WoW голда', game: 'World of Warcraft', price: 700, desc: '500k голды', qty: 1, discount: 0,
+                seller: 'WoW_Farmer', status: 'active', guarantee: true },
+            { id: 15, name: 'EFT аккаунт', game: 'Escape from Tarkov', price: 1600, desc: 'Много денег и лута', qty: 1,
+                discount: 0, seller: 'Tarkov_King', status: 'active', guarantee: true }
+        ];
+
+        let cart = [];
+        let currentUser = null;
+        let chatMessages = [];
+        let disputes = [];
+        let supportTickets = [];
+        let nextDisputeId = 1;
+        let nextTicketId = 1;
+        let guaranteeOnly = false;
+        let userBalance = 0;
+        let slotWins = 0;
+        let slotBonus = 0;
+
+        // ============================================================
+        //  ПОЛЬЗОВАТЕЛИ (localStorage)
+        // ============================================================
+        function loadUsers() { try { return JSON.parse(localStorage.getItem('skymarket_users')) || {}; } catch { return {}; } }
+
+        function saveUsers(users) { localStorage.setItem('skymarket_users', JSON.stringify(users)); }
+
+        function loadSession() { try { return JSON.parse(localStorage.getItem('skymarket_session')); } catch { return null; } }
+
+        function saveSession(user) { localStorage.setItem('skymarket_session', JSON.stringify(user)); }
+
+        function clearSession() { localStorage.removeItem('skymarket_session'); }
+
+        function getUsers() { return loadUsers(); }
+
+        function registerUser(login, password, method = 'Логин/пароль') {
+            const users = getUsers();
+            if (users[login]) return { success: false, error: 'Логин занят' };
+            if (login.length < 3) return { success: false, error: 'Логин ≥ 3 символов' };
+            if (password.length < 4) return { success: false, error: 'Пароль ≥ 4 символов' };
+            users[login] = {
+                password: password,
+                regDate: new Date().toLocaleString(),
+                method: method,
+                description: 'Добавить описание',
+                avatar: '',
+                reviews: [],
+                rating: 0,
+                ratingCount: 0,
+                status: 'online',
+                bans: 0,
+                warns: 0,
+                balance: 0,
+                transactions: [],
+                sales: 0,
+                closedSales: 0,
+                uniqueBuyers: 0,
+                totalEarned: 0
+            };
+            saveUsers(users);
+            return { success: true };
+        }
+
+        function loginUser(login, password) {
+            const users = getUsers();
+            if (!users[login]) return { success: false, error: 'Пользователь не найден' };
+            if (users[login].password !== password) return { success: false, error: 'Неверный пароль' };
+            if (users[login].bans >= 3) return { success: false, error: 'Аккаунт заблокирован' };
+            return { success: true, user: { login, regDate: users[login].regDate, method: users[login].method ||
+                        'Логин/пароль' } };
+        }
+
+        function deleteUser(login) {
+            const users = getUsers();
+            if (users[login]) { delete users[login];
+                saveUsers(users); return true; }
+            return false;
+        }
+
+        function getUserRating(login) {
+            const users = getUsers();
+            if (!users[login]) return { rating: 0, count: 0 };
+            return { rating: users[login].rating || 0, count: users[login].ratingCount || 0 };
+        }
+
+        function getUserDescription(login) {
+            const users = getUsers();
+            if (!users[login]) return 'Добавить описание';
+            return users[login].description || 'Добавить описание';
+        }
+
+        function setUserDescription(login, desc) {
+            const users = getUsers();
+            if (!users[login]) return;
+            users[login].description = desc;
             saveUsers(users);
         }
-        cart = [];
-        updateCartUI();
-        updateUI();
-    }
-}
 
-// ============================================================
-//  ЧАТ
-// ============================================================
-function sendMessage(text, attachment) {
-    const input = document.getElementById('chatInput');
-    const msgText = text || input.value.trim();
-    if (!msgText && !attachment) return;
-    if (!currentUser) { alert('Войдите в аккаунт'); return; }
-    const msg = {
-        user: currentUser.login,
-        text: msgText || '',
-        time: new Date().toLocaleTimeString(),
-        self: true,
-        attachment: attachment || null
-    };
-    chatMessages.push(msg);
-    if (input) input.value = '';
-    renderChat();
-}
-
-function handleFileUpload(event) {
-    const files = event.target.files;
-    if (!files.length) return;
-    for (const file of files) {
-        if (file.size > 10 * 1024 * 1024) { alert('Файл слишком большой (макс. 10 МБ)'); continue; }
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const data = e.target.result;
-            const ext = file.type.split('/')[0];
-            let html = '';
-            if (ext === 'image') {
-                html = `<img src="${data}" alt="Фото" onclick="window.open('${data}','_blank')">`;
-            } else if (ext === 'video') {
-                html = `<video controls src="${data}" onclick="this.paused ? this.play() : this.pause()"></video>`;
-            } else {
-                html = `<span class="file-name">📄 ${file.name}</span>`;
-            }
-            sendMessage('📎 Вложение', html);
-        };
-        reader.readAsDataURL(file);
-    }
-    event.target.value = '';
-}
-
-function handleAudioUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { alert('Голосовое слишком большое (макс. 5 МБ)'); return; }
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const data = e.target.result;
-        const html = `<audio controls src="${data}"></audio>`;
-        sendMessage('🎤 Голосовое', html);
-    };
-    reader.readAsDataURL(file);
-    event.target.value = '';
-}
-
-function renderChat() {
-    const container = document.getElementById('chatMessages');
-    container.innerHTML = chatMessages.map(msg => `
-        <div class="msg ${msg.self ? 'self' : ''} ${msg.system ? 'system' : ''}">
-            <div class="user" onclick="${msg.system ? '' : "openProfile('"+msg.user+"')"}">${msg.user}</div>
-            <div class="text">${msg.text}</div>
-            ${msg.attachment ? `<div class="attachment">${msg.attachment}</div>` : ''}
-            <div class="time">${msg.time}</div>
-        </div>
-    `).join('');
-    container.scrollTop = container.scrollHeight;
-}
-
-// ============================================================
-//  ПРОФИЛЬ
-// ============================================================
-function openProfile(targetLogin) {
-    const login = targetLogin || (currentUser ? currentUser.login : null);
-    if (!login) { alert('Войдите в аккаунт'); return; }
-    const users = getUsers();
-    const user = users[login];
-    if (!user) { alert('Пользователь не найден'); return; }
-    document.getElementById('profileLogin').textContent = login;
-    document.getElementById('profileDate').textContent = user.regDate || 'Неизвестно';
-    document.getElementById('profileMethod').textContent = user.method || 'Логин/пароль';
-    document.getElementById('profileStatus').textContent = user.status === 'online' ? 'Онлайн' : 'Офлайн';
-    document.getElementById('profileStatus').className = 'profile-status ' + (user.status === 'online' ? 'online' : 'offline');
-    const ratingData = getUserRating(login);
-    document.getElementById('profileRating').textContent = ratingData.rating.toFixed(1);
-    document.getElementById('profileRatingCount').textContent = ratingData.count;
-    const fullStars = Math.round(ratingData.rating);
-    document.getElementById('profileRatingStars').textContent = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
-    document.getElementById('profileDescriptionInput').value = getUserDescription(login);
-    const avatar = getUserAvatar(login);
-    const img = document.getElementById('profileAvatar');
-    const placeholder = document.getElementById('avatarPlaceholder');
-    if (avatar) { img.src = avatar; img.style.display = 'block'; placeholder.style.display = 'none'; } 
-    else { img.style.display = 'none'; placeholder.style.display = 'block'; }
-    const reviews = getReviews(login);
-    const revContainer = document.getElementById('reviewsList');
-    if (reviews.length === 0) revContainer.innerHTML = '<p style="color:var(--text-muted);font-size:12px;padding:6px 0;">Отзывов пока нет</p>';
-    else revContainer.innerHTML = reviews.map(r => `
-        <div class="review-item">
-            <div class="review-header"><span class="reviewer" onclick="openProfile('${r.from}')">${r.from}</span><span>${r.date}</span></div>
-            <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
-            <div class="review-text">${r.text}</div>
-        </div>
-    `).join('');
-    const userLots = catalog.filter(item => item.seller === login);
-    const lotsContainer = document.getElementById('userLotsList');
-    if (userLots.length === 0) lotsContainer.innerHTML = '<p style="color:var(--text-muted);font-size:12px;padding:6px 0;">У вас пока нет лотов</p>';
-    else lotsContainer.innerHTML = userLots.map(item => `
-        <div class="lot-row">
-            <span>${item.name} (${item.game})</span>
-            <span style="color:var(--accent);">₽${item.discount > 0 ? Math.round(item.price*(1-item.discount/100)) : item.price}</span>
-            <span style="font-size:11px;color:var(--text-muted);">${item.status === 'active' ? '✅ Активен' : '❌ Продано'}</span>
-        </div>
-    `).join('');
-    document.getElementById('profileModal').classList.add('open');
-}
-
-function closeProfile() { document.getElementById('profileModal').classList.remove('open'); }
-
-function updateDescription() {
-    if (!currentUser) return;
-    const desc = document.getElementById('profileDescriptionInput').value;
-    setUserDescription(currentUser.login, desc);
-}
-
-function uploadAvatar(event) {
-    const file = event.target.files[0];
-    if (!file || !currentUser) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const data = e.target.result;
-        setUserAvatar(currentUser.login, data);
-        document.getElementById('profileAvatar').src = data;
-        document.getElementById('profileAvatar').style.display = 'block';
-        document.getElementById('avatarPlaceholder').style.display = 'none';
-    };
-    reader.readAsDataURL(file);
-}
-
-function deleteAccount() {
-    if (!currentUser) return;
-    if (confirm(`Удалить аккаунт ${currentUser.login}?`)) {
-        if (deleteUser(currentUser.login)) { alert('Аккаунт удалён'); logout(); closeProfile(); }
-    }
-}
-
-// ============================================================
-//  ПРОДАЖА
-// ============================================================
-function openModal() {
-    if (!currentUser) { alert('Войдите в аккаунт'); return; }
-    document.getElementById('sellModal').classList.add('open');
-}
-
-function closeSellModal() { document.getElementById('sellModal').classList.remove('open'); }
-
-function publishLot() {
-    if (!currentUser) return;
-    const name = document.getElementById('sellName').value.trim();
-    const game = document.getElementById('sellGame').value;
-    const price = parseInt(document.getElementById('sellPrice').value);
-    const desc = document.getElementById('sellDesc').value.trim();
-    const discount = parseInt(document.getElementById('sellDiscount').value) || 0;
-    const guarantee = document.getElementById('sellGuarantee').checked;
-    if (!name || !price) { alert('Заполните название и цену'); return; }
-    const newId = catalog.length ? Math.max(...catalog.map(i => i.id)) + 1 : 1;
-    catalog.push({
-        id: newId, name, game, price, desc: desc || 'Без описания',
-        qty: 1, discount, seller: currentUser.login,
-        status: 'active', guarantee: guarantee
-    });
-    renderCatalog(catalog);
-    closeSellModal();
-    alert('✅ Товар опубликован!');
-    document.getElementById('sellName').value = '';
-    document.getElementById('sellPrice').value = '';
-    document.getElementById('sellDesc').value = '';
-    document.getElementById('sellDiscount').value = '0';
-    document.getElementById('sellGuarantee').checked = true;
-    updateUI();
-}
-
-// ============================================================
-//  ТОП ПРОДАВЦОВ
-// ============================================================
-function renderTopSellers() {
-    const container = document.getElementById('topSellersList');
-    const users = getUsers();
-    const sellers = Object.keys(users).filter(u => catalog.some(item => item.seller === u));
-    const sorted = sellers.map(u => {
-        const lots = catalog.filter(item => item.seller === u);
-        const totalSales = lots.reduce((sum, item) => sum + item.price, 0);
-        const ratingData = getUserRating(u);
-        return { login: u, totalSales, rating: ratingData.rating, count: ratingData.count, lots: lots.length };
-    }).sort((a, b) => b.totalSales - a.totalSales || b.rating - a.rating);
-    if (sorted.length === 0) { container.innerHTML = '<p style="color:var(--text-muted);font-size:12px;">Нет продавцов</p>'; return; }
-    container.innerHTML = sorted.slice(0, 5).map((s, idx) => `
-        <div class="top-seller">
-            <span class="rank">${idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '🏅'}</span>
-            <span class="name" onclick="openProfile('${s.login}')">${s.login}</span>
-            <span class="stars">⭐ ${s.rating.toFixed(1)}</span>
-            <span style="color:var(--text-muted);font-size:10px;">₽${s.totalSales}</span>
-        </div>
-    `).join('');
-}
-
-// ============================================================
-//  СПОРЫ И ПОДДЕРЖКА
-// ============================================================
-function renderDisputes() {
-    const container = document.getElementById('disputesList');
-    document.getElementById('disputeCount').textContent = disputes.filter(d => d.status === 'open').length;
-    if (disputes.length === 0) { container.innerHTML = '<p style="color:var(--text-muted);font-size:12px;">Нет активных споров</p>'; return; }
-    container.innerHTML = disputes.map(d => `
-        <div class="dispute-item">
-            <div class="dispute-header"><span>#${d.id}</span><span class="dispute-status ${d.status}">${d.status === 'open' ? '🟡 Открыт' : d.status === 'resolved' ? '✅ Решён' : '🔴 Закрыт'}</span></div>
-            <div class="dispute-title">${d.title}</div>
-            <div style="font-size:11px;color:var(--text-muted);">${d.author} | ${d.date}</div>
-        </div>
-    `).join('');
-}
-
-function openSupport() {
-    if (!currentUser) { alert('Войдите в аккаунт'); return; }
-    document.getElementById('supportModal').classList.add('open');
-    renderSupportTickets();
-}
-
-function closeSupport() { document.getElementById('supportModal').classList.remove('open'); }
-
-function createSupportTicket() {
-    if (!currentUser) return;
-    const subject = document.getElementById('supportSubject').value.trim();
-    const message = document.getElementById('supportMessage').value.trim();
-    if (!subject || !message) { alert('Заполните все поля'); return; }
-    supportTickets.push({
-        id: nextTicketId++,
-        subject: subject,
-        message: message,
-        author: currentUser.login,
-        date: new Date().toLocaleString(),
-        status: 'open',
-        link: document.getElementById('supportLink').value || ''
-    });
-    disputes.push({
-        id: nextDisputeId++,
-        title: subject,
-        author: currentUser.login,
-        date: new Date().toLocaleString(),
-        status: 'open'
-    });
-    document.getElementById('supportSubject').value = '';
-    document.getElementById('supportMessage').value = '';
-    document.getElementById('supportLink').value = '';
-    renderSupportTickets();
-    renderDisputes();
-    alert('✅ Обращение создано!');
-}
-
-function renderSupportTickets() {
-    const container = document.getElementById('supportTicketsList');
-    if (supportTickets.length === 0) { container.innerHTML = '<p style="color:var(--text-muted);font-size:12px;">Нет обращений</p>'; return; }
-    container.innerHTML = supportTickets.map(t => `
-        <div style="background:var(--bg-card);border-radius:8px;padding:8px 12px;margin-bottom:4px;border-left:3px solid ${t.status === 'open' ? '#ffc107' : '#4caf50'};font-size:12px;">
-            <div style="display:flex;justify-content:space-between;">
-                <strong>${t.subject}</strong>
-                <span style="color:var(--text-muted);">${t.status === 'open' ? '🟡 Ожидает' : '✅ Решено'}</span>
-            </div>
-            <div style="color:var(--text-muted);font-size:11px;">${t.author} | ${t.date}</div>
-        </div>
-    `).join('');
-}
-
-// ============================================================
-//  ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ (сообщения, продажи, финансы)
-// ============================================================
-function switchPage(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-bar a').forEach(a => a.classList.remove('active'));
-    const targetPage = document.getElementById('page-' + page);
-    if (targetPage) targetPage.classList.add('active');
-    document.querySelector(`.nav-bar a[data-page="${page}"]`)?.classList.add('active');
-    
-    if (page === 'messages') renderMessages();
-    if (page === 'sales') renderSales();
-    if (page === 'finance') renderFinance();
-}
-
-// ============================================================
-//  СООБЩЕНИЯ
-// ============================================================
-function renderMessages() {
-    const container = document.getElementById('messagesList');
-    const users = getUsers();
-    const messages = [
-        { user: 'noomlove', time: '14:04', preview: 'Бананн33 https://t.me/lifeNika23/10' },
-        { user: 'Muxahdd', time: '00:15', preview: 'Аноо' },
-        { user: 'nastaulop', time: '', preview: 'Покупатель nastaulop подтвердил успешное' },
-        { user: 'puzach1488', time: '', preview: 'Продавец KrUpA77 вернул деньги' },
-        { user: 'Vemon4243', time: '', preview: '??' },
-        { user: 'Timur050413', time: '23:08', preview: 'Kyu' },
-        { user: 'enoting', time: '', preview: 'Здравствуйте вы Сможете сейчас' },
-        { user: 'kuysek', time: '', preview: 'Покупатель kuysek написал отзыв к заказу' },
-        { user: 'zibert34', time: '', preview: 'Покупатель zibert34 подтвердил успешное' },
-        { user: 'Madrid154', time: '', preview: 'Досугнен creator growth challenge?' },
-        { user: 'David103050', time: '', preview: 'Стабильно за покупку! Буду очень благодарен,' },
-        { user: 'GameNestZarif', time: '', preview: 'Администратор Certrude подтвердил успешное' }
-    ];
-    container.innerHTML = messages.map(m => `
-        <div class="msg-item" onclick="openChatWith('${m.user}')">
-            <div class="msg-avatar">${m.user.charAt(0).toUpperCase()}</div>
-            <div class="msg-info">
-                <div class="msg-name">${m.user}</div>
-                <div class="msg-preview">${m.preview}</div>
-            </div>
-            ${m.time ? `<div class="msg-time">${m.time}</div>` : ''}
-        </div>
-    `).join('');
-}
-
-function openChatWith(user) {
-    alert(`💬 Открыт диалог с ${user}\n\n(Здесь будет ваш чат с этим пользователем)`);
-    // В реальном проекте здесь открывается личный чат
-}
-
-// ============================================================
-//  ПРОДАЖИ
-// ============================================================
-function renderSales() {
-    const users = getUsers();
-    const userData = currentUser ? users[currentUser.login] : null;
-    const statsContainer = document.getElementById('salesStats');
-    const detailContainer = document.getElementById('salesDetail');
-    
-    const sales = userData ? (userData.sales || 0) : 0;
-    const closed = userData ? (userData.closedSales || 0) : 0;
-    const buyers = userData ? (userData.uniqueBuyers || 0) : 0;
-    const earned = userData ? (userData.totalEarned || 0) : 0;
-    const balance = userData ? (userData.balance || 0) : 0;
-    const transactions = userData ? (userData.transactions || []) : [];
-    
-    statsContainer.innerHTML = `
-        <div class="stat-card"><div class="stat-value">${sales}</div><div class="stat-label">📦 Всего заказов</div></div>
-        <div class="stat-card"><div class="stat-value">${closed}</div><div class="stat-label">✅ Закрыто</div></div>
-        <div class="stat-card"><div class="stat-value">${buyers}</div><div class="stat-label">👤 Уникальных покупателей</div></div>
-        <div class="stat-card"><div class="stat-value" style="color:var(--gold);">${earned} ₽</div><div class="stat-label">💰 Заработано</div></div>
-        <div class="stat-card"><div class="stat-value" style="color:var(--green);">${balance} ₽</div><div class="stat-label">💳 Баланс</div></div>
-    `;
-    
-    detailContainer.innerHTML = `
-        <div class="stat-row"><span class="label">Средний чек</span><span class="value">${closed > 0 ? (earned / closed).toFixed(2) : 0} ₽</span></div>
-        <div class="stat-row"><span class="label">Самый активный покупатель</span><span class="value">zibert34</span></div>
-        <div class="stat-row"><span class="label">Самая дорогая продажа</span><span class="value">350 ₽</span></div>
-        <div class="stat-row"><span class="label">Статус</span><span class="value green">🟢 Активен</span></div>
-        <div style="margin-top:10px;font-size:12px;color:var(--text-muted);">* Данные обновляются автоматически</div>
-    `;
-}
-
-// ============================================================
-//  ФИНАНСЫ
-// ============================================================
-function renderFinance() {
-    const users = getUsers();
-    const userData = currentUser ? users[currentUser.login] : null;
-    const statsContainer = document.getElementById('financeStats');
-    const historyContainer = document.getElementById('transactionHistory');
-    
-    const balance = userData ? (userData.balance || 0) : 0;
-    const transactions = userData ? (userData.transactions || []) : [];
-    const earned = userData ? (userData.totalEarned || 0) : 0;
-    
-    statsContainer.innerHTML = `
-        <div class="stat-card"><div class="stat-value" style="color:var(--gold);">${balance} ₽</div><div class="stat-label">💰 Текущий баланс</div></div>
-        <div class="stat-card"><div class="stat-value">${earned} ₽</div><div class="stat-label">📈 Всего заработано</div></div>
-        <div class="stat-card"><div class="stat-value">${transactions.length}</div><div class="stat-label">📋 Транзакций</div></div>
-    `;
-    
-    if (transactions.length === 0) {
-        historyContainer.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">История транзакций пуста</p>';
-    } else {
-        historyContainer.innerHTML = transactions.slice().reverse().map(t => `
-            <div class="stat-row">
-                <span class="label">${t.date} — ${t.desc || 'Без описания'}</span>
-                <span class="value ${t.amount >= 0 ? 'green' : 'red'}">${t.amount >= 0 ? '+' : ''}${t.amount} ₽</span>
-            </div>
-        `).join('');
-    }
-}
-
-// ============================================================
-//  КАЗИНО SKYMARKET
-// ============================================================
-function openCasino() {
-    if (!currentUser) { alert('Войдите в аккаунт'); return; }
-    document.getElementById('casinoModal').classList.add('open');
-    document.getElementById('slotResult').textContent = '';
-    document.getElementById('slotResult').className = 'slot-result';
-    updateSlotUI();
-}
-
-function closeCasino() {
-    document.getElementById('casinoModal').classList.remove('open');
-}
-
-function updateSlotUI() {
-    document.getElementById('slotBonus').textContent = slotBonus;
-    document.getElementById('slotWins').textContent = slotWins;
-}
-
-function spinSlot() {
-    const reelEls = [
-        document.getElementById('reel1'),
-        document.getElementById('reel2'),
-        document.getElementById('reel3'),
-        document.getElementById('reel4'),
-        document.getElementById('reel5')
-    ];
-    const symbols = ['🍌', '🍇', '🍉', '🔔', '7️⃣', '🍒', '🍊', '💎'];
-    const result = document.getElementById('slotResult');
-    result.textContent = '🎰 Крутим...';
-    result.className = 'slot-result';
-    
-    // Спин анимация
-    reelEls.forEach(el => el.classList.add('spinning'));
-    
-    setTimeout(() => {
-        reelEls.forEach(el => el.classList.remove('spinning'));
-        const results = reelEls.map(() => symbols[Math.floor(Math.random() * symbols.length)]);
-        reelEls.forEach((el, i) => el.textContent = results[i]);
-        
-        // Проверка выигрыша
-        const win = results.every(r => r === results[0]);
-        if (win) {
-            const winAmount = Math.floor(Math.random() * 50) + 10;
-            slotWins++;
-            slotBonus += winAmount;
-            result.textContent = `🎉 ВЫИГРЫШ! +${winAmount} ₽ БОНУСА! 🎉`;
-            result.className = 'slot-result win';
-            reelEls.forEach(el => el.classList.add('win'));
-            // Добавляем бонус на баланс
-            updateUserBalance(currentUser.login, winAmount);
-            // Транзакция
+        function getUserAvatar(login) {
             const users = getUsers();
-            if (users[currentUser.login]) {
-                users[currentUser.login].transactions = users[currentUser.login].transactions || [];
-                users[currentUser.login].transactions.push({
-                    type: 'Бонус казино',
-                    amount: winAmount,
-                    date: new Date().toLocaleString(),
-                    desc: `Выигрыш в SkyMarket Casino 🎰`
-                });
-                saveUsers(users);
+            if (!users[login]) return '';
+            return users[login].avatar || '';
+        }
+
+        function setUserAvatar(login, avatarData) {
+            const users = getUsers();
+            if (!users[login]) return;
+            users[login].avatar = avatarData;
+            saveUsers(users);
+        }
+
+        function addReview(targetLogin, fromLogin, rating, text) {
+            const users = getUsers();
+            if (!users[targetLogin]) return { success: false, error: 'Пользователь не найден' };
+            if (!users[fromLogin]) return { success: false, error: 'Вы не зарегистрированы' };
+            if (targetLogin === fromLogin) return { success: false, error: 'Нельзя отзыв самому себе' };
+            if (!users[targetLogin].reviews) users[targetLogin].reviews = [];
+            users[targetLogin].reviews.push({
+                from: fromLogin,
+                rating: rating,
+                text: text || 'Без текста',
+                date: new Date().toLocaleString()
+            });
+            const revs = users[targetLogin].reviews;
+            const total = revs.reduce((sum, r) => sum + r.rating, 0);
+            users[targetLogin].rating = total / revs.length;
+            users[targetLogin].ratingCount = revs.length;
+            saveUsers(users);
+            // Добавляем системное сообщение
+            addSystemMessage(fromLogin, `📝 Оставил отзыв для ${targetLogin}: "${text}" (${rating}★)`);
+            return { success: true };
+        }
+
+        function getReviews(login) {
+            const users = getUsers();
+            if (!users[login]) return [];
+            return users[login].reviews || [];
+        }
+
+        function getUserBalance(login) {
+            const users = getUsers();
+            if (!users[login]) return 0;
+            return users[login].balance || 0;
+        }
+
+        function updateUserBalance(login, amount) {
+            const users = getUsers();
+            if (!users[login]) return;
+            users[login].balance = (users[login].balance || 0) + amount;
+            saveUsers(users);
+        }
+
+        // ============================================================
+        //  ЛОГОТИПЫ ИГР (SVG)
+        // ============================================================
+        function getGameLogo(game) {
+            const logos = {
+                'Roblox': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#00bcd4" text-anchor="middle">R</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#00bcd4" stroke-width="2"/></svg>`,
+                'Fortnite': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff6b6b" text-anchor="middle">F</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff6b6b" stroke-width="2"/></svg>`,
+                'Minecraft': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#4caf50" text-anchor="middle">M</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#4caf50" stroke-width="2"/></svg>`,
+                'GTA V': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff9800" text-anchor="middle">G</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff9800" stroke-width="2"/></svg>`,
+                'Valorant': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff4655" text-anchor="middle">V</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff4655" stroke-width="2"/></svg>`,
+                'CS:GO': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="16" font-weight="900" fill="#f5c842" text-anchor="middle">CS</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#f5c842" stroke-width="2"/></svg>`,
+                'Dota 2': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff6b35" text-anchor="middle">D</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff6b35" stroke-width="2"/></svg>`,
+                'PUBG': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#f5a623" text-anchor="middle">P</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#f5a623" stroke-width="2"/></svg>`,
+                'Steam': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#00adee" text-anchor="middle">S</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#00adee" stroke-width="2"/></svg>`,
+                'Discord': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#5865f2" text-anchor="middle">D</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#5865f2" stroke-width="2"/></svg>`,
+                'Genshin Impact': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="16" font-weight="900" fill="#4fc3f7" text-anchor="middle">GI</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#4fc3f7" stroke-width="2"/></svg>`,
+                'League of Legends': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#f0c040" text-anchor="middle">L</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#f0c040" stroke-width="2"/></svg>`,
+                'World of Warcraft': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ffc107" text-anchor="middle">W</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ffc107" stroke-width="2"/></svg>`,
+                'Escape from Tarkov': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="14" font-weight="900" fill="#d4af37" text-anchor="middle">EFT</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#d4af37" stroke-width="2"/></svg>`
+            };
+            return logos[game] ||
+                `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" fill="#55657d" text-anchor="middle">🎮</text></svg>`;
+        }
+
+        // ============================================================
+        //  АВТОРИЗАЦИЯ
+        // ============================================================
+        let authMode = 'login';
+
+        function openAuth(mode) {
+            authMode = mode;
+            document.getElementById('authModal').classList.add('open');
+            document.getElementById('authTitle').textContent = mode === 'login' ? '🔐 Вход' : '📝 Регистрация';
+            document.getElementById('authDesc').textContent = mode === 'login' ? 'Введите логин и пароль' :
+                'Придумайте логин и пароль (≥3 и ≥4)';
+            document.getElementById('confirmPasswordBlock').style.display = mode === 'register' ? 'block' : 'none';
+            document.getElementById('authError').style.display = 'none';
+            document.getElementById('authLogin').value = '';
+            document.getElementById('authPassword').value = '';
+            document.getElementById('authPasswordConfirm').value = '';
+        }
+
+        function closeAuth() { document.getElementById('authModal').classList.remove('open'); }
+
+        function submitAuth() {
+            const login = document.getElementById('authLogin').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+            const confirm = document.getElementById('authPasswordConfirm').value.trim();
+            const error = document.getElementById('authError');
+            if (!login || !password) { error.textContent = 'Заполните все поля';
+                error.style.display = 'block'; return; }
+            if (authMode === 'register') {
+                if (password !== confirm) { error.textContent = 'Пароли не совпадают!';
+                    error.style.display = 'block'; return; }
+                const result = registerUser(login, password);
+                if (!result.success) { error.textContent = result.error;
+                    error.style.display = 'block'; return; }
+                const loginResult = loginUser(login, password);
+                if (loginResult.success) { currentUser = loginResult.user;
+                    saveSession(currentUser);
+                    updateUI();
+                    closeAuth(); }
+            } else {
+                const result = loginUser(login, password);
+                if (!result.success) { error.textContent = result.error;
+                    error.style.display = 'block'; return; }
+                currentUser = result.user;
+                saveSession(currentUser);
+                updateUI();
+                closeAuth();
             }
+        }
+
+        function authTelegram() {
+            const fakeLogin = 'tg_' + Math.random().toString(36).slice(2, 8);
+            const result = registerUser(fakeLogin, 'telegram_' + Math.random().toString(36).slice(2, 10), 'Telegram');
+            if (result.success) {
+                currentUser = { login: fakeLogin, regDate: new Date().toLocaleString(), method: 'Telegram' };
+                saveSession(currentUser);
+                updateUI();
+                closeAuth();
+                alert('✅ Вход через Telegram выполнен! Логин: ' + fakeLogin);
+            } else { alert('❌ Ошибка'); }
+        }
+
+        function authGoogle() {
+            const fakeLogin = 'google_' + Math.random().toString(36).slice(2, 8);
+            const result = registerUser(fakeLogin, 'google_' + Math.random().toString(36).slice(2, 10), 'Google');
+            if (result.success) {
+                currentUser = { login: fakeLogin, regDate: new Date().toLocaleString(), method: 'Google' };
+                saveSession(currentUser);
+                updateUI();
+                closeAuth();
+                alert('✅ Вход через Google выполнен! Логин: ' + fakeLogin);
+            } else { alert('❌ Ошибка'); }
+        }
+
+        function logout() {
+            currentUser = null;
+            clearSession();
             updateUI();
-        } else {
-            const checkCounts = {};
-            results.forEach(r => { checkCounts[r] = (checkCounts[r] || 0) + 1; });
-            let maxCount = 0;
-            let bestSymbol = '';
-            for (const [sym, count] of Object.entries(checkCounts)) {
-                if (count > maxCount) { maxCount = count; bestSymbol = sym; }
+        }
+
+        // ============================================================
+        //  КАТАЛОГ
+        // ============================================================
+        function renderCatalog(items) {
+            const grid = document.getElementById('catalogGrid');
+            if (!items || items.length === 0) {
+                grid.innerHTML =
+                    '<div style="text-align:center;padding:40px 20px;color:var(--text-muted);"><div style="font-size:48px;margin-bottom:12px;">📭</div><h3 style="color:var(--text-secondary);font-size:16px;">Товаров нет</h3></div>';
+                document.getElementById('itemCount').textContent = '0';
+                return;
             }
-            if (maxCount >= 3) {
-                const smallBonus = Math.floor(Math.random() * 15) + 5;
-                slotBonus += smallBonus;
-                result.textContent = `😎 ${maxCount} × ${bestSymbol} — бонус +${smallBonus} ₽`;
-                result.className = 'slot-result win';
-                updateUserBalance(currentUser.login, smallBonus);
+            grid.innerHTML = items.map(item => `
+                    <div class="item-card" data-id="${item.id}">
+                        ${item.discount > 0 ? `<span class="discount-badge">-${item.discount}%</span>` : ''}
+                        <div class="game-logo">${getGameLogo(item.game)}</div>
+                        <div class="game-name">${item.game}</div>
+                        ${item.guarantee ? '<div class="guarantee-badge">🛡️ Гарант</div>' : ''}
+                        <h4>${item.name}</h4>
+                        <div class="desc">${item.desc}</div>
+                        <div class="seller" onclick="openProfile('${item.seller}')">👤 ${item.seller}</div>
+                        <div class="price">₽ ${item.discount > 0 ? Math.round(item.price * (1 - item.discount/100)) : item.price}</div>
+                        ${item.status === 'active' ? `<button class="btn-add" onclick="addToCart(${item.id})">🛒 В корзину</button>` : '<span style="color:var(--red);text-align:center;display:block;font-size:12px;">Продано</span>'}
+                    </div>
+                `).join('');
+            document.getElementById('itemCount').textContent = items.length;
+        }
+
+        let selectedGame = 'all';
+
+        function filterCatalog() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            let filtered = catalog.filter(item => {
+                const matchGame = selectedGame === 'all' || item.game === selectedGame;
+                const matchQuery = item.name.toLowerCase().includes(query) || item.game.toLowerCase().includes(
+                query) || item.desc.toLowerCase().includes(query);
+                return matchGame && matchQuery && item.status === 'active';
+            });
+            if (guaranteeOnly) filtered = filtered.filter(item => item.guarantee);
+            renderCatalog(filtered);
+        }
+
+        function filterGames() {
+            const query = document.getElementById('gameSearchInput').value.toLowerCase();
+            document.querySelectorAll('.cat').forEach(cat => {
+                const game = cat.dataset.game;
+                if (game === 'all') { cat.style.display = query ? 'none' : 'flex'; } else { cat.style.display = game
+                        .toLowerCase().includes(query) ? 'flex' : 'none'; }
+            });
+            filterCatalog();
+        }
+
+        function sortCatalog() {
+            const sort = document.getElementById('sortSelect').value;
+            let sorted = [...catalog.filter(item => item.status === 'active')];
+            if (sort === 'price_asc') sorted.sort((a, b) => (a.discount ? Math.round(a.price * (1 - a.discount / 100)) : a
+                .price) - (b.discount ? Math.round(b.price * (1 - b.discount / 100)) : b.price));
+            else if (sort === 'price_desc') sorted.sort((a, b) => (b.discount ? Math.round(b.price * (1 - b.discount / 100)) : b
+                .price) - (a.discount ? Math.round(a.price * (1 - a.discount / 100)) : a.price));
+            else if (sort === 'newest') sorted.sort((a, b) => b.id - a.id);
+            else sorted.sort((a, b) => (getUserRating(b.seller).rating + b.price / 1000) - (getUserRating(a.seller)
+                .rating + a.price / 1000));
+            renderCatalog(sorted);
+        }
+
+        function toggleGuaranteeOnly() {
+            guaranteeOnly = !guaranteeOnly;
+            filterCatalog();
+        }
+
+        document.querySelectorAll('.cat').forEach(cat => {
+            cat.addEventListener('click', function() {
+                document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                selectedGame = this.dataset.game;
+                filterCatalog();
+            });
+        });
+
+        // ============================================================
+        //  КОРЗИНА
+        // ============================================================
+        function addToCart(itemId) {
+            const item = catalog.find(i => i.id === itemId);
+            if (!item || item.status !== 'active') return;
+            const existing = cart.find(i => i.id === itemId);
+            if (existing) existing.qty += 1;
+            else cart.push({ ...item, qty: 1 });
+            updateCartUI();
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(i => i.id !== itemId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItems');
+            const count = document.getElementById('cartCount');
+            const total = document.getElementById('cartTotal');
+            const qty = cart.reduce((sum, i) => sum + i.qty, 0);
+            count.textContent = qty;
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">Корзина пуста</p>';
+                total.textContent = '0';
+                return;
+            }
+            container.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <span>${item.name} (${item.qty})</span>
+                        <span>₽ ${(item.discount > 0 ? Math.round(item.price * (1 - item.discount/100)) : item.price) * item.qty}</span>
+                        <span class="remove" onclick="removeFromCart(${item.id})">✕</span>
+                    </div>
+                `).join('');
+            const sum = cart.reduce((acc, i) => acc + (i.discount > 0 ? Math.round(i.price * (1 - i.discount / 100)) : i
+                .price) * i.qty, 0);
+            total.textContent = sum;
+        }
+
+        function checkout() {
+            if (!currentUser) { alert('Войдите в аккаунт'); return; }
+            if (cart.length === 0) { alert('Корзина пуста'); return; }
+            const total = cart.reduce((acc, i) => acc + (i.discount > 0 ? Math.round(i.price * (1 - i.discount / 100)) : i
+                .price) * i.qty, 0);
+            if (confirm(`Оформить заказ на ₽${total} через гаранта?`)) {
+                alert('✅ Заказ оформлен! Свяжитесь с продавцом в чате.');
+                addSystemMessage(currentUser.login, `🛒 Купил: ${cart.map(i => i.name).join(', ')} на ${total} ₽`);
                 const users = getUsers();
                 if (users[currentUser.login]) {
                     users[currentUser.login].transactions = users[currentUser.login].transactions || [];
                     users[currentUser.login].transactions.push({
-                        type: 'Бонус казино',
-                        amount: smallBonus,
+                        type: 'Покупка',
+                        amount: -total,
                         date: new Date().toLocaleString(),
-                        desc: `${maxCount} × ${bestSymbol} в SkyMarket Casino 🎰`
+                        desc: cart.map(i => i.name).join(', ')
                     });
+                    users[currentUser.login].balance = (users[currentUser.login].balance || 0) - total;
                     saveUsers(users);
                 }
+                cart = [];
+                updateCartUI();
                 updateUI();
-            } else {
-                result.textContent = '😔 Попробуй ещё раз! Удача рядом!';
-                result.className = 'slot-result lose';
-                reelEls.forEach(el => el.classList.add('lose'));
-                setTimeout(() => {
-                    reelEls.forEach(el => el.classList.remove('lose'));
-                }, 1000);
             }
         }
-        updateSlotUI();
-        setTimeout(() => {
-            reelEls.forEach(el => el.classList.remove('win', 'lose'));
-        }, 3000);
-    }, 800);
-}
 
-// ============================================================
-//  UI ОБНОВЛЕНИЕ
-// ============================================================
-function updateUI() {
-    const guest = document.getElementById('guestButtons');
-    const user = document.getElementById('userButtons');
-    const name = document.getElementById('userNameDisplay');
-    const status = document.getElementById('chatUserStatus');
-    const avatar = document.getElementById('userAvatarSmall');
-    const balanceEl = document.getElementById('headerBalance');
-    const navBalance = document.getElementById('navBalance');
-    
-    if (currentUser) {
-        guest.style.display = 'none';
-        user.style.display = 'flex';
-        name.textContent = currentUser.login;
-        avatar.textContent = currentUser.login.charAt(0).toUpperCase();
-        status.textContent = '(' + currentUser.login + ')';
-        const users = getUsers();
-        if (users[currentUser.login]) {
-            users[currentUser.login].status = 'online';
-            const bal = users[currentUser.login].balance || 0;
-            balanceEl.textContent = bal + ' ₽';
-            navBalance.textContent = 'Баланс: ' + bal + ' ₽';
-            saveUsers(users);
+        // ============================================================
+        //  ГОЛОСОВЫЕ СООБЩЕНИЯ (MediaRecorder)
+        // ============================================================
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+
+        function startRecording() {
+            if (!currentUser) { alert('Войдите в аккаунт'); return; }
+            if (isRecording) { stopRecording(); return; }
+
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = event => {
+                        if (event.data.size > 0) audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const data = e.target.result;
+                            const html =
+                                `<audio controls src="${data}" style="width:100%;max-width:200px;border-radius:8px;"></audio>`;
+                            sendMessage('🎤 Голосовое', html);
+                        };
+                        reader.readAsDataURL(audioBlob);
+                        stream.getTracks().forEach(track => track.stop());
+                        const voiceBtn = document.getElementById('voiceBtn');
+                        if (voiceBtn) {
+                            voiceBtn.textContent = '🎤';
+                            voiceBtn.style.background = 'var(--bg-category)';
+                            voiceBtn.style.color = 'var(--text-secondary)';
+                        }
+                        isRecording = false;
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    const voiceBtn = document.getElementById('voiceBtn');
+                    if (voiceBtn) {
+                        voiceBtn.textContent = '🔴';
+                        voiceBtn.style.background = '#e8484f';
+                        voiceBtn.style.color = '#fff';
+                    }
+                })
+                .catch(err => {
+                    alert('❌ Доступ к микрофону запрещён или не поддерживается: ' + err.message);
+                });
         }
-    } else {
-        guest.style.display = 'flex';
-        user.style.display = 'none';
-        status.textContent = '(гость)';
-        balanceEl.textContent = '0 ₽';
-        navBalance.textContent = 'Баланс: 0 ₽';
-    }
-    renderCatalog(catalog);
-    updateCartUI();
-    renderChat();
-    renderTopSellers();
-    renderDisputes();
-    renderSupportTickets();
-    updateStats();
-}
 
-function updateStats() {
-    const online = Object.keys(getUsers()).filter(u => getUsers()[u].status === 'online').length;
-    document.getElementById('onlineUsers').textContent = online || 0;
-    const activeItems = catalog.filter(item => item.status === 'active').length;
-}
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+            }
+        }
 
-// ============================================================
-//  ИНИЦИАЛИЗАЦИЯ
-// ============================================================
-const session = loadSession();
-if (session) {
-    const users = getUsers();
-    if (users[session.login]) { currentUser = session; } else { clearSession(); }
-}
+        function handleAudioUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            if (file.size > 5 * 1024 * 1024) { alert('Голосовое слишком большое (макс. 5 МБ)'); return; }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = e.target.result;
+                const html =
+                    `<audio controls src="${data}" style="width:100%;max-width:200px;border-radius:8px;"></audio>`;
+                sendMessage('🎤 Голосовое (файл)', html);
+            };
+            reader.readAsDataURL(file);
+            event.target.value = '';
+        }
 
-chatMessages.push({
-    user: 'System',
-    text: '🚀 Добро пожаловать в SkyMarket PRO! Все сделки защищены гарантом. Кидай фото, видео и голосовые!',
-    time: new Date().toLocaleTimeString(),
-    self: false,
-    system: true
-});
+        // ============================================================
+        //  ЧАТ
+        // ============================================================
+        function sendMessage(text, attachment) {
+            const input = document.getElementById('chatInput');
+            const msgText = text || input.value.trim();
+            if (!msgText && !attachment) return;
+            if (!currentUser) { alert('Войдите в аккаунт'); return; }
+            const msg = {
+                user: currentUser.login,
+                text: msgText || '',
+                time: new Date().toLocaleTimeString(),
+                self: true,
+                attachment: attachment || null
+            };
+            chatMessages.push(msg);
+            if (input) input.value = '';
+            renderChat();
+        }
 
-updateUI();
-console.log('🚀 SkyMarket PRO с казино, сообщениями, продажами и финансами загружен!');
-</script>
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            if (!files.length) return;
+            for (const file of files) {
+                if (file.size > 10 * 1024 * 1024) { alert('Файл слишком большой (макс. 10 МБ)'); continue; }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const data = e.target.result;
+                    const ext = file.type.split('/')[0];
+                    let html = '';
+                    if (ext === 'image') {
+                        html = `<img src="${data}" alt="Фото" onclick="window.open('${data}','_blank')">`;
+                    } else if (ext === 'video') {
+                        html = `<video controls src="${data}" onclick="this.paused ? this.play() : this.pause()"></video>`;
+                    } else {
+                        html = `<span class="file-name">📄 ${file.name}</span>`;
+                    }
+                    sendMessage('📎 Вложение', html);
+                };
+                reader.readAsDataURL(file);
+            }
+            event.target.value = '';
+        }
+
+        function renderChat() {
+            const container = document.getElementById('chatMessages');
+            container.innerHTML = chatMessages.map(msg => `
+                    <div class="msg ${msg.self ? 'self' : ''} ${msg.system ? 'system' : ''}">
+                        <div class="user" onclick="${msg.system ? '' : "openProfile('"+msg.user+"')"}">${msg.user}</div>
+                        <div class="text">${msg.text}</div>
+                        ${msg.attachment ? `<div class="attachment">${msg.attachment}</div>` : ''}
+                        <div class="time">${msg.time}</div>
+                    </div>
+                `).join('');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // ============================================================
+        //  ПРОФИЛЬ
+        // ============================================================
+        function openProfile(targetLogin) {
+            const login = targetLogin || (currentUser ? currentUser.login : null);
+            if (!login) { alert('Войдите в аккаунт'); return; }
+            const users = getUsers();
+            const user = users[login];
+            if (!user) { alert('Пользователь не найден'); return; }
+            document.getElementById('profileLogin').textContent = login;
+            document.getElementById('profileDate').textContent = user.regDate || 'Неизвестно';
+            document.getElementById('profileMethod').textContent = user.method || 'Логин/пароль';
+            document.getElementById('profileStatus').textContent = user.status === 'online' ? 'Онлайн' : 'Офлайн';
+            document.getElementById('profileStatus').className = 'profile-status ' + (user.status === 'online' ? 'online' :
+                'offline');
+            const ratingData = getUserRating(login);
+            document.getElementById('profileRating').textContent = ratingData.rating.toFixed(1);
+            document.getElementById('profileRatingCount').textContent = ratingData.count;
+            const fullStars = Math.round(ratingData.rating);
+            document.getElementById('profileRatingStars').textContent = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
+            document.getElementById('profileDescriptionInput').value = getUserDescription(login);
+            const avatar = getUserAvatar(login);
+            const img = document.getElementById('profileAvatar');
+            const placeholder = document.getElementById('avatarPlaceholder');
+            if (avatar) { img.src = avatar;
+                img.style.display = 'block';
+                placeholder.style.display = 'none'; } else { img.style.display = 'none';
+                placeholder.style.display = 'block'; }
+            const reviews = getReviews(login);
+            const revContainer = document.getElementById('reviewsList');
+            if (reviews.length === 0) revContainer.innerHTML =
+                '<p style="color:var(--text-muted);font-size:12px;padding:6px 0;">Отзывов пока нет</p>';
+            else revContainer.innerHTML = reviews.map(r => `
+                    <div class="review-item">
+                        <div class="review-header"><span class="reviewer" onclick="openProfile('${r.from}')">${r.from}</span><span>${r.date}</span></div>
+                        <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+                        <div class="review-text">${r.text}</div>
+                    </div>
+                `).join('');
+            const userLots = catalog.filter(item => item.seller === login);
+            const lotsContainer = document.getElementById('userLotsList');
+            if (userLots.length === 0) lotsContainer.innerHTML =
+                '<p style="color:var(--text-muted);font-size:12px;padding:6px 0;">У вас пока нет лотов</p>';
+            else lotsContainer.innerHTML = userLots.map(item => `
+                    <div class="lot-row">
+                        <span>${item.name} (${item.game})</span>
+                        <span style="color:var(--accent);">₽${item.discount > 0 ? Math.round(item.price*(1-item.discount/100)) : item.price}</span>
+                        <span style="font-size:11px;color:var(--text-muted);">${item.status === 'active' ? '✅ Активен' : '❌ Продано'}</span>
+                    </div>
+                `).join('');
+            document.getElementById('profileModal').classList.add('open');
+        }
+
+        function closeProfile() { document.getElementById('profileModal').classList.remove('open'); }
+
+        function updateDescription() {
+            if (!currentUser) return;
+            const desc = document.getElementById('profileDescriptionInput').value;
+            setUserDescription(currentUser.login, desc);
+        }
+
+        function uploadAvatar(event) {
+            const file = event.target.files[0];
+            if (!file || !currentUser) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = e.target.result;
+                setUserAvatar(currentUser.login, data);
+                document.getElementById('profileAvatar').src = data;
+                document.getElementById('profileAvatar').style.display = 'block';
+                document.getElementById('avatarPlaceholder').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function deleteAccount() {
+            if (!currentUser) return;
+            if (confirm(`Удалить аккаунт ${currentUser.login}?`)) {
+                if (deleteUser(currentUser.login)) { alert('Аккаунт удалён');
+                    logout();
+                    closeProfile(); }
+            }
+        }
+
+        // ============================================================
+        //  ПРОДАЖА
+        // ============================================================
+        function openModal() {
+            if (!currentUser) { alert('Войдите в аккаунт'); return; }
+            document.getElementById('sellModal').classList.add('open');
+        }
+
+        function closeSellModal() { document.getElementById('sellModal').classList.remove('open'); }
+
+        function publishLot() {
+            if (!currentUser) return;
+            const name = document.getElementById('sellName').value.trim();
+            const game = document.getElementById('sellGame').value;
+            const price = parseInt(document.getElementById('sellPrice').value);
+            const desc = document.getElementById('sellDesc').value.trim();
+            const discount = parseInt(document.getElementById('sellDiscount').value) || 0;
+            const guarantee = document.getElementById('sellGuarantee').checked;
+            if (!name || !price) { alert('Заполните название и цену'); return; }
+            const newId = catalog.length ? Math.max(...catalog.map(i => i.id)) + 1 : 1;
+            catalog.push({
+                id: newId,
+                name,
+                game,
+                price,
+                desc: desc || 'Без описания',
+                qty: 1,
+                discount,
+                seller: currentUser.login,
+                status: 'active',
+                guarantee: guarantee
+            });
+            renderCatalog(catalog);
+            closeSellModal();
+            addSystemMessage(currentUser.login, `📦 Выставил на продажу: ${name} (${game}) за ${price} ₽`);
+            alert('✅ Товар опубликован!');
+            document.getElementById('sellName').value = '';
+            document.getElementById('sellPrice').value = '';
+            document.getElementById('sellDesc').value = '';
+            document.getElementById('sellDiscount').value = '0';
+            document.getElementById('sellGuarantee').checked = true;
+            updateUI();
+        }
+
+        // ============================================================
+        //  ТОП ПРОДАВЦОВ
+        // ============================================================
+        function renderTopSellers() {
+            const container = document.getElementById('topSellersList');
+            const users = getUsers();
+            const sellers = Object.keys(users).filter(u => catalog.some(item => item.seller === u));
+            const sorted = sellers.map(u => {
+                const lots = catalog.filter(item => item.seller === u);
+                const totalSales = lots.reduce((sum, item) => sum + item.price, 0);
+                const ratingData = getUserRating(u);
+                return { login: u, totalSales, rating: ratingData.rating, count: ratingData.count, lots: lots
+                    .length };
+            }).sort((a, b) => b.totalSales - a.totalSales || b.rating - a.rating);
+            if (sorted.length === 0) { container.innerHTML =
+                '<p style="color:var(--text-muted);font-size:12px;">Нет продавцов</p>'; return; }
+            container.innerHTML = sorted.slice(0, 5).map((s, idx) => `
+                    <div class="top-seller">
+                        <span class="rank">${idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '🏅'}</span>
+                        <span class="name" onclick="openProfile('${s.login}')">${s.login}</span>
+                        <span class="stars">⭐ ${s.rating.toFixed(1)}</span>
+                        <span style="color:var(--text-muted);font-size:10px;">₽${s.totalSales}</span>
+                    </div>
+                `).join('');
+        }
+
+        // ============================================================
+        //  СПОРЫ И ПОДДЕРЖКА
+        // ============================================================
+        function renderDisputes() {
+            const container = document.getElementById('disputesList');
+            document.getElementById('disputeCount').textContent = disputes.filter(d => d.status === 'open').length;
+            if (disputes.length === 0) { container.innerHTML =
+                '<p style="color:var(--text-muted);font-size:12px;">Нет активных споров</p>'; return; }
+            container.innerHTML = disputes.map(d => `
+                    <div class="dispute-item">
+                        <div class="dispute-header"><span>#${d.id}</span><span class="dispute-status ${d.status}">${d.status === 'open' ? '🟡 Открыт' : d.status === 'resolved' ? '✅ Решён' : '🔴 Закрыт'}</span></div>
+                        <div class="dispute-title">${d.title}</div>
+                        <div style="font-size:11px;color:var(--text-muted);">${d.author} | ${d.date}</div>
+                    </div>
+                `).join('');
+        }
+
+        function openSupport() {
+            if (!currentUser) { alert('Войдите в аккаунт'); return; }
+            document.getElementById('supportModal').classList.add('open');
+            renderSupportTickets();
+        }
+
+        function closeSupport() { document.getElementById('supportModal').classList.remove('open'); }
+
+        function createSupportTicket() {
+            if (!currentUser) return;
+            const subject = document.getElementById('supportSubject').value.trim();
+            const message = document.getElementById('supportMessage').value.trim();
+            if (!subject || !message) { alert('Заполните все поля'); return; }
+            supportTickets.push({
+                id: nextTicketId++,
+                subject: subject,
+                message: message,
+                author: currentUser.login,
+                date: new Date().toLocaleString(),
+                status: 'open',
+                link: document.getElementById('supportLink').value || ''
+            });
+            disputes.push({
+                id: nextDisputeId++,
+                title: subject,
+                author: currentUser.login,
+                date: new Date().toLocaleString(),
+                status: 'open'
+            });
+            document.getElementById('supportSubject').value = '';
+            document.getElementById('supportMessage').value = '';
+            document.getElementById('supportLink').value = '';
+            addSystemMessage(currentUser.login, `⚖️ Открыл спор: ${subject}`);
+            renderSupportTickets();
+            renderDisputes();
+            alert('✅ Обращение создано!');
+        }
+
+        function renderSupportTickets() {
+            const container = document.getElementById('supportTicketsList');
+            if (supportTickets.length === 0) { container.innerHTML =
+                '<p style="color:var(--text-muted);font-size:12px;">Нет обращений</p>'; return; }
+            container.innerHTML = supportTickets.map(t => `
+                    <div style="background:var(--bg-card);border-radius:8px;padding:8px 12px;margin-bottom:4px;border-left:3px solid ${t.status === 'open' ? '#ffc107' : '#4caf50'};font-size:12px;">
+                        <div style="display:flex;justify-content:space-between;">
+                            <strong>${t.subject}</strong>
+                            <span style="color:var(--text-muted);">${t.status === 'open' ? '🟡 Ожидает' : '✅ Решено'}</span>
+                        </div>
+                        <div style="color:var(--text-muted);font-size:11px;">${t.author} | ${t.date}</div>
+                    </div>
+                `).join('');
+        }
+
+        // ============================================================
+        //  СООБЩЕНИЯ (ДИНАМИЧЕСКИЕ)
+        // ============================================================
+        function renderMessages() {
+            const container = document.getElementById('messagesList');
+            const users = getUsers();
+            const messages = [];
+
+            // Системные сообщения из localStorage
+            const saved = JSON.parse(localStorage.getItem('skymarket_system_messages')) || [];
+            saved.forEach(s => {
+                messages.push({
+                    user: s.user || 'System',
+                    preview: s.preview,
+                    time: s.time || 'недавно',
+                    type: 'system'
+                });
+            });
+
+            // Отзывы
+            for (const [login, data] of Object.entries(users)) {
+                if (data.reviews) {
+                    data.reviews.forEach(r => {
+                        messages.push({
+                            user: r.from,
+                            preview: `📝 Отзыв для ${login}: "${r.text}" (${r.rating}★)`,
+                            time: r.date || 'недавно',
+                            type: 'review'
+                        });
+                    });
+                }
+                // Транзакции
+                if (data.transactions) {
+                    data.transactions.forEach(t => {
+                        messages.push({
+                            user: login,
+                            preview: `💰 ${t.type}: ${t.amount} ₽ — ${t.desc || ''}`,
+                            time: t.date || 'недавно',
+                            type: 'transaction'
+                        });
+                    });
+                }
+            }
+
+            // Лоты продавцов
+            catalog.forEach(item => {
+                if (item.seller && item.seller !== 'demo') {
+                    messages.push({
+                        user: item.seller,
+                        preview: `📦 ${item.name} (${item.game}) — ${item.price} ₽`,
+                        time: 'активно',
+                        type: 'listing'
+                    });
+                }
+            });
+
+            // Споры
+            disputes.forEach(d => {
+                messages.push({
+                    user: d.author,
+                    preview: `⚖️ Спор #${d.id}: ${d.title} (${d.status === 'open' ? '🟡 открыт' : '✅ закрыт'})`,
+                    time: d.date || 'недавно',
+                    type: 'dispute'
+                });
+            });
+
+            if (messages.length === 0) {
+                messages.push({
+                    user: 'System',
+                    preview: '📭 Сообщений пока нет',
+                    time: 'сейчас',
+                    type: 'system'
+                });
+            }
+
+            messages.sort((a, b) => {
+                const dateA = a.time === 'сейчас' || a.time === 'недавно' || a.time === 'активно' ? Date.now() :
+                    new Date(a.time).getTime();
+                const dateB = b.time === 'сейчас' || b.time === 'недавно' || b.time === 'активно' ? Date.now() :
+                    new Date(b.time).getTime();
+                return dateB - dateA;
+            });
+
+            container.innerHTML = messages.slice(0, 50).map(m => `
+                    <div class="msg-item" onclick="openChatWith('${m.user}')">
+                        <div class="msg-avatar">${m.user.charAt(0).toUpperCase()}</div>
+                        <div class="msg-info">
+                            <div class="msg-name">${m.user}</div>
+                            <div class="msg-preview">${m.preview}</div>
+                        </div>
+                        <div class="msg-time">${m.time}</div>
+                    </div>
+                `).join('');
+        }
+
+        function addSystemMessage(user, preview, time) {
+            const saved = JSON.parse(localStorage.getItem('skymarket_system_messages')) || [];
+            saved.push({
+                user: user || 'System',
+                preview: preview,
+                time: time || new Date().toLocaleString()
+            });
+            localStorage.setItem('skymarket_system_messages', JSON.stringify(saved));
+            if (document.getElementById('page-messages').classList.contains('active')) {
+                renderMessages();
+            }
+        }
+
+        function openChatWith(user) {
+            alert(`💬 Открыт диалог с ${user}\n\n(Здесь будет ваш чат с этим пользователем)`);
+        }
+
+        // ============================================================
+        //  ПРОДАЖИ
+        // ============================================================
+        function renderSales() {
+            const users = getUsers();
+            const userData = currentUser ? users[currentUser.login] : null;
+            const statsContainer = document.getElementById('salesStats');
+            const detailContainer = document.getElementById('salesDetail');
+
+            const sales = userData ? (userData.sales || 0) : 0;
+            const closed = userData ? (userData.closedSales || 0) : 0;
+            const buyers = userData ? (userData.uniqueBuyers || 0) : 0;
+            const earned = userData ? (userData.totalEarned || 0) : 0;
+            const balance = userData ? (userData.balance || 0) : 0;
+            const transactions = userData ? (userData.transactions || []) : [];
+
+            statsContainer.innerHTML = `
+                    <div class="stat-card"><div class="stat-value">${sales}</div><div class="stat-label">📦 Всего заказов</div></div>
+                    <div class="stat-card"><div class="stat-value">${closed}</div><div class="stat-label">✅ Закрыто</div></div>
+                    <div class="stat-card"><div class="stat-value">${buyers}</div><div class="stat-label">👤 Уникальных покупателей</div></div>
+                    <div class="stat-card"><div class="stat-value" style="color:var(--gold);">${earned} ₽</div><div class="stat-label">💰 Заработано</div></div>
+                    <div class="stat-card"><div class="stat-value" style="color:var(--green);">${balance} ₽</div><div class="stat-label">💳 Баланс</div></div>
+                `;
+
+            detailContainer.innerHTML = `
+                    <div class="stat-row"><span class="label">Средний чек</span><span class="value">${closed > 0 ? (earned / closed).toFixed(2) : 0} ₽</span></div>
+                    <div class="stat-row"><span class="label">Самый активный покупатель</span><span class="value">zibert34</span></div>
+                    <div class="stat-row"><span class="label">Самая дорогая продажа</span><span class="value">350 ₽</span></div>
+                    <div class="stat-row"><span class="label">Статус</span><span class="value green">🟢 Активен</span></div>
+                    <div style="margin-top:10px;font-size:12px;color:var(--text-muted);">* Данные обновляются автоматически</div>
+                `;
+        }
+
+        // ============================================================
+        //  ФИНАНСЫ
+        // ============================================================
+        function renderFinance() {
+            const users = getUsers();
+            const userData = currentUser ? users[currentUser.login] : null;
+            const statsContainer = document.getElementById('financeStats');
+            const historyContainer = document.getElementById('transactionHistory');
+
+            const balance = userData ? (userData.balance || 0) : 0;
+            const transactions = userData ? (userData.transactions || []) : [];
+            const earned = userData ? (userData.totalEarned || 0) : 0;
+
+            statsContainer.innerHTML = `
+                    <div class="stat-card"><div class="stat-value" style="color:var(--gold);">${balance} ₽</div><div class="stat-label">💰 Текущий баланс</div></div>
+                    <div class="stat-card"><div class="stat-value">${earned} ₽</div><div class="stat-label">📈 Всего заработано</div></div>
+                    <div class="stat-card"><div class="stat-value">${transactions.length}</div><div class="stat-label">📋 Транзакций</div></div>
+                `;
+
+            if (transactions.length === 0) {
+                historyContainer.innerHTML =
+                '<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">История транзакций пуста</p>';
+            } else {
+                historyContainer.innerHTML = transactions.slice().reverse().map(t => `
+                        <div class="stat-row">
+                            <span class="label">${t.date} — ${t.desc || 'Без описания'}</span>
+                            <span class="value ${t.amount >= 0 ? 'green' : 'red'}">${t.amount >= 0 ? '+' : ''}${t.amount} ₽</span>
+                        </div>
+                    `).join('');
+            }
+        }
+
+        // ============================================================
+        //  ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+        // ============================================================
+        function switchPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-bar a').forEach(a => a.classList.remove('active'));
+            const targetPage = document.getElementById('page-' + page);
+            if (targetPage) targetPage.classList.add('active');
+            document.querySelector(`.nav-bar a[data-page="${page}"]`)?.classList.add('active');
+
+            if (page === 'messages') renderMessages();
+            if (page === 'sales') renderSales();
+            if (page === 'finance') renderFinance();
+        }
+
+        // ============================================================
+        //  КАЗИНО SKYMARKET
+        // ============================================================
+        function openCasino() {
+            if (!currentUser) { alert('Войдите в аккаунт'); return; }
+            document.getElementById('casinoModal').classList.add('open');
+            document.getElementById('slotResult').textContent = '';
+            document.getElementById('slotResult').className = 'slot-result';
+            updateSlotUI();
+        }
+
+        function closeCasino() {
+            document.getElementById('casinoModal').classList.remove('open');
+        }
+
+        function updateSlotUI() {
+            document.getElementById('slotBonus').textContent = slotBonus;
+            document.getElementById('slotWins').textContent = slotWins;
+        }
+
+        function spinSlot() {
+            const reelEls = [
+                document.getElementById('reel1'),
+                document.getElementById('reel2'),
+                document.getElementById('reel3'),
+                document.getElementById('reel4'),
+                document.getElementById('reel5')
+            ];
+            const symbols = ['🍌', '🍇', '🍉', '🔔', '7️⃣', '🍒', '🍊', '💎'];
+            const result = document.getElementById('slotResult');
+            result.textContent = '🎰 Крутим...';
+            result.className = 'slot-result';
+
+            reelEls.forEach(el => el.classList.add('spinning'));
+
+            setTimeout(() => {
+                reelEls.forEach(el => el.classList.remove('spinning'));
+                const results = reelEls.map(() => symbols[Math.floor(Math.random() * symbols.length)]);
+                reelEls.forEach((el, i) => el.textContent = results[i]);
+
+                const win = results.every(r => r === results[0]);
+                if (win) {
+                    const winAmount = Math.floor(Math.random() * 50) + 10;
+                    slotWins++;
+                    slotBonus += winAmount;
+                    result.textContent = `🎉 ВЫИГРЫШ! +${winAmount} ₽ БОНУСА! 🎉`;
+                    result.className = 'slot-result win';
+                    reelEls.forEach(el => el.classList.add('win'));
+                    updateUserBalance(currentUser.login, winAmount);
+                    const users = getUsers();
+                    if (users[currentUser.login]) {
+                        users[currentUser.login].transactions = users[currentUser.login].transactions || [];
+                        users[currentUser.login].transactions.push({
+                            type: 'Бонус казино',
+                            amount: winAmount,
+                            date: new Date().toLocaleString(),
+                            desc: 'Выигрыш в SkyMarket Casino 🎰'
+                        });
+                        saveUsers(users);
+                    }
+                    updateUI();
+                } else {
+                    const checkCounts = {};
+                    results.forEach(r => { checkCounts[r] = (checkCounts[r] || 0) + 1; });
+                    let maxCount = 0;
+                    let bestSymbol = '';
+                    for (const [sym, count] of Object.entries(checkCounts)) {
+                        if (count > maxCount) { maxCount = count;
+                            bestSymbol = sym; }
+                    }
+                    if (maxCount >= 3) {
+                        const smallBonus = Math.floor(Math.random() * 15) + 5;
+                        slotBonus += smallBonus;
+                        result.textContent = `😎 ${maxCount} × ${bestSymbol} — бонус +${smallBonus} ₽`;
+                        result.className = 'slot-result win';
+                        updateUserBalance(currentUser.login, smallBonus);
+                        const users = getUsers();
+                        if (users[currentUser.login]) {
+                            users[currentUser.login].transactions = users[currentUser.login].transactions || [];
+                            users[currentUser.login].transactions.push({
+                                type: 'Бонус казино',
+                                amount: smallBonus,
+                                date: new Date().toLocaleString(),
+                                desc: `${maxCount} × ${bestSymbol} в SkyMarket Casino 🎰`
+                            });
+                            saveUsers(users);
+                        }
+                        updateUI();
+                    } else {
+                        result.textContent = '😔 Попробуй ещё раз! Удача рядом!';
+                        result.className = 'slot-result lose';
+                        reelEls.forEach(el => el.classList.add('lose'));
+                        setTimeout(() => {
+                            reelEls.forEach(el => el.classList.remove('lose'));
+                        }, 1000);
+                    }
+                }
+                updateSlotUI();
+                setTimeout(() => {
+                    reelEls.forEach(el => el.classList.remove('win', 'lose'));
+                }, 3000);
+            }, 800);
+        }
+
+        // ============================================================
+        //  UI ОБНОВЛЕНИЕ
+        // ============================================================
+        function updateUI() {
+            const guest = document.getElementById('guestButtons');
+            const user = document.getElementById('userButtons');
+            const name = document.getElementById('userNameDisplay');
+            const status = document.getElementById('chatUserStatus');
+            const avatar = document.getElementById('userAvatarSmall');
+            const balanceEl = document.getElementById('headerBalance');
+            const navBalance = document.getElementById('navBalance');
+
+            if (currentUser) {
+                guest.style.display = 'none';
+                user.style.display = 'flex';
+                name.textContent = currentUser.login;
+                avatar.textContent = currentUser.login.charAt(0).toUpperCase();
+                status.textContent = '(' + currentUser.login + ')';
+                const users = getUsers();
+                if (users[currentUser.login]) {
+                    users[currentUser.login].status = 'online';
+                    const bal = users[currentUser.login].balance || 0;
+                    balanceEl.textContent = bal + ' ₽';
+                    navBalance.textContent = 'Баланс: ' + bal + ' ₽';
+                    saveUsers(users);
+                }
+            } else {
+                guest.style.display = 'flex';
+                user.style.display = 'none';
+                status.textContent = '(гость)';
+                balanceEl.textContent = '0 ₽';
+                navBalance.textContent = 'Баланс: 0 ₽';
+            }
+            renderCatalog(catalog);
+            updateCartUI();
+            renderChat();
+            renderTopSellers();
+            renderDisputes();
+            renderSupportTickets();
+            updateStats();
+        }
+
+        function updateStats() {
+            const online = Object.keys(getUsers()).filter(u => getUsers()[u].status === 'online').length;
+            document.getElementById('onlineUsers').textContent = online || 0;
+            const activeItems = catalog.filter(item => item.status === 'active').length;
+        }
+
+        // ============================================================
+        //  ИНИЦИАЛИЗАЦИЯ
+        // ============================================================
+        const session = loadSession();
+        if (session) {
+            const users = getUsers();
+            if (users[session.login]) { currentUser = session; } else { clearSession(); }
+        }
+
+        chatMessages.push({
+            user: 'System',
+            text: '🚀 Добро пожаловать в SkyMarket PRO! Все сделки защищены гарантом. Кидай фото, видео и голосовые!',
+            time: new Date().toLocaleTimeString(),
+            self: false,
+            system: true
+        });
+
+        updateUI();
+        console.log('🚀 SkyMarket PRO с казино, сообщениями, продажами и финансами загружен!');
+    </script>
+
 </body>
 </html>
