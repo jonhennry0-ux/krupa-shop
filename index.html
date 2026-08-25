@@ -2109,34 +2109,8 @@
             total.textContent = sum;
         }
 
-        function checkout() {
-            if (!currentUser) { alert('Войдите в аккаунт'); return; }
-            if (cart.length === 0) { alert('Корзина пуста'); return; }
-            const total = cart.reduce((acc, i) => acc + (i.discount > 0 ? Math.round(i.price * (1 - i.discount / 100)) : i
-                .price) * i.qty, 0);
-            if (confirm(`Оформить заказ на ₽${total} через гаранта?`)) {
-                alert('✅ Заказ оформлен! Свяжитесь с продавцом в чате.');
-                addSystemMessage(currentUser.login, `🛒 Купил: ${cart.map(i => i.name).join(', ')} на ${total} ₽`);
-                const users = getUsers();
-                if (users[currentUser.login]) {
-                    users[currentUser.login].transactions = users[currentUser.login].transactions || [];
-                    users[currentUser.login].transactions.push({
-                        type: 'Покупка',
-                        amount: -total,
-                        date: new Date().toLocaleString(),
-                        desc: cart.map(i => i.name).join(', ')
-                    });
-                    users[currentUser.login].balance = (users[currentUser.login].balance || 0) - total;
-                    saveUsers(users);
-                }
-                cart = [];
-                updateCartUI();
-                updateUI();
-            }
-        }
-
         // ============================================================
-        //  ГОЛОСОВЫЕ СООБЩЕНИЯ (MediaRecorder)
+        //  ГОЛОСОВЫЕ СООБЩЕНИЯ (исправлено через Blob URL)
         // ============================================================
         let mediaRecorder = null;
         let audioChunks = [];
@@ -2157,14 +2131,10 @@
 
                     mediaRecorder.onstop = () => {
                         const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const data = e.target.result;
-                            const html =
-                                `<audio controls src="${data}" style="width:100%;max-width:200px;border-radius:8px;"></audio>`;
-                            sendMessage('🎤 Голосовое', html);
-                        };
-                        reader.readAsDataURL(audioBlob);
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        const html =
+                            `<audio controls src="${audioUrl}" style="width:100%;max-width:220px;border-radius:8px;background:var(--bg-primary);"></audio>`;
+                        sendMessage('🎤 Голосовое', html);
                         stream.getTracks().forEach(track => track.stop());
                         const voiceBtn = document.getElementById('voiceBtn');
                         if (voiceBtn) {
@@ -2185,7 +2155,7 @@
                     }
                 })
                 .catch(err => {
-                    alert('❌ Доступ к микрофону запрещён или не поддерживается: ' + err.message);
+                    alert('❌ Доступ к микрофону запрещён: ' + err.message);
                 });
         }
 
@@ -2200,14 +2170,10 @@
             const file = event.target.files[0];
             if (!file) return;
             if (file.size > 5 * 1024 * 1024) { alert('Голосовое слишком большое (макс. 5 МБ)'); return; }
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const data = e.target.result;
-                const html =
-                    `<audio controls src="${data}" style="width:100%;max-width:200px;border-radius:8px;"></audio>`;
-                sendMessage('🎤 Голосовое (файл)', html);
-            };
-            reader.readAsDataURL(file);
+            const audioUrl = URL.createObjectURL(file);
+            const html =
+                `<audio controls src="${audioUrl}" style="width:100%;max-width:220px;border-radius:8px;background:var(--bg-primary);"></audio>`;
+            sendMessage('🎤 Голосовое (файл)', html);
             event.target.value = '';
         }
 
