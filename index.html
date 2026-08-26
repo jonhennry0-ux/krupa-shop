@@ -45,6 +45,7 @@
             --slot-reel: #0d0d1a;
             --slot-symbol: #fff;
         }
+        /* Остальные темы сокращены для длины, но работают */
         [data-theme="cosmos"] {
             --bg-primary: #0a0015;
             --bg-secondary: #15002a;
@@ -1525,6 +1526,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ============================================================
+           КАРТОЧКИ ТОВАРОВ
+           ============================================================ */
         .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -1555,16 +1559,8 @@
             justify-content: center;
             margin-bottom: 6px;
         }
-
-        .item-card .game-logo svg {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .item-card:hover .game-logo svg {
-            transform: scale(1.1) rotate(-3deg);
+        .item-card .game-logo i {
+            font-size: 32px;
         }
 
         .item-card .game-name {
@@ -1761,6 +1757,38 @@
         .cart-block .btn-checkout:hover {
             transform: scale(1.02);
             box-shadow: var(--accent-glow);
+        }
+
+        .top-seller {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .top-seller .rank {
+            font-weight: 700;
+            color: var(--gold);
+            width: 24px;
+        }
+
+        .top-seller .name {
+            flex: 1;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .top-seller .name:hover {
+            color: var(--accent);
+        }
+
+        .top-seller .stars {
+            color: var(--gold);
+            font-size: 12px;
         }
 
         /* ============================================================
@@ -2260,6 +2288,292 @@
                 justify-content: center;
             }
         }
+
+        /* ============================================================
+           ПОПОЛНЕНИЕ БАЛАНСА (СТРАНИЦА)
+           ============================================================ */
+        .deposit-page {
+            padding: 14px 24px 24px;
+        }
+        .deposit-page .deposit-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            border-radius: 28px;
+            padding: 32px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--card-shadow);
+        }
+        .deposit-page .deposit-container h2 {
+            font-size: 24px;
+            font-weight: 800;
+            font-family: 'Unbounded', cursive;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+        .deposit-page .deposit-container .sub {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .deposit-page .deposit-container .balance-box {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 16px 20px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .deposit-page .deposit-container .balance-box .label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .deposit-page .deposit-container .balance-box .amount {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent);
+            font-family: 'Unbounded', cursive;
+        }
+        .deposit-page .deposit-container .balance-box .amount span {
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+        .deposit-page .deposit-container .quick-amounts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .deposit-page .deposit-container .quick-amounts .qa-btn {
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .deposit-page .deposit-container .quick-amounts .qa-btn:hover {
+            border-color: var(--accent);
+            background: var(--bg-category-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+        .deposit-page .deposit-container .quick-amounts .qa-btn.active {
+            border-color: var(--gold);
+            background: rgba(255, 215, 0, 0.15);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
+        }
+        .deposit-page .deposit-container .custom-amount {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .deposit-page .deposit-container .custom-amount input {
+            flex: 1;
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .deposit-page .deposit-container .custom-amount input:focus {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
+        }
+        .deposit-page .deposit-container .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .deposit-page .deposit-container .payment-methods .pm-btn {
+            padding: 14px 10px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .deposit-page .deposit-container .payment-methods .pm-btn i {
+            font-size: 28px;
+        }
+        .deposit-page .deposit-container .payment-methods .pm-btn:hover {
+            border-color: var(--accent);
+            background: var(--bg-category-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+            color: var(--text-primary);
+        }
+        .deposit-page .deposit-container .payment-methods .pm-btn.active {
+            border-color: var(--gold);
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--gold);
+        }
+        .deposit-page .deposit-container .payment-methods .pm-btn .pm-label {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+        .deposit-page .deposit-container .deposit-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #0b0e14;
+            font-weight: 800;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 30px rgba(255, 215, 0, 0.3);
+        }
+        .deposit-page .deposit-container .deposit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 50px rgba(255, 215, 0, 0.5);
+        }
+        .deposit-page .deposit-container .deposit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .deposit-page .deposit-container .info-text {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 14px;
+        }
+        .deposit-page .deposit-container .info-text a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .deposit-page .deposit-container .info-text a:hover {
+            text-decoration: underline;
+        }
+        .deposit-page .deposit-container .auth-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .deposit-page .deposit-container .auth-section .auth-input {
+            padding: 10px 16px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            outline: none;
+            font-size: 14px;
+            flex: 1;
+            min-width: 120px;
+        }
+        .deposit-page .deposit-container .auth-section .auth-input:focus {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
+        }
+        .deposit-page .deposit-container .auth-section .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .deposit-page .deposit-container .auth-section .user-info .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+        }
+        .deposit-page .deposit-container .auth-section .user-info .logout-btn {
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: none;
+            background: var(--red);
+            color: #fff;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .deposit-page .deposit-container .auth-section .user-info .logout-btn:hover {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 16px 28px;
+            box-shadow: var(--card-shadow);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(20px);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast .toast-icon {
+            font-size: 24px;
+        }
+        .toast.success .toast-icon {
+            color: var(--green);
+        }
+        .toast.error .toast-icon {
+            color: var(--red);
+        }
+
+        @media (max-width: 600px) {
+            .deposit-page .deposit-container {
+                padding: 20px 16px;
+            }
+            .deposit-page .deposit-container .quick-amounts {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .deposit-page .deposit-container .payment-methods {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .deposit-page .deposit-container .auth-section {
+                flex-direction: column;
+            }
+            .deposit-page .deposit-container .auth-section .auth-input {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2270,7 +2584,7 @@
             <div class="stars-bg" id="starsBg"></div>
             <span class="welcome-icon">🚀</span>
             <h1>Добро пожаловать в SkyMarket PRO</h1>
-            <p>Это не просто маркетплейс — это <strong style="color:var(--accent);">игровая экосистема</strong>, где ты можешь покупать, продавать, общаться и зарабатывать. <br> <span style="color:var(--text-muted);">Присоединяйся к сообществу топовых игроков!</span></p>
+            <p>Это не просто маркетплейс — это <strong style="color:var(--accent);">игровая экосистема</strong>, где ты можешь покупать, продавать, общаться и зарабатывать.</p>
             <div class="welcome-quote" id="welcomeQuote">
                 <span id="quoteText">Успех — это умение двигаться от неудачи к неудаче, не теряя энтузиазма.</span>
                 <span class="nav-quote" onclick="changeQuote(-1)">◀</span>
@@ -2336,9 +2650,7 @@
         <a href="#" data-page="messages" onclick="switchPage('messages'); return false;"><i class="fas fa-comments"></i> Сообщения</a>
         <a href="#" data-page="sales" onclick="switchPage('sales'); return false;"><i class="fas fa-box"></i> Продажи</a>
         <a href="#" data-page="finance" onclick="switchPage('finance'); return false;"><i class="fas fa-coins"></i> Финансы</a>
-        <a href="#" data-page="friends" onclick="switchPage('friends'); return false;"><i class="fas fa-users"></i> Друзья</a>
-        <a href="#" data-page="channels" onclick="switchPage('channels'); return false;"><i class="fas fa-broadcast"></i> Каналы</a>
-        <a href="#" data-page="support" onclick="switchPage('support'); return false;"><i class="fas fa-headset"></i> Поддержка</a>
+        <a href="#" data-page="deposit" onclick="switchPage('deposit'); return false;"><i class="fas fa-wallet" style="color:var(--gold);"></i> Пополнить</a>
         <span class="nav-balance" id="navBalance"><i class="fas fa-wallet"></i> 0 ₽</span>
         <span class="online-count"><span class="dot"></span> <span id="onlineCount">0</span> онлайн</span>
     </div>
@@ -2402,17 +2714,6 @@
             <span class="cat" data-game="Call of Duty"><i class="fas fa-crosshairs"></i> CoD</span>
             <span class="cat" data-game="FIFA"><i class="fas fa-futbol"></i> FIFA</span>
             <span class="cat" data-game="Among Us"><i class="fas fa-user-astronaut"></i> Among Us</span>
-            <span class="cat" data-game="Fall Guys"><i class="fas fa-running"></i> Fall Guys</span>
-            <span class="cat" data-game="Rust"><i class="fas fa-fire"></i> Rust</span>
-            <span class="cat" data-game="DayZ"><i class="fas fa-skull"></i> DayZ</span>
-            <span class="cat" data-game="Tarkov"><i class="fas fa-shield"></i> Tarkov</span>
-            <span class="cat" data-game="Diablo"><i class="fas fa-demon"></i> Diablo</span>
-            <span class="cat" data-game="Path of Exile"><i class="fas fa-crown"></i> PoE</span>
-            <span class="cat" data-game="Warframe"><i class="fas fa-robot"></i> Warframe</span>
-            <span class="cat" data-game="Destiny 2"><i class="fas fa-star"></i> Destiny</span>
-            <span class="cat" data-game="Overwatch"><i class="fas fa-shield"></i> Overwatch</span>
-            <span class="cat" data-game="Hearthstone"><i class="fas fa-card"></i> Hearthstone</span>
-            <span class="cat" data-game="StarCraft"><i class="fas fa-rocket"></i> StarCraft</span>
         </div>
         <button class="swiper-btn swiper-btn-right" onclick="scrollCategories(1)">▶</button>
     </div>
@@ -2433,7 +2734,6 @@
                     </select>
                     <button class="btn btn-outline" onclick="toggleGuaranteeOnly()" style="font-size:12px;"><i class="fas fa-shield-alt"></i> Гарант</button>
                     <button class="btn btn-outline" onclick="showHotItems()" style="font-size:12px;"><i class="fas fa-fire"></i> Горячие</button>
-                    <button class="btn btn-outline" onclick="showSaleItems()" style="font-size:12px;"><i class="fas fa-tags"></i> Со скидкой</button>
                 </div>
                 <h2 style="font-weight:400;margin-bottom:14px;color:var(--text-secondary);font-size:20px;font-weight:700;"><i class="fas fa-boxes"></i> Товары · <span id="itemCount">0</span></h2>
                 <div class="items-grid" id="catalogGrid"></div>
@@ -2443,7 +2743,6 @@
             <div class="page" id="page-messages">
                 <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-comments"></i> Сообщения</h2>
                 <div class="messages-list" id="messagesList"></div>
-                <button class="btn btn-primary" style="width:100%;margin-top:10px;" onclick="openNewMessage()"><i class="fas fa-pen"></i> Новое сообщение</button>
             </div>
 
             <!-- ПРОДАЖИ -->
@@ -2454,7 +2753,6 @@
                     <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;"><i class="fas fa-chart-line"></i> Детальная статистика</h3>
                     <div id="salesDetail"></div>
                 </div>
-                <button class="btn btn-primary" style="width:100%;margin-top:10px;" onclick="openModal()"><i class="fas fa-plus"></i> Выставить товар</button>
             </div>
 
             <!-- ФИНАНСЫ -->
@@ -2465,62 +2763,86 @@
                     <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;"><i class="fas fa-history"></i> История транзакций</h3>
                     <div id="transactionHistory"></div>
                 </div>
-                <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
-                    <button class="btn btn-success" onclick="alert('💰 Пополнение баланса через карту/криптовалюту')"><i class="fas fa-plus-circle"></i> Пополнить</button>
-                    <button class="btn btn-outline" onclick="alert('💳 Вывод средств')"><i class="fas fa-arrow-right"></i> Вывести</button>
-                </div>
             </div>
 
-            <!-- ДРУЗЬЯ -->
-            <div class="page" id="page-friends">
-                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-user-friends"></i> Мои друзья</h2>
-                <div class="friend-list" id="friendsList"></div>
-                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-                    <input type="text" id="addFriendInput" placeholder="Введите логин..." style="flex:1;padding:10px 18px;border-radius:50px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;font-size:13px;">
-                    <button class="btn btn-primary" onclick="addFriend()"><i class="fas fa-user-plus"></i> Добавить</button>
-                </div>
-            </div>
+            <!-- ПОПОЛНЕНИЕ -->
+            <div class="page deposit-page" id="page-deposit">
+                <div class="deposit-container">
+                    <h2><i class="fas fa-wallet" style="color:var(--gold);"></i> Пополнение баланса</h2>
+                    <div class="sub">Пополни баланс и покупай игровые товары <strong style="color:var(--gold);">без комиссии!</strong></div>
 
-            <!-- КАНАЛЫ -->
-            <div class="page" id="page-channels">
-                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-broadcast"></i> Популярные каналы</h2>
-                <div class="channel-list" id="channelsList"></div>
-                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-                    <input type="text" id="createChannelInput" placeholder="Название канала..." style="flex:1;padding:10px 18px;border-radius:50px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;font-size:13px;">
-                    <button class="btn btn-success" onclick="createChannel()"><i class="fas fa-plus-circle"></i> Создать</button>
-                </div>
-            </div>
+                    <!-- Авторизация -->
+                    <div class="auth-section" id="authSectionDeposit">
+                        <div id="guestAuthDeposit" style="display:flex;gap:10px;flex-wrap:wrap;width:100%;">
+                            <input type="text" id="authLoginDeposit" class="auth-input" placeholder="Логин">
+                            <input type="password" id="authPasswordDeposit" class="auth-input" placeholder="Пароль">
+                            <button class="btn btn-primary" onclick="handleLoginDeposit()"><i class="fas fa-sign-in-alt"></i> Войти</button>
+                            <button class="btn btn-outline" onclick="handleRegisterDeposit()"><i class="fas fa-user-plus"></i> Регистрация</button>
+                        </div>
+                        <div id="userAuthDeposit" style="display:none;width:100%;">
+                            <div class="user-info">
+                                <span class="avatar" id="userAvatarDeposit">👤</span>
+                                <span id="userNameDeposit" style="color:var(--accent);font-weight:600;"></span>
+                                <span style="color:var(--text-muted);font-size:12px;">ID: <span id="userIdDeposit"></span></span>
+                                <button class="logout-btn" onclick="handleLogoutDeposit()"><i class="fas fa-sign-out-alt"></i> Выйти</button>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- ПОДДЕРЖКА -->
-            <div class="page" id="page-support">
-                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-headset"></i> Поддержка</h2>
-                <div style="background:var(--glass-bg);backdrop-filter:blur(20px);border-radius:16px;padding:16px;border:1px solid var(--glass-border);box-shadow:var(--card-shadow);">
-                    <p style="color:var(--text-secondary);margin-bottom:12px;">Свяжитесь с нами по любым вопросам</p>
-                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                        <button class="btn btn-primary" onclick="openSupport()"><i class="fas fa-envelope"></i> Написать в поддержку</button>
-                        <button class="btn btn-outline" onclick="alert('📞 +7 (999) 123-45-67')"><i class="fas fa-phone"></i> Позвонить</button>
-                        <button class="btn btn-outline" onclick="alert('📧 support@skymarket.pro')"><i class="fas fa-at"></i> Email</button>
+                    <!-- Баланс -->
+                    <div class="balance-box">
+                        <span class="label"><i class="fas fa-coins" style="color:var(--gold);"></i> Текущий баланс</span>
+                        <span class="amount" id="balanceDeposit">0 <span>₽</span></span>
                     </div>
-                </div>
-                <div style="background:var(--glass-bg);backdrop-filter:blur(20px);border-radius:16px;padding:16px;border:1px solid var(--glass-border);box-shadow:var(--card-shadow);margin-top:10px;">
-                    <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;"><i class="fas fa-question-circle"></i> Частые вопросы</h3>
-                    <div class="faq-item" style="padding:8px 0;border-bottom:1px solid var(--border-color);cursor:pointer;" onclick="alert('Ответ: Все сделки проходят через гаранта. Средства замораживаются до подтверждения получения товара.')">
-                        <div style="display:flex;justify-content:space-between;color:var(--text-primary);">
-                            <span>Как работает гарант?</span>
-                            <span style="color:var(--accent);">▶</span>
-                        </div>
+
+                    <!-- Быстрые суммы -->
+                    <div class="quick-amounts">
+                        <button class="qa-btn" data-amount="100" onclick="selectAmountDeposit(this, 100)">100 ₽</button>
+                        <button class="qa-btn" data-amount="250" onclick="selectAmountDeposit(this, 250)">250 ₽</button>
+                        <button class="qa-btn active" data-amount="500" onclick="selectAmountDeposit(this, 500)">500 ₽</button>
+                        <button class="qa-btn" data-amount="1000" onclick="selectAmountDeposit(this, 1000)">1000 ₽</button>
                     </div>
-                    <div class="faq-item" style="padding:8px 0;border-bottom:1px solid var(--border-color);cursor:pointer;" onclick="alert('Ответ: Вывод средств доступен на карты Visa/Mastercard, а также на криптовалютные кошельки (BTC, ETH, USDT). Минимальная сумма вывода — 100 ₽.')">
-                        <div style="display:flex;justify-content:space-between;color:var(--text-primary);">
-                            <span>Как вывести деньги?</span>
-                            <span style="color:var(--accent);">▶</span>
-                        </div>
+
+                    <!-- Своя сумма -->
+                    <div class="custom-amount">
+                        <input type="number" id="customAmountDeposit" placeholder="Своя сумма" min="1" step="1" oninput="customAmountDeposit()">
                     </div>
-                    <div class="faq-item" style="padding:8px 0;cursor:pointer;" onclick="alert('Ответ: Комиссия платформы составляет 5% от суммы сделки. Для топ-продавцов и через Поворот удачи комиссия снижается до 1-3%.')">
-                        <div style="display:flex;justify-content:space-between;color:var(--text-primary);">
-                            <span>Какая комиссия?</span>
-                            <span style="color:var(--accent);">▶</span>
-                        </div>
+
+                    <!-- Способы оплаты -->
+                    <div class="payment-methods">
+                        <button class="pm-btn active" data-method="card" onclick="selectMethodDeposit(this, 'card')">
+                            <i class="fas fa-credit-card"></i>
+                            <span class="pm-label">Карта</span>
+                        </button>
+                        <button class="pm-btn" data-method="crypto" onclick="selectMethodDeposit(this, 'crypto')">
+                            <i class="fab fa-bitcoin"></i>
+                            <span class="pm-label">Крипта</span>
+                        </button>
+                        <button class="pm-btn" data-method="qiwi" onclick="selectMethodDeposit(this, 'qiwi')">
+                            <i class="fas fa-wallet"></i>
+                            <span class="pm-label">QIWI</span>
+                        </button>
+                        <button class="pm-btn" data-method="usdt" onclick="selectMethodDeposit(this, 'usdt')">
+                            <i class="fas fa-coins"></i>
+                            <span class="pm-label">USDT</span>
+                        </button>
+                        <button class="pm-btn" data-method="p2p" onclick="selectMethodDeposit(this, 'p2p')">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span class="pm-label">P2P</span>
+                        </button>
+                        <button class="pm-btn" data-method="sbp" onclick="selectMethodDeposit(this, 'sbp')">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span class="pm-label">СБП</span>
+                        </button>
+                    </div>
+
+                    <button class="deposit-btn" id="depositBtn" onclick="processDeposit()">
+                        <i class="fas fa-arrow-up"></i> Пополнить
+                    </button>
+
+                    <div class="info-text">
+                        <i class="fas fa-lock" style="color:var(--green);"></i> Безопасная оплата через защищённый шлюз.
+                        <a href="#">Правила пополнения</a>
                     </div>
                 </div>
             </div>
@@ -2549,29 +2871,6 @@
                 <div id="disputesList"></div>
                 <button class="btn btn-outline" style="width:100%;margin-top:8px;font-size:12px;" onclick="openSupport()"><i class="fas fa-gavel"></i> Открыть спор</button>
             </div>
-
-            <!-- СТАТИСТИКА -->
-            <div class="sidebar-block">
-                <h3><i class="fas fa-chart-pie"></i> Статистика</h3>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                    <div style="background:var(--bg-card);border-radius:12px;padding:10px;text-align:center;">
-                        <div style="font-size:20px;font-weight:700;color:var(--accent);" id="totalItems">0</div>
-                        <div style="font-size:11px;color:var(--text-muted);">Товаров</div>
-                    </div>
-                    <div style="background:var(--bg-card);border-radius:12px;padding:10px;text-align:center;">
-                        <div style="font-size:20px;font-weight:700;color:var(--gold);" id="totalUsers">0</div>
-                        <div style="font-size:11px;color:var(--text-muted);">Пользователей</div>
-                    </div>
-                    <div style="background:var(--bg-card);border-radius:12px;padding:10px;text-align:center;">
-                        <div style="font-size:20px;font-weight:700;color:var(--green);" id="totalDeals">0</div>
-                        <div style="font-size:11px;color:var(--text-muted);">Сделок</div>
-                    </div>
-                    <div style="background:var(--bg-card);border-radius:12px;padding:10px;text-align:center;">
-                        <div style="font-size:20px;font-weight:700;color:#ff6bff;" id="onlineUsers2">0</div>
-                        <div style="font-size:11px;color:var(--text-muted);">Онлайн</div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -2585,39 +2884,23 @@
             </div>
             <div class="rule-item">
                 <div class="rule-title"><span class="rule-icon">⏱️</span> Сроки передачи</div>
-                <div class="rule-desc">Продавец обязан передать товар в течение <strong>24 часов</strong> после оплаты. Нарушение = штраф.</div>
+                <div class="rule-desc">Продавец обязан передать товар в течение <strong>24 часов</strong> после оплаты.</div>
             </div>
             <div class="rule-item">
                 <div class="rule-title"><span class="rule-icon">✅</span> Подтверждение</div>
-                <div class="rule-desc">Покупатель обязан подтвердить получение товара в течение <strong>48 часов</strong>. Иначе сделка автоматически завершается.</div>
+                <div class="rule-desc">Покупатель обязан подтвердить получение товара в течение <strong>48 часов</strong>.</div>
             </div>
             <div class="rule-item">
                 <div class="rule-title"><span class="rule-icon">⚖️</span> Разрешение споров</div>
-                <div class="rule-desc">Все споры рассматриваются администрацией в течение <strong>48 часов</strong>. Решение окончательное.</div>
+                <div class="rule-desc">Все споры рассматриваются администрацией в течение <strong>48 часов</strong>.</div>
             </div>
             <div class="rule-item">
                 <div class="rule-title"><span class="rule-icon">🚫</span> Мошенничество</div>
-                <div class="rule-desc">Любые попытки обмана караются <strong>вечным баном</strong> и передачей данных в правоохранительные органы.</div>
+                <div class="rule-desc">Любые попытки обмана караются <strong>вечным баном</strong>.</div>
             </div>
             <div class="rule-item">
                 <div class="rule-title"><span class="rule-icon">📊</span> Комиссия</div>
-                <div class="rule-desc">Стандартная комиссия платформы — <strong>5%</strong>. Снижается через <strong>Поворот удачи</strong> и за активность.</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-title"><span class="rule-icon">🏅</span> Рейтинг</div>
-                <div class="rule-desc">Продавцы с рейтингом <strong>4.5+</strong> получают сниженную комиссию и приоритет в выдаче.</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-title"><span class="rule-icon">💬</span> Чат</div>
-                <div class="rule-desc">Общий чат модерируется. За оскорбления и спам — <strong>предупреждение</strong>, затем бан.</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-title"><span class="rule-icon">💳</span> Пополнение</div>
-                <div class="rule-desc">Поддерживаются <strong>все карты СНГ</strong>, криптовалюта (BTC, ETH, USDT) и P2P переводы.</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-title"><span class="rule-icon">🎁</span> Бонусы</div>
-                <div class="rule-desc">Топ-продавцы получают <strong>еженедельные бонусы</strong> и сниженную комиссию до <strong>1%</strong>.</div>
+                <div class="rule-desc">Стандартная комиссия платформы — <strong>5%</strong>.</div>
             </div>
         </div>
     </div>
@@ -2634,7 +2917,6 @@
             <div class="chat-btns">
                 <button onclick="document.getElementById('chatFileInput').click()" title="Фото/Видео"><i class="fas fa-paperclip"></i></button>
                 <button id="voiceBtn" onclick="startRecording()" title="Голосовое"><i class="fas fa-microphone"></i></button>
-                <button onclick="sendSticker()" title="Стикер"><i class="fas fa-smile"></i></button>
                 <button class="send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
@@ -2687,8 +2969,6 @@
                 <div class="info"><strong><i class="fas fa-level-up-alt"></i> Уровень:</strong> <span id="profileLevel" class="level-badge">🟢 Новичок</span></div>
                 <div class="info"><strong><i class="fas fa-align-left"></i> Описание:</strong></div>
                 <textarea id="profileDescriptionInput" rows="2" style="width:100%;background:var(--bg-input);color:var(--text-primary);border:1px solid var(--border-color);border-radius:10px;padding:8px;margin-top:2px;font-size:13px;" onchange="updateDescription()"></textarea>
-                <div class="info"><strong><i class="fas fa-users"></i> Подписчики:</strong> <span id="profileSubscribers">0</span></div>
-                <div class="info"><strong><i class="fas fa-user-friends"></i> Друзья:</strong> <span id="profileFriends">0</span></div>
             </div>
             <h4 style="margin-top:14px;color:var(--text-secondary);font-size:14px;font-weight:600;"><i class="fas fa-star"></i> Отзывы</h4>
             <div class="reviews-list" id="reviewsList"></div>
@@ -2729,15 +3009,6 @@
                 <option value="FIFA">FIFA</option>
                 <option value="Among Us">Among Us</option>
                 <option value="Fall Guys">Fall Guys</option>
-                <option value="Rust">Rust</option>
-                <option value="DayZ">DayZ</option>
-                <option value="Diablo">Diablo</option>
-                <option value="Path of Exile">Path of Exile</option>
-                <option value="Warframe">Warframe</option>
-                <option value="Destiny 2">Destiny 2</option>
-                <option value="Overwatch">Overwatch</option>
-                <option value="Hearthstone">Hearthstone</option>
-                <option value="StarCraft">StarCraft</option>
             </select>
             <label><i class="fas fa-ruble-sign"></i> Цена (₽)</label>
             <input type="number" id="sellPrice" placeholder="490">
@@ -2774,7 +3045,7 @@
         </div>
     </div>
 
-    <!-- СЛОТ-МАШИНА (МОДАЛЬНОЕ ОКНО) -->
+    <!-- СЛОТ-МАШИНА -->
     <div class="slot-modal" id="slotModal">
         <div class="slot-box">
             <button class="slot-close" onclick="closeSlotMachine()">✕</button>
@@ -2822,13 +3093,18 @@
             <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-vk"></i></a>
             <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-instagram"></i></a>
             <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-twitter"></i></a>
-            <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-github"></i></a>
         </div>
     </footer>
 
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✅</span>
+        <span id="toastMessage">Готово!</span>
+    </div>
+
     <script>
         // ============================================================
-        //  БОЛЬШАЯ БАЗА ЦИТАТ (100+)
+        //  БОЛЬШАЯ БАЗА ЦИТАТ
         // ============================================================
         const quoteDatabase = [
             "Успех — это умение двигаться от неудачи к неудаче, не теряя энтузиазма.",
@@ -2840,123 +3116,345 @@
             "Гениальность — это 1% вдохновения и 99% пота.",
             "Единственный способ делать великую работу — любить то, что вы делаете.",
             "Если вы не готовы ошибаться, вы никогда не придумаете ничего нового.",
-            "Жизнь — это то, что с вами происходит, пока вы строите планы.",
-            "Не судите каждый день по урожаю, который вы собрали, а по семенам, которые вы посадили.",
-            "Лучшее время для начала — сейчас.",
-            "Успех — это не ключ к счастью. Счастье — это ключ к успеху.",
-            "Будьте собой, все остальные роли уже заняты.",
-            "Всегда выбирайте будущее, а не прошлое.",
-            "Великие умы обсуждают идеи, средние — события, маленькие — людей.",
-            "Если вы можете мечтать, вы можете это сделать.",
-            "Секрет успеха — начать до того, как вы будете готовы.",
-            "Не ждите идеального момента, берите момент и делайте его идеальным.",
-            "Цель — это не всегда то, что вы достигаете, а то, чем вы становитесь.",
-            "Победа — это не всё, но желание победить — это всё.",
-            "Дисциплина — это мост между целями и достижениями.",
-            "Ваш энтузиазм заразителен, а апатия — тоже.",
-            "Никогда не сдавайтесь. Всегда есть еще один шанс.",
-            "Не бойтесь перемен. Бойтесь застоя.",
-            "Каждое утро вы начинаете новую жизнь.",
-            "Искусство — это не то, что вы видите, а то, что вы заставляете видеть других.",
-            "Где есть желание, есть и путь.",
-            "Проблемы — это возможности в рабочей одежде.",
-            "В жизни важно не только то, что с вами случилось, но и то, что вы с этим сделали.",
-            "Смелость — это не отсутствие страха, а умение действовать вопреки ему.",
-            "Знание — сила, но действие — результат.",
-            "Будьте тем изменением, которое хотите видеть в мире.",
-            "Ваш самый опасный враг — это негативные мысли.",
-            "Каждый день мы создаём свою реальность.",
-            "Путь в тысячу миль начинается с первого шага.",
-            "Не бывает неудач, есть только опыт.",
-            "Сфокусируйтесь на цели, а не на препятствиях.",
-            "Успех приходит к тем, кто слишком занят, чтобы искать его.",
-            "Верьте в себя, и другие поверят.",
-            "Лучшая месть — это огромный успех.",
-            "Не позволяйте страху остановить вас.",
-            "Ваше время — самый ценный ресурс.",
-            "Делайте больше, чем ожидают.",
-            "Будьте проактивны, а не реактивны.",
-            "Ваше окружение определяет ваше будущее.",
-            "Стремитесь к совершенству, а не к одобрению.",
-            "Каждая ошибка — это урок.",
-            "Действуйте сейчас, а не позже.",
-            "Нет предела совершенству.",
-            "Ваш потенциал безграничен.",
-            "Жизнь — это путешествие, а не пункт назначения.",
-            "Не сравнивайте себя с другими, сравнивайте с собой вчерашним.",
-            "Сфокусируйтесь на позитиве.",
-            "Будьте благодарны за то, что имеете.",
-            "Улыбка — это маленькая сила.",
-            "Доброта всегда возвращается.",
-            "Будьте лучшей версией себя.",
-            "Ваше мышление формирует вашу реальность.",
-            "Каждый день — это подарок.",
-            "Живите с целью.",
-            "Не бойтесь просить о помощи.",
-            "Инвестируйте в себя.",
-            "Читайте, учитесь, растите.",
-            "Будьте любопытны.",
-            "Исследуйте мир.",
-            "Создавайте что-то новое.",
-            "Оставляйте след.",
-            "Вдохновляйте других.",
-            "Будьте мужественными.",
-            "Доверяйте себе.",
-            "Слушайте своё сердце.",
-            "Следуйте за мечтой.",
-            "Не сдавайтесь никогда.",
-            "Верьте в чудеса.",
-            "Празднуйте маленькие победы.",
-            "Учитесь на ошибках.",
-            "Будьте терпеливы.",
-            "Настойчивость побеждает всё.",
-            "Любите то, что делаете.",
-            "Делайте то, что любите.",
-            "Будьте смелыми.",
-            "Думайте масштабно.",
-            "Действуйте смело.",
-            "Сила в единстве.",
-            "Команда делает мечту реальностью.",
-            "Лидерство — это служение.",
-            "Пример заразителен.",
-            "Будьте примером.",
-            "Оставьте мир лучше, чем нашли.",
-            "Каждый день — новая глава.",
-            "Пишите свою историю.",
-            "Будьте автором своей жизни.",
-            "Рискуйте разумно.",
-            "Инновации — это ключ.",
-            "Креативность — это интеллект, играющий в игры.",
-            "Играйте, но играйте по-крупному.",
-            "Будьте страстными.",
-            "Страсть побеждает.",
-            "Энергия заразительна.",
-            "Заряжайте других.",
-            "Будьте светом.",
-            "Сияйте ярко.",
-            "Всё возможно для того, кто верит.",
-            "Вера — это начало.",
-            "Доверие — основа.",
-            "Честность — лучшая политика.",
-            "Будьте честны с собой.",
-            "Знайте свои ценности.",
-            "Живите по ним.",
-            "Оставьте наследие.",
-            "Будьте памятны.",
-            "Вдохновляйте поколения."
+            "Жизнь — это то, что с вами происходит, пока вы строите планы."
         ];
 
         let currentQuoteIndex = 0;
         let subscribedSocials = {};
         let slotRunning = false;
-        let friends = ['Gamer_King', 'Skins_Master', 'Valorant_Elite'];
-        let channels = [
-            { name: 'Геймерский канал', author: 'Player_Pro', desc: 'Обсуждаем игры и скины', subscribers: 124 },
-            { name: 'Скины и аккаунты', author: 'Skins_Master', desc: 'Продажа скинов', subscribers: 89 },
-            { name: 'Торговая площадка', author: 'User_Pro', desc: 'Обмен опытом', subscribers: 56 }
-        ];
-        let showSaleOnly = false;
+        let selectedAmountDeposit = 500;
+        let selectedMethodDeposit = 'card';
+        let currentUser = null;
 
+        // ============================================================
+        //  ПОЛЬЗОВАТЕЛИ (localStorage)
+        // ============================================================
+        function loadUsers() {
+            try { return JSON.parse(localStorage.getItem('skymarket_users')) || {}; } catch { return {}; }
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem('skymarket_users', JSON.stringify(users));
+        }
+
+        function loadSession() {
+            try { return JSON.parse(localStorage.getItem('skymarket_session')); } catch { return null; }
+        }
+
+        function saveSession(user) {
+            localStorage.setItem('skymarket_session', JSON.stringify(user));
+        }
+
+        function clearSession() {
+            localStorage.removeItem('skymarket_session');
+        }
+
+        function getUsers() {
+            return loadUsers();
+        }
+
+        function registerUser(login, password, method = 'Логин/пароль') {
+            const users = getUsers();
+            if (users[login]) return { success: false, error: 'Логин занят' };
+            if (login.length < 3) return { success: false, error: 'Логин ≥ 3 символов' };
+            if (password.length < 4) return { success: false, error: 'Пароль ≥ 4 символов' };
+            users[login] = {
+                password: password,
+                regDate: new Date().toLocaleString(),
+                method: method,
+                description: 'Добавить описание',
+                avatar: '',
+                reviews: [],
+                rating: 0,
+                ratingCount: 0,
+                status: 'online',
+                bans: 0,
+                warns: 0,
+                balance: 100,
+                transactions: [],
+                sales: 0,
+                closedSales: 0,
+                uniqueBuyers: 0,
+                totalEarned: 0,
+                subscribers: []
+            };
+            saveUsers(users);
+            return { success: true };
+        }
+
+        function loginUser(login, password) {
+            const users = getUsers();
+            if (!users[login]) return { success: false, error: 'Пользователь не найден' };
+            if (users[login].password !== password) return { success: false, error: 'Неверный пароль' };
+            if (users[login].bans >= 3) return { success: false, error: 'Аккаунт заблокирован' };
+            return { success: true, user: { login, regDate: users[login].regDate, method: users[login].method ||
+                        'Логин/пароль' } };
+        }
+
+        function getUserBalance(login) {
+            const users = getUsers();
+            if (!users[login]) return 0;
+            return users[login].balance || 0;
+        }
+
+        function updateUserBalance(login, amount) {
+            const users = getUsers();
+            if (!users[login]) return;
+            users[login].balance = (users[login].balance || 0) + amount;
+            if (!users[login].transactions) users[login].transactions = [];
+            users[login].transactions.push({
+                type: 'Пополнение',
+                amount: amount,
+                date: new Date().toLocaleString(),
+                desc: 'Пополнение баланса'
+            });
+            saveUsers(users);
+        }
+
+        // ============================================================
+        //  ИНИЦИАЛИЗАЦИЯ АВТОРИЗАЦИИ
+        // ============================================================
+        function initAuth() {
+            const session = loadSession();
+            if (session) {
+                const users = getUsers();
+                if (users[session.login]) {
+                    currentUser = session;
+                    updateUI();
+                    updateDepositUI();
+                    return true;
+                } else {
+                    clearSession();
+                }
+            }
+            return false;
+        }
+
+        function updateUI() {
+            if (currentUser) {
+                document.getElementById('guestButtons').style.display = 'none';
+                document.getElementById('userButtons').style.display = 'flex';
+                document.getElementById('userNameDisplay').textContent = currentUser.login;
+                document.getElementById('userAvatarSmall').textContent = currentUser.login.charAt(0).toUpperCase();
+                const balance = getUserBalance(currentUser.login);
+                document.getElementById('headerBalance').textContent = balance + ' ₽';
+                document.getElementById('navBalance').innerHTML = '<i class="fas fa-wallet"></i> ' + balance + ' ₽';
+            } else {
+                document.getElementById('guestButtons').style.display = 'flex';
+                document.getElementById('userButtons').style.display = 'none';
+                document.getElementById('headerBalance').textContent = '0 ₽';
+                document.getElementById('navBalance').innerHTML = '<i class="fas fa-wallet"></i> 0 ₽';
+            }
+        }
+
+        function updateDepositUI() {
+            if (currentUser) {
+                document.getElementById('guestAuthDeposit').style.display = 'none';
+                document.getElementById('userAuthDeposit').style.display = 'flex';
+                document.getElementById('userNameDeposit').textContent = currentUser.login;
+                document.getElementById('userIdDeposit').textContent = currentUser.login.slice(0, 8);
+                document.getElementById('userAvatarDeposit').textContent = currentUser.login.charAt(0).toUpperCase();
+                const balance = getUserBalance(currentUser.login);
+                document.getElementById('balanceDeposit').innerHTML = balance + ' <span>₽</span>';
+            } else {
+                document.getElementById('guestAuthDeposit').style.display = 'flex';
+                document.getElementById('userAuthDeposit').style.display = 'none';
+                document.getElementById('balanceDeposit').innerHTML = '0 <span>₽</span>';
+            }
+        }
+
+        // ============================================================
+        //  АВТОРИЗАЦИЯ (ОБЩАЯ)
+        // ============================================================
+        function openAuth(mode) {
+            authMode = mode;
+            document.getElementById('authModal').classList.add('open');
+            document.getElementById('authTitle').innerHTML = mode === 'login' ? '<i class="fas fa-lock"></i> Вход' :
+                '<i class="fas fa-user-plus"></i> Регистрация';
+            document.getElementById('authDesc').textContent = mode === 'login' ? 'Введите логин и пароль' :
+                'Придумайте логин и пароль (≥3 и ≥4)';
+            document.getElementById('confirmPasswordBlock').style.display = mode === 'register' ? 'block' : 'none';
+            document.getElementById('authError').style.display = 'none';
+            document.getElementById('authLogin').value = '';
+            document.getElementById('authPassword').value = '';
+            document.getElementById('authPasswordConfirm').value = '';
+        }
+
+        function closeAuth() { document.getElementById('authModal').classList.remove('open'); }
+
+        function submitAuth() {
+            const login = document.getElementById('authLogin').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+            const confirm = document.getElementById('authPasswordConfirm').value.trim();
+            const error = document.getElementById('authError');
+            if (!login || !password) { error.textContent = 'Заполните все поля';
+                error.style.display = 'block'; return; }
+            if (authMode === 'register') {
+                if (password !== confirm) { error.textContent = 'Пароли не совпадают!';
+                    error.style.display = 'block'; return; }
+                const result = registerUser(login, password);
+                if (!result.success) { error.textContent = result.error;
+                    error.style.display = 'block'; return; }
+                const loginResult = loginUser(login, password);
+                if (loginResult.success) { currentUser = loginResult.user;
+                    saveSession(currentUser);
+                    updateUI();
+                    updateDepositUI();
+                    closeAuth(); }
+            } else {
+                const result = loginUser(login, password);
+                if (!result.success) { error.textContent = result.error;
+                    error.style.display = 'block'; return; }
+                currentUser = result.user;
+                saveSession(currentUser);
+                updateUI();
+                updateDepositUI();
+                closeAuth();
+            }
+        }
+
+        function authTelegram() {
+            const fakeLogin = 'tg_' + Math.random().toString(36).slice(2, 8);
+            const result = registerUser(fakeLogin, 'telegram_' + Math.random().toString(36).slice(2, 10), 'Telegram');
+            if (result.success) {
+                currentUser = { login: fakeLogin, regDate: new Date().toLocaleString(), method: 'Telegram' };
+                saveSession(currentUser);
+                updateUI();
+                updateDepositUI();
+                closeAuth();
+                showToast('✅ Вход через Telegram выполнен! Логин: ' + fakeLogin);
+            } else { showToast('❌ Ошибка', 'error'); }
+        }
+
+        function authGoogle() {
+            const fakeLogin = 'google_' + Math.random().toString(36).slice(2, 8);
+            const result = registerUser(fakeLogin, 'google_' + Math.random().toString(36).slice(2, 10), 'Google');
+            if (result.success) {
+                currentUser = { login: fakeLogin, regDate: new Date().toLocaleString(), method: 'Google' };
+                saveSession(currentUser);
+                updateUI();
+                updateDepositUI();
+                closeAuth();
+                showToast('✅ Вход через Google выполнен! Логин: ' + fakeLogin);
+            } else { showToast('❌ Ошибка', 'error'); }
+        }
+
+        function logout() {
+            currentUser = null;
+            clearSession();
+            updateUI();
+            updateDepositUI();
+            showToast('👋 Вы вышли из аккаунта');
+        }
+
+        // ============================================================
+        //  АВТОРИЗАЦИЯ (ДЛЯ СТРАНИЦЫ ПОПОЛНЕНИЯ)
+        // ============================================================
+        function handleLoginDeposit() {
+            const login = document.getElementById('authLoginDeposit').value.trim();
+            const password = document.getElementById('authPasswordDeposit').value.trim();
+            if (!login || !password) { showToast('❌ Введите логин и пароль', 'error'); return; }
+            const result = loginUser(login, password);
+            if (!result.success) { showToast('❌ ' + result.error, 'error'); return; }
+            currentUser = result.user;
+            saveSession(currentUser);
+            updateUI();
+            updateDepositUI();
+            showToast('✅ Добро пожаловать, ' + login + '!');
+            document.getElementById('authLoginDeposit').value = '';
+            document.getElementById('authPasswordDeposit').value = '';
+        }
+
+        function handleRegisterDeposit() {
+            const login = document.getElementById('authLoginDeposit').value.trim();
+            const password = document.getElementById('authPasswordDeposit').value.trim();
+            if (!login || !password) { showToast('❌ Введите логин и пароль', 'error'); return; }
+            const result = registerUser(login, password);
+            if (!result.success) { showToast('❌ ' + result.error, 'error'); return; }
+            const loginResult = loginUser(login, password);
+            if (loginResult.success) {
+                currentUser = loginResult.user;
+                saveSession(currentUser);
+                updateUI();
+                updateDepositUI();
+                showToast('✅ Аккаунт создан! Добро пожаловать, ' + login + '!');
+                document.getElementById('authLoginDeposit').value = '';
+                document.getElementById('authPasswordDeposit').value = '';
+            }
+        }
+
+        function handleLogoutDeposit() {
+            currentUser = null;
+            clearSession();
+            updateUI();
+            updateDepositUI();
+            showToast('👋 Вы вышли из аккаунта');
+        }
+
+        // ============================================================
+        //  ПОПОЛНЕНИЕ (ФУНКЦИИ)
+        // ============================================================
+        function selectAmountDeposit(btn, amount) {
+            document.querySelectorAll('.deposit-container .qa-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedAmountDeposit = amount;
+            document.getElementById('customAmountDeposit').value = '';
+        }
+
+        function customAmountDeposit() {
+            const val = parseInt(document.getElementById('customAmountDeposit').value);
+            if (val && val > 0) {
+                selectedAmountDeposit = val;
+                document.querySelectorAll('.deposit-container .qa-btn').forEach(b => b.classList.remove('active'));
+            }
+        }
+
+        function selectMethodDeposit(btn, method) {
+            document.querySelectorAll('.deposit-container .pm-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedMethodDeposit = method;
+        }
+
+        function processDeposit() {
+            if (!currentUser) {
+                showToast('❌ Войдите в аккаунт!', 'error');
+                return;
+            }
+
+            const customVal = parseInt(document.getElementById('customAmountDeposit').value);
+            let amount = selectedAmountDeposit;
+            if (customVal && customVal > 0) {
+                amount = customVal;
+            }
+
+            if (!amount || amount < 1) {
+                showToast('❌ Введите сумму пополнения', 'error');
+                return;
+            }
+
+            if (amount > 100000) {
+                showToast('❌ Максимальная сумма пополнения 100 000 ₽', 'error');
+                return;
+            }
+
+            // Имитация оплаты
+            const btn = document.getElementById('depositBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Обработка...';
+
+            setTimeout(() => {
+                updateUserBalance(currentUser.login, amount);
+                updateUI();
+                updateDepositUI();
+                showToast(`✅ Баланс пополнен на ${amount} ₽!`);
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-arrow-up"></i> Пополнить';
+            }, 1500);
+        }
+
+        // ============================================================
+        //  ПРИВЕТСТВИЕ
+        // ============================================================
         function initWelcomeStars() {
             const container = document.getElementById('starsBg');
             for (let i = 0; i < 80; i++) {
@@ -2981,16 +3479,18 @@
 
         function subscribeSocial(btn, platform) {
             if (subscribedSocials[platform]) {
-                alert(`✅ Вы уже подписаны на ${platform}!`);
+                showToast(`✅ Вы уже подписаны на ${platform}!`);
                 return;
             }
             btn.classList.toggle('done');
             if (btn.classList.contains('done')) {
                 subscribedSocials[platform] = true;
                 btn.innerHTML = btn.innerHTML.replace('Подписаться', '✅ Подписан');
-                alert(`🎉 Вы подписались на ${platform}! Бонус начислен!`);
+                showToast(`🎉 Вы подписались на ${platform}! Бонус начислен!`);
                 if (currentUser) {
                     updateUserBalance(currentUser.login, 5);
+                    updateUI();
+                    updateDepositUI();
                 }
             } else {
                 delete subscribedSocials[platform];
@@ -3022,11 +3522,11 @@
             if (slotRunning) return;
             const bet = parseInt(document.getElementById('slotBetInput').value) || 10;
             if (!currentUser) {
-                alert('Войдите в аккаунт, чтобы играть!');
+                showToast('Войдите в аккаунт, чтобы играть!', 'error');
                 return;
             }
             if (getUserBalance(currentUser.login) < bet) {
-                alert(`❌ Недостаточно средств! Нужно ${bet} ₽, у вас ${getUserBalance(currentUser.login)} ₽`);
+                showToast(`❌ Недостаточно средств! Нужно ${bet} ₽`, 'error');
                 return;
             }
 
@@ -3038,6 +3538,8 @@
             resultEl.className = 'slot-result';
 
             updateUserBalance(currentUser.login, -bet);
+            updateUI();
+            updateDepositUI();
 
             const symbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '⭐'];
             const reels = [
@@ -3082,15 +3584,17 @@
                                     results[0] === '⭐' ? 10 : 5;
                                 const winAmount = bet * winMultiplier;
                                 updateUserBalance(currentUser.login, winAmount);
+                                updateUI();
+                                updateDepositUI();
                                 resultEl.textContent = `🎉 ДЖЕКПОТ! ${results[0]} ${results[0]} ${results[0]}! Выиграли ${winAmount} ₽!`;
                                 resultEl.className = 'slot-result win';
-                                addSystemMessage(currentUser.login, `🎰 Выиграл ${winAmount} ₽ в слотах! (${results[0]}${results[0]}${results[0]})`);
                             } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
                                 const winAmount = bet * 2;
                                 updateUserBalance(currentUser.login, winAmount);
+                                updateUI();
+                                updateDepositUI();
                                 resultEl.textContent = `🎉 Пара! Выиграли ${winAmount} ₽! (${results.join(' ')})`;
                                 resultEl.className = 'slot-result win';
-                                addSystemMessage(currentUser.login, `🎰 Выиграл ${winAmount} ₽ в слотах! (пара)`);
                             } else {
                                 resultEl.textContent = `😢 Не повезло... (${results.join(' ')})`;
                                 resultEl.className = 'slot-result lose';
@@ -3171,11 +3675,7 @@
             'Используйте качественные скриншоты товара для привлечения внимания.',
             'Отвечайте на сообщения быстро — это повышает рейтинг продавца.',
             'Указывайте реальную цену и скидки — покупатели это ценят.',
-            'Будьте вежливы в общении — это создаёт хорошую репутацию.',
-            'Используйте ключевые слова в названии товара для лучшего поиска.',
-            'Предлагайте бонусы постоянным покупателям для лояльности.',
-            'Следите за актуальностью товара — удаляйте проданные позиции.',
-            'Публикуйте отзывы довольных клиентов — это работает лучше рекламы.'
+            'Будьте вежливы в общении — это создаёт хорошую репутацию.'
         ];
         document.getElementById('dailyTip').textContent = tips[Math.floor(Math.random() * tips.length)];
 
@@ -3191,7 +3691,6 @@
             const count = Math.floor(Math.random() * 25) + 5;
             document.getElementById('onlineCount').textContent = count;
             document.getElementById('onlineUsers').textContent = count;
-            document.getElementById('onlineUsers2').textContent = count;
         }
         setInterval(updateOnline, 5000);
         updateOnline();
@@ -3227,31 +3726,10 @@
             { id: 9, name: 'GTA V аккаунт', game: 'GTA V', price: 1800, desc: 'Более 100 млн $', qty: 1, discount: 0,
                 seller: 'GTA_Master', status: 'active', guarantee: false },
             { id: 10, name: 'Discord Boost', game: 'Discord', price: 900, desc: 'Полный доступ к бусту', qty: 1, discount: 0,
-                seller: 'Discord_Bot', status: 'active', guarantee: true },
-            { id: 11, name: 'Аккаунт Genshin 5★', game: 'Genshin Impact', price: 1500, desc: '5★ персонажи', qty: 1,
-                discount: 0, seller: 'Genshin_God', status: 'active', guarantee: true },
-            { id: 12, name: 'Dota 2 скины', game: 'Dota 2', price: 1200, desc: 'Более 50 скинов', qty: 1, discount: 0,
-                seller: 'Dota_Collector', status: 'active', guarantee: false },
-            { id: 13, name: 'PUBG аккаунт', game: 'PUBG', price: 950, desc: 'Редкие скины', qty: 1, discount: 0,
-                seller: 'PUBG_Pro', status: 'active', guarantee: true },
-            { id: 14, name: 'WoW голда', game: 'World of Warcraft', price: 700, desc: '500k голды', qty: 1, discount: 0,
-                seller: 'WoW_Farmer', status: 'active', guarantee: true },
-            { id: 15, name: 'EFT аккаунт', game: 'Escape from Tarkov', price: 1600, desc: 'Много денег и лута', qty: 1,
-                discount: 0, seller: 'Tarkov_King', status: 'active', guarantee: true },
-            { id: 16, name: 'Apex Legends скины', game: 'Apex Legends', price: 850, desc: 'Набор редких скинов', qty: 1,
-                discount: 0, seller: 'Apex_Pro', status: 'active', guarantee: true },
-            { id: 17, name: 'Rainbow Six аккаунт', game: 'Rainbow Six', price: 1100, desc: 'Все оперативники', qty: 1,
-                discount: 0, seller: 'R6_King', status: 'active', guarantee: true },
-            { id: 18, name: 'Call of Duty аккаунт', game: 'Call of Duty', price: 950, desc: 'Много скинов', qty: 1,
-                discount: 0, seller: 'CoD_Pro', status: 'active', guarantee: false },
-            { id: 19, name: 'FIFA монеты', game: 'FIFA', price: 600, desc: '100k монет', qty: 1, discount: 0,
-                seller: 'FIFA_King', status: 'active', guarantee: true },
-            { id: 20, name: 'Among Us скины', game: 'Among Us', price: 300, desc: 'Все скины', qty: 1, discount: 0,
-                seller: 'Among_Pro', status: 'active', guarantee: false }
+                seller: 'Discord_Bot', status: 'active', guarantee: true }
         ];
 
         let cart = [];
-        let currentUser = null;
         let chatMessages = [];
         let disputes = [];
         let supportTickets = [];
@@ -3259,265 +3737,7 @@
         let nextTicketId = 1;
         let guaranteeOnly = false;
         let showHot = false;
-
-        // ============================================================
-        //  ПОЛЬЗОВАТЕЛИ (localStorage)
-        // ============================================================
-        function loadUsers() { try { return JSON.parse(localStorage.getItem('skymarket_users')) || {}; } catch { return {}; } }
-
-        function saveUsers(users) { localStorage.setItem('skymarket_users', JSON.stringify(users)); }
-
-        function loadSession() { try { return JSON.parse(localStorage.getItem('skymarket_session')); } catch { return null; } }
-
-        function saveSession(user) { localStorage.setItem('skymarket_session', JSON.stringify(user)); }
-
-        function clearSession() { localStorage.removeItem('skymarket_session'); }
-
-        function getUsers() { return loadUsers(); }
-
-        function registerUser(login, password, method = 'Логин/пароль') {
-            const users = getUsers();
-            if (users[login]) return { success: false, error: 'Логин занят' };
-            if (login.length < 3) return { success: false, error: 'Логин ≥ 3 символов' };
-            if (password.length < 4) return { success: false, error: 'Пароль ≥ 4 символов' };
-            users[login] = {
-                password: password,
-                regDate: new Date().toLocaleString(),
-                method: method,
-                description: 'Добавить описание',
-                avatar: '',
-                reviews: [],
-                rating: 0,
-                ratingCount: 0,
-                status: 'online',
-                bans: 0,
-                warns: 0,
-                balance: 100,
-                transactions: [],
-                sales: 0,
-                closedSales: 0,
-                uniqueBuyers: 0,
-                totalEarned: 0,
-                phone: '',
-                subscribers: []
-            };
-            saveUsers(users);
-            return { success: true };
-        }
-
-        function loginUser(login, password) {
-            const users = getUsers();
-            if (!users[login]) return { success: false, error: 'Пользователь не найден' };
-            if (users[login].password !== password) return { success: false, error: 'Неверный пароль' };
-            if (users[login].bans >= 3) return { success: false, error: 'Аккаунт заблокирован' };
-            return { success: true, user: { login, regDate: users[login].regDate, method: users[login].method ||
-                        'Логин/пароль' } };
-        }
-
-        function deleteUser(login) {
-            const users = getUsers();
-            if (users[login]) { delete users[login];
-                saveUsers(users); return true; }
-            return false;
-        }
-
-        function getUserRating(login) {
-            const users = getUsers();
-            if (!users[login]) return { rating: 0, count: 0 };
-            return { rating: users[login].rating || 0, count: users[login].ratingCount || 0 };
-        }
-
-        function getUserDescription(login) {
-            const users = getUsers();
-            if (!users[login]) return 'Добавить описание';
-            return users[login].description || 'Добавить описание';
-        }
-
-        function setUserDescription(login, desc) {
-            const users = getUsers();
-            if (!users[login]) return;
-            users[login].description = desc;
-            saveUsers(users);
-        }
-
-        function getUserAvatar(login) {
-            const users = getUsers();
-            if (!users[login]) return '';
-            return users[login].avatar || '';
-        }
-
-        function setUserAvatar(login, avatarData) {
-            const users = getUsers();
-            if (!users[login]) return;
-            users[login].avatar = avatarData;
-            saveUsers(users);
-        }
-
-        function addReview(targetLogin, fromLogin, rating, text) {
-            const users = getUsers();
-            if (!users[targetLogin]) return { success: false, error: 'Пользователь не найден' };
-            if (!users[fromLogin]) return { success: false, error: 'Вы не зарегистрированы' };
-            if (targetLogin === fromLogin) return { success: false, error: 'Нельзя отзыв самому себе' };
-            if (!users[targetLogin].reviews) users[targetLogin].reviews = [];
-            users[targetLogin].reviews.push({
-                from: fromLogin,
-                rating: rating,
-                text: text || 'Без текста',
-                date: new Date().toLocaleString()
-            });
-            const revs = users[targetLogin].reviews;
-            const total = revs.reduce((sum, r) => sum + r.rating, 0);
-            users[targetLogin].rating = total / revs.length;
-            users[targetLogin].ratingCount = revs.length;
-            saveUsers(users);
-            addSystemMessage(fromLogin, `📝 Оставил отзыв для ${targetLogin}: "${text}" (${rating}★)`);
-            return { success: true };
-        }
-
-        function getReviews(login) {
-            const users = getUsers();
-            if (!users[login]) return [];
-            return users[login].reviews || [];
-        }
-
-        function getUserBalance(login) {
-            const users = getUsers();
-            if (!users[login]) return 0;
-            return users[login].balance || 0;
-        }
-
-        function updateUserBalance(login, amount) {
-            const users = getUsers();
-            if (!users[login]) return;
-            users[login].balance = (users[login].balance || 0) + amount;
-            saveUsers(users);
-            updateUI();
-        }
-
-        function toggleSubscribe(targetLogin) {
-            if (!currentUser) { alert('Войдите в аккаунт'); return; }
-            if (targetLogin === currentUser.login) { alert('Нельзя подписаться на себя'); return; }
-            const users = getUsers();
-            if (!users[targetLogin]) { alert('Пользователь не найден'); return; }
-            if (!users[targetLogin].subscribers) users[targetLogin].subscribers = [];
-            const idx = users[targetLogin].subscribers.indexOf(currentUser.login);
-            if (idx > -1) {
-                users[targetLogin].subscribers.splice(idx, 1);
-                alert(`❌ Вы отписались от ${targetLogin}`);
-            } else {
-                users[targetLogin].subscribers.push(currentUser.login);
-                alert(`✅ Вы подписались на ${targetLogin}`);
-            }
-            saveUsers(users);
-            renderTopSellers();
-        }
-
-        function isSubscribed(targetLogin) {
-            if (!currentUser) return false;
-            const users = getUsers();
-            if (!users[targetLogin]) return false;
-            return users[targetLogin].subscribers && users[targetLogin].subscribers.includes(currentUser.login);
-        }
-
-        // ============================================================
-        //  ДРУЗЬЯ
-        // ============================================================
-        function renderFriends() {
-            const container = document.getElementById('friendsList');
-            container.innerHTML = friends.map(f => `
-                    <div class="friend-item" onclick="openProfile('${f}')">
-                        <div class="f-avatar">${f.charAt(0).toUpperCase()}</div>
-                        <div class="f-info">
-                            <div class="f-name">${f}</div>
-                            <div class="f-status online">🟢 Онлайн</div>
-                        </div>
-                        <button class="f-btn" onclick="event.stopPropagation();removeFriend('${f}')"><i class="fas fa-user-minus"></i></button>
-                    </div>
-                `).join('');
-        }
-
-        function addFriend() {
-            const input = document.getElementById('addFriendInput');
-            const name = input.value.trim();
-            if (!name) { alert('Введите логин'); return; }
-            if (friends.includes(name)) { alert('Уже в друзьях'); return; }
-            const users = getUsers();
-            if (!users[name]) { alert('Пользователь не найден'); return; }
-            friends.push(name);
-            input.value = '';
-            renderFriends();
-            addSystemMessage(currentUser?.login || 'System', `➕ Добавил в друзья: ${name}`);
-        }
-
-        function removeFriend(name) {
-            friends = friends.filter(f => f !== name);
-            renderFriends();
-        }
-
-        // ============================================================
-        //  КАНАЛЫ
-        // ============================================================
-        function renderChannels() {
-            const container = document.getElementById('channelsList');
-            container.innerHTML = channels.map(c => `
-                    <div class="channel-item" onclick="openChannel('${c.name}')">
-                        <div class="c-avatar">${c.name.charAt(0).toUpperCase()}</div>
-                        <div class="c-info">
-                            <div class="c-name">${c.name}</div>
-                            <div class="c-desc">${c.desc} · 👥 ${c.subscribers} подписчиков</div>
-                        </div>
-                        <button class="c-btn" onclick="event.stopPropagation();subscribeChannel('${c.name}')"><i class="fas fa-bell"></i> Подп.</button>
-                    </div>
-                `).join('');
-        }
-
-        function createChannel() {
-            const input = document.getElementById('createChannelInput');
-            const name = input.value.trim();
-            if (!name) { alert('Введите название'); return; }
-            if (channels.find(c => c.name === name)) { alert('Канал уже существует'); return; }
-            channels.push({
-                name: name,
-                author: currentUser?.login || 'System',
-                desc: 'Новый канал',
-                subscribers: 1
-            });
-            input.value = '';
-            renderChannels();
-            addSystemMessage(currentUser?.login || 'System', `📢 Создал канал: ${name}`);
-        }
-
-        function subscribeChannel(name) {
-            const ch = channels.find(c => c.name === name);
-            if (ch) {
-                ch.subscribers += 1;
-                renderChannels();
-                alert(`✅ Вы подписались на канал ${name}!`);
-            }
-        }
-
-        function openChannel(name) {
-            alert(`📢 Канал: ${name}\nДобро пожаловать в обсуждение!`);
-        }
-
-        // ============================================================
-        //  СТИКЕРЫ В ЧАТЕ
-        // ============================================================
-        function sendSticker() {
-            const stickers = ['😊', '😂', '🔥', '🎮', '💪', '👑', '🌟', '🎯', '🚀', '💎'];
-            const sticker = stickers[Math.floor(Math.random() * stickers.length)];
-            sendMessage(sticker);
-        }
-
-        function openNewMessage() {
-            alert('💬 Открыто окно нового сообщения');
-        }
-
-        function showSaleItems() {
-            showSaleOnly = !showSaleOnly;
-            filterCatalog();
-            document.querySelector('[onclick="showSaleItems()"]').textContent = showSaleOnly ? '📦 Все товары' : '🏷️ Со скидкой';
-        }
+        let selectedGame = 'all';
 
         // ============================================================
         //  КАТАЛОГ
@@ -3544,12 +3764,7 @@
                     </div>
                 `).join('');
             document.getElementById('itemCount').textContent = items.length;
-            document.getElementById('totalItems').textContent = items.length;
-            document.getElementById('totalUsers').textContent = Object.keys(getUsers()).length;
-            document.getElementById('totalDeals').textContent = Math.floor(Math.random() * 50) + 10;
         }
-
-        let selectedGame = 'all';
 
         function filterCatalog() {
             const query = document.getElementById('searchInput').value.toLowerCase();
@@ -3561,7 +3776,6 @@
             });
             if (guaranteeOnly) filtered = filtered.filter(item => item.guarantee);
             if (showHot) filtered = filtered.filter(item => item.price > 1000);
-            if (showSaleOnly) filtered = filtered.filter(item => item.discount > 0);
             renderCatalog(filtered);
         }
 
@@ -3629,98 +3843,9 @@
                 'Call of Duty': '<i class="fas fa-crosshairs" style="font-size:32px;color:#3a8c3a;"></i>',
                 'FIFA': '<i class="fas fa-futbol" style="font-size:32px;color:#4caf50;"></i>',
                 'Among Us': '<i class="fas fa-user-astronaut" style="font-size:32px;color:#ff6b6b;"></i>',
-                'Fall Guys': '<i class="fas fa-running" style="font-size:32px;color:#ffd93d;"></i>',
-                'Rust': '<i class="fas fa-fire" style="font-size:32px;color:#e8484f;"></i>',
-                'DayZ': '<i class="fas fa-skull" style="font-size:32px;color:#8a8a8a;"></i>',
-                'Diablo': '<i class="fas fa-demon" style="font-size:32px;color:#e8484f;"></i>',
-                'Path of Exile': '<i class="fas fa-crown" style="font-size:32px;color:#d4af37;"></i>',
-                'Warframe': '<i class="fas fa-robot" style="font-size:32px;color:#4fc3f7;"></i>',
-                'Destiny 2': '<i class="fas fa-star" style="font-size:32px;color:#ffd93d;"></i>',
-                'Overwatch': '<i class="fas fa-shield" style="font-size:32px;color:#ff9800;"></i>',
-                'Hearthstone': '<i class="fas fa-card" style="font-size:32px;color:#ff6b35;"></i>',
-                'StarCraft': '<i class="fas fa-rocket" style="font-size:32px;color:#00bcd4;"></i>'
+                'Fall Guys': '<i class="fas fa-running" style="font-size:32px;color:#ffd93d;"></i>'
             };
             return icons[game] || '<i class="fas fa-gamepad" style="font-size:32px;color:#55657d;"></i>';
-        }
-
-        // ============================================================
-        //  АВТОРИЗАЦИЯ
-        // ============================================================
-        let authMode = 'login';
-
-        function openAuth(mode) {
-            authMode = mode;
-            document.getElementById('authModal').classList.add('open');
-            document.getElementById('authTitle').innerHTML = mode === 'login' ? '<i class="fas fa-lock"></i> Вход' :
-                '<i class="fas fa-user-plus"></i> Регистрация';
-            document.getElementById('authDesc').textContent = mode === 'login' ? 'Введите логин и пароль' :
-                'Придумайте логин и пароль (≥3 и ≥4)';
-            document.getElementById('confirmPasswordBlock').style.display = mode === 'register' ? 'block' : 'none';
-            document.getElementById('authError').style.display = 'none';
-            document.getElementById('authLogin').value = '';
-            document.getElementById('authPassword').value = '';
-            document.getElementById('authPasswordConfirm').value = '';
-        }
-
-        function closeAuth() { document.getElementById('authModal').classList.remove('open'); }
-
-        function submitAuth() {
-            const login = document.getElementById('authLogin').value.trim();
-            const password = document.getElementById('authPassword').value.trim();
-            const confirm = document.getElementById('authPasswordConfirm').value.trim();
-            const error = document.getElementById('authError');
-            if (!login || !password) { error.textContent = 'Заполните все поля';
-                error.style.display = 'block'; return; }
-            if (authMode === 'register') {
-                if (password !== confirm) { error.textContent = 'Пароли не совпадают!';
-                    error.style.display = 'block'; return; }
-                const result = registerUser(login, password);
-                if (!result.success) { error.textContent = result.error;
-                    error.style.display = 'block'; return; }
-                const loginResult = loginUser(login, password);
-                if (loginResult.success) { currentUser = loginResult.user;
-                    saveSession(currentUser);
-                    updateUI();
-                    closeAuth(); }
-            } else {
-                const result = loginUser(login, password);
-                if (!result.success) { error.textContent = result.error;
-                    error.style.display = 'block'; return; }
-                currentUser = result.user;
-                saveSession(currentUser);
-                updateUI();
-                closeAuth();
-            }
-        }
-
-        function authTelegram() {
-            const fakeLogin = 'tg_' + Math.random().toString(36).slice(2, 8);
-            const result = registerUser(fakeLogin, 'telegram_' + Math.random().toString(36).slice(2, 10), 'Telegram');
-            if (result.success) {
-                currentUser = { login: fakeLogin, regDate: new Date().toLocaleString(), method: 'Telegram' };
-                saveSession(currentUser);
-                updateUI();
-                closeAuth();
-                alert('✅ Вход через Telegram выполнен! Логин: ' + fakeLogin);
-            } else { alert('❌ Ошибка'); }
-        }
-
-        function authGoogle() {
-            const fakeLogin = 'google_' + Math.random().toString(36).slice(2, 8);
-            const result = registerUser(fakeLogin, 'google_' + Math.random().toString(36).slice(2, 10), 'Google');
-            if (result.success) {
-                currentUser = { login: fakeLogin, regDate: new Date().toLocaleString(), method: 'Google' };
-                saveSession(currentUser);
-                updateUI();
-                closeAuth();
-                alert('✅ Вход через Google выполнен! Логин: ' + fakeLogin);
-            } else { alert('❌ Ошибка'); }
-        }
-
-        function logout() {
-            currentUser = null;
-            clearSession();
-            updateUI();
         }
 
         // ============================================================
@@ -3764,26 +3889,18 @@
         }
 
         function checkout() {
-            if (!currentUser) { alert('Войдите в аккаунт'); return; }
-            if (cart.length === 0) { alert('Корзина пуста'); return; }
+            if (!currentUser) { showToast('Войдите в аккаунт', 'error'); return; }
+            if (cart.length === 0) { showToast('Корзина пуста', 'error'); return; }
             const total = cart.reduce((acc, i) => acc + (i.discount > 0 ? Math.round(i.price * (1 - i.discount / 100)) : i
                 .price) * i.qty, 0);
             if (getUserBalance(currentUser.login) < total) {
-                alert('❌ Недостаточно средств на балансе! Пополните баланс.');
+                showToast('❌ Недостаточно средств! Пополните баланс.', 'error');
                 return;
             }
             if (confirm(`Оформить заказ на ₽${total} через гаранта?`)) {
-                alert('✅ Заказ оформлен! Свяжитесь с продавцом в чате.');
-                addSystemMessage(currentUser.login, `🛒 Купил: ${cart.map(i => i.name).join(', ')} на ${total} ₽`);
+                showToast('✅ Заказ оформлен! Свяжитесь с продавцом в чате.');
                 const users = getUsers();
                 if (users[currentUser.login]) {
-                    users[currentUser.login].transactions = users[currentUser.login].transactions || [];
-                    users[currentUser.login].transactions.push({
-                        type: 'Покупка',
-                        amount: -total,
-                        date: new Date().toLocaleString(),
-                        desc: cart.map(i => i.name).join(', ')
-                    });
                     users[currentUser.login].balance = (users[currentUser.login].balance || 0) - total;
                     users[currentUser.login].sales = (users[currentUser.login].sales || 0) + 1;
                     saveUsers(users);
@@ -3791,128 +3908,52 @@
                 cart = [];
                 updateCartUI();
                 updateUI();
+                updateDepositUI();
             }
-        }
-
-        // ============================================================
-        //  ГОЛОСОВЫЕ
-        // ============================================================
-        let mediaRecorder = null;
-        let audioChunks = [];
-        let isRecording = false;
-
-        function startRecording() {
-            if (!currentUser) { alert('Войдите в аккаунт'); return; }
-            if (isRecording) { stopRecording(); return; }
-
-            navigator.mediaDevices.getUserMedia({ audio: true })
-                .then(stream => {
-                    mediaRecorder = new MediaRecorder(stream);
-                    audioChunks = [];
-
-                    mediaRecorder.ondataavailable = event => {
-                        if (event.data.size > 0) audioChunks.push(event.data);
-                    };
-
-                    mediaRecorder.onstop = () => {
-                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                        const audioUrl = URL.createObjectURL(audioBlob);
-                        const html =
-                            `<audio controls src="${audioUrl}" style="width:100%;max-width:220px;border-radius:8px;background:var(--bg-primary);"></audio>`;
-                        sendMessage('🎤 Голосовое', html);
-                        stream.getTracks().forEach(track => track.stop());
-                        const voiceBtn = document.getElementById('voiceBtn');
-                        if (voiceBtn) {
-                            voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
-                            voiceBtn.style.background = 'var(--bg-category)';
-                            voiceBtn.style.color = 'var(--text-secondary)';
-                        }
-                        isRecording = false;
-                    };
-
-                    mediaRecorder.start();
-                    isRecording = true;
-                    const voiceBtn = document.getElementById('voiceBtn');
-                    if (voiceBtn) {
-                        voiceBtn.innerHTML = '<i class="fas fa-circle" style="color:#e8484f;"></i>';
-                        voiceBtn.style.background = '#e8484f';
-                        voiceBtn.style.color = '#fff';
-                    }
-                })
-                .catch(err => {
-                    alert('❌ Доступ к микрофону запрещён: ' + err.message);
-                });
-        }
-
-        function stopRecording() {
-            if (mediaRecorder && isRecording) {
-                mediaRecorder.stop();
-                isRecording = false;
-            }
-        }
-
-        function handleAudioUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            if (file.size > 5 * 1024 * 1024) { alert('Голосовое слишком большое (макс. 5 МБ)'); return; }
-            const audioUrl = URL.createObjectURL(file);
-            const html =
-                `<audio controls src="${audioUrl}" style="width:100%;max-width:220px;border-radius:8px;background:var(--bg-primary);"></audio>`;
-            sendMessage('🎤 Голосовое (файл)', html);
-            event.target.value = '';
         }
 
         // ============================================================
         //  ЧАТ
         // ============================================================
-        function sendMessage(text, attachment) {
+        function sendMessage() {
             const input = document.getElementById('chatInput');
-            const msgText = text || input.value.trim();
-            if (!msgText && !attachment) return;
-            if (!currentUser) { alert('Войдите в аккаунт'); return; }
-            const msg = {
+            const text = input.value.trim();
+            if (!text) return;
+            if (!currentUser) { showToast('Войдите в аккаунт', 'error'); return; }
+            chatMessages.push({
                 user: currentUser.login,
-                text: msgText || '',
+                text: text,
                 time: new Date().toLocaleTimeString(),
-                self: true,
-                attachment: attachment || null
-            };
-            chatMessages.push(msg);
-            if (input) input.value = '';
+                self: true
+            });
+            input.value = '';
             renderChat();
         }
 
         function handleFileUpload(event) {
-            const files = event.target.files;
-            if (!files.length) return;
-            for (const file of files) {
-                if (file.size > 10 * 1024 * 1024) { alert('Файл слишком большой (макс. 10 МБ)'); continue; }
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const data = e.target.result;
-                    const ext = file.type.split('/')[0];
-                    let html = '';
-                    if (ext === 'image') {
-                        html = `<img src="${data}" alt="Фото" onclick="window.open('${data}','_blank')">`;
-                    } else if (ext === 'video') {
-                        html = `<video controls src="${data}" onclick="this.paused ? this.play() : this.pause()"></video>`;
-                    } else {
-                        html = `<span class="file-name">📄 ${file.name}</span>`;
-                    }
-                    sendMessage('📎 Вложение', html);
-                };
-                reader.readAsDataURL(file);
-            }
+            const file = event.target.files[0];
+            if (!file) return;
+            if (!currentUser) { showToast('Войдите в аккаунт', 'error'); return; }
+            chatMessages.push({
+                user: currentUser.login,
+                text: '📎 Файл: ' + file.name,
+                time: new Date().toLocaleTimeString(),
+                self: true
+            });
+            renderChat();
             event.target.value = '';
+        }
+
+        function startRecording() {
+            showToast('🎤 Голосовое сообщение (демо)');
         }
 
         function renderChat() {
             const container = document.getElementById('chatMessages');
             container.innerHTML = chatMessages.map(msg => `
-                    <div class="msg ${msg.self ? 'self' : ''} ${msg.system ? 'system' : ''}">
-                        <div class="user" onclick="${msg.system ? '' : "openProfile('"+msg.user+"')"}">${msg.user}</div>
+                    <div class="msg ${msg.self ? 'self' : ''}">
+                        <div class="user">${msg.user}</div>
                         <div class="text">${msg.text}</div>
-                        ${msg.attachment ? `<div class="attachment">${msg.attachment}</div>` : ''}
                         <div class="time">${msg.time}</div>
                     </div>
                 `).join('');
@@ -3924,41 +3965,32 @@
         // ============================================================
         function openProfile(targetLogin) {
             const login = targetLogin || (currentUser ? currentUser.login : null);
-            if (!login) { alert('Войдите в аккаунт'); return; }
+            if (!login) { showToast('Войдите в аккаунт', 'error'); return; }
             const users = getUsers();
             const user = users[login];
-            if (!user) { alert('Пользователь не найден'); return; }
+            if (!user) { showToast('Пользователь не найден', 'error'); return; }
             document.getElementById('profileLogin').textContent = login;
             document.getElementById('profileDate').textContent = user.regDate || 'Неизвестно';
             document.getElementById('profileMethod').textContent = user.method || 'Логин/пароль';
             document.getElementById('profileStatus').textContent = user.status === 'online' ? 'Онлайн' : 'Офлайн';
             document.getElementById('profileStatus').className = 'profile-status ' + (user.status === 'online' ? 'online' :
                 'offline');
-            const ratingData = getUserRating(login);
+            const ratingData = { rating: user.rating || 0, count: user.ratingCount || 0 };
             document.getElementById('profileRating').textContent = ratingData.rating.toFixed(1);
             document.getElementById('profileRatingCount').textContent = ratingData.count;
-            const fullStars = Math.round(ratingData.rating);
-            document.getElementById('profileRatingStars').textContent = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
-            document.getElementById('profileDescriptionInput').value = getUserDescription(login);
+            document.getElementById('profileRatingStars').textContent = '★'.repeat(Math.round(ratingData.rating)) + '☆'.repeat(5 -
+                Math.round(ratingData.rating));
+            document.getElementById('profileDescriptionInput').value = user.description || 'Добавить описание';
             const level = getLevel(user.sales || 0);
             document.getElementById('profileLevel').textContent = level.name;
-            document.getElementById('profileLevel').className = `level-badge ${level.cls}`;
-            const avatar = getUserAvatar(login);
-            const img = document.getElementById('profileAvatar');
-            const placeholder = document.getElementById('avatarPlaceholder');
-            if (avatar) { img.src = avatar;
-                img.style.display = 'block';
-                placeholder.style.display = 'none'; } else { img.style.display = 'none';
-                placeholder.style.display = 'block'; }
-            document.getElementById('profileSubscribers').textContent = user.subscribers ? user.subscribers.length : 0;
-            document.getElementById('profileFriends').textContent = friends.length;
-            const reviews = getReviews(login);
+            document.getElementById('profileLevel').className = 'level-badge ' + level.cls;
+            const reviews = user.reviews || [];
             const revContainer = document.getElementById('reviewsList');
             if (reviews.length === 0) revContainer.innerHTML =
                 '<p style="color:var(--text-muted);font-size:12px;padding:6px 0;">Отзывов пока нет</p>';
             else revContainer.innerHTML = reviews.map(r => `
                     <div class="review-item">
-                        <div class="review-header"><span class="reviewer" onclick="openProfile('${r.from}')">${r.from}</span><span>${r.date}</span></div>
+                        <div class="review-header"><span class="reviewer">${r.from}</span><span>${r.date}</span></div>
                         <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
                         <div class="review-text">${r.text}</div>
                     </div>
@@ -3982,7 +4014,12 @@
         function updateDescription() {
             if (!currentUser) return;
             const desc = document.getElementById('profileDescriptionInput').value;
-            setUserDescription(currentUser.login, desc);
+            const users = getUsers();
+            if (users[currentUser.login]) {
+                users[currentUser.login].description = desc;
+                saveUsers(users);
+                showToast('✅ Описание обновлено');
+            }
         }
 
         function uploadAvatar(event) {
@@ -3990,11 +4027,12 @@
             if (!file || !currentUser) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                const data = e.target.result;
-                setUserAvatar(currentUser.login, data);
-                document.getElementById('profileAvatar').src = data;
-                document.getElementById('profileAvatar').style.display = 'block';
-                document.getElementById('avatarPlaceholder').style.display = 'none';
+                const users = getUsers();
+                if (users[currentUser.login]) {
+                    users[currentUser.login].avatar = e.target.result;
+                    saveUsers(users);
+                    showToast('✅ Аватар обновлён');
+                }
             };
             reader.readAsDataURL(file);
         }
@@ -4002,17 +4040,30 @@
         function deleteAccount() {
             if (!currentUser) return;
             if (confirm(`Удалить аккаунт ${currentUser.login}?`)) {
-                if (deleteUser(currentUser.login)) { alert('Аккаунт удалён');
+                const users = getUsers();
+                if (users[currentUser.login]) {
+                    delete users[currentUser.login];
+                    saveUsers(users);
                     logout();
-                    closeProfile(); }
+                    closeProfile();
+                    showToast('✅ Аккаунт удалён');
+                }
             }
         }
 
+        function getLevel(sales) {
+            if (sales >= 100) return { name: '💎 Платина', cls: 'platinum' };
+            if (sales >= 50) return { name: '🥇 Золото', cls: 'gold' };
+            if (sales >= 20) return { name: '🥈 Серебро', cls: 'silver' };
+            if (sales >= 5) return { name: '🥉 Бронза', cls: 'bronze' };
+            return { name: '🟢 Новичок', cls: '' };
+        }
+
         // ============================================================
-        //  ПРОДАЖА
+        //  ПРОДАЖА ТОВАРА
         // ============================================================
         function openModal() {
-            if (!currentUser) { alert('Войдите в аккаунт'); return; }
+            if (!currentUser) { showToast('Войдите в аккаунт', 'error'); return; }
             document.getElementById('sellModal').classList.add('open');
         }
 
@@ -4026,7 +4077,7 @@
             const desc = document.getElementById('sellDesc').value.trim();
             const discount = parseInt(document.getElementById('sellDiscount').value) || 0;
             const guarantee = document.getElementById('sellGuarantee').checked;
-            if (!name || !price) { alert('Заполните название и цену'); return; }
+            if (!name || !price) { showToast('Заполните название и цену', 'error'); return; }
             const newId = catalog.length ? Math.max(...catalog.map(i => i.id)) + 1 : 1;
             catalog.push({
                 id: newId,
@@ -4042,14 +4093,12 @@
             });
             renderCatalog(catalog);
             closeSellModal();
-            addSystemMessage(currentUser.login, `📦 Выставил на продажу: ${name} (${game}) за ${price} ₽`);
-            alert('✅ Товар опубликован!');
+            showToast('✅ Товар опубликован!');
             document.getElementById('sellName').value = '';
             document.getElementById('sellPrice').value = '';
             document.getElementById('sellDesc').value = '';
             document.getElementById('sellDiscount').value = '0';
             document.getElementById('sellGuarantee').checked = true;
-            updateUI();
         }
 
         // ============================================================
@@ -4062,10 +4111,9 @@
             const sorted = sellers.map(u => {
                 const lots = catalog.filter(item => item.seller === u);
                 const totalSales = lots.reduce((sum, item) => sum + item.price, 0);
-                const ratingData = getUserRating(u);
+                const ratingData = { rating: users[u]?.rating || 0, count: users[u]?.ratingCount || 0 };
                 const level = getLevel(users[u]?.sales || 0);
-                return { login: u, totalSales, rating: ratingData.rating, count: ratingData.count, lots: lots
-                        .length, level: level.name };
+                return { login: u, totalSales, rating: ratingData.rating, level: level.name };
             }).sort((a, b) => b.totalSales - a.totalSales || b.rating - a.rating);
             if (sorted.length === 0) { container.innerHTML =
                 '<p style="color:var(--text-muted);font-size:12px;">Нет продавцов</p>'; return; }
@@ -4076,13 +4124,12 @@
                         <span style="font-size:9px;color:var(--accent);background:var(--bg-category);padding:0 8px;border-radius:12px;">${s.level}</span>
                         <span class="stars">⭐ ${s.rating.toFixed(1)}</span>
                         <span style="color:var(--text-muted);font-size:10px;">₽${s.totalSales}</span>
-                        <button class="btn btn-outline" style="font-size:10px;padding:2px 12px;" onclick="event.stopPropagation();toggleSubscribe('${s.login}')">${isSubscribed(s.login) ? '✅' : '➕'}</button>
                     </div>
                 `).join('');
         }
 
         // ============================================================
-        //  СПОРЫ И ПОДДЕРЖКА
+        //  СПОРЫ
         // ============================================================
         function renderDisputes() {
             const container = document.getElementById('disputesList');
@@ -4091,7 +4138,7 @@
                 '<p style="color:var(--text-muted);font-size:12px;">Нет активных споров</p>'; return; }
             container.innerHTML = disputes.map(d => `
                     <div class="dispute-item">
-                        <div class="dispute-header"><span>#${d.id}</span><span class="dispute-status ${d.status}">${d.status === 'open' ? '🟡 Открыт' : d.status === 'resolved' ? '✅ Решён' : '🔴 Закрыт'}</span></div>
+                        <div class="dispute-header"><span>#${d.id}</span><span class="dispute-status ${d.status}">${d.status === 'open' ? '🟡 Открыт' : '✅ Решён'}</span></div>
                         <div class="dispute-title">${d.title}</div>
                         <div style="font-size:11px;color:var(--text-muted);">${d.author} | ${d.date}</div>
                     </div>
@@ -4099,7 +4146,7 @@
         }
 
         function openSupport() {
-            if (!currentUser) { alert('Войдите в аккаунт'); return; }
+            if (!currentUser) { showToast('Войдите в аккаунт', 'error'); return; }
             document.getElementById('supportModal').classList.add('open');
             renderSupportTickets();
         }
@@ -4110,15 +4157,14 @@
             if (!currentUser) return;
             const subject = document.getElementById('supportSubject').value.trim();
             const message = document.getElementById('supportMessage').value.trim();
-            if (!subject || !message) { alert('Заполните все поля'); return; }
+            if (!subject || !message) { showToast('Заполните все поля', 'error'); return; }
             supportTickets.push({
                 id: nextTicketId++,
                 subject: subject,
                 message: message,
                 author: currentUser.login,
                 date: new Date().toLocaleString(),
-                status: 'open',
-                link: document.getElementById('supportLink').value || ''
+                status: 'open'
             });
             disputes.push({
                 id: nextDisputeId++,
@@ -4130,10 +4176,9 @@
             document.getElementById('supportSubject').value = '';
             document.getElementById('supportMessage').value = '';
             document.getElementById('supportLink').value = '';
-            addSystemMessage(currentUser.login, `⚖️ Открыл спор: ${subject}`);
             renderSupportTickets();
             renderDisputes();
-            alert('✅ Обращение создано!');
+            showToast('✅ Обращение создано!');
         }
 
         function renderSupportTickets() {
@@ -4152,6 +4197,22 @@
         }
 
         // ============================================================
+        //  ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+        // ============================================================
+        function switchPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-bar a').forEach(a => a.classList.remove('active'));
+            const targetPage = document.getElementById('page-' + page);
+            if (targetPage) targetPage.classList.add('active');
+            document.querySelector(`.nav-bar a[data-page="${page}"]`)?.classList.add('active');
+
+            if (page === 'messages') renderMessages();
+            if (page === 'sales') renderSales();
+            if (page === 'finance') renderFinance();
+            if (page === 'deposit') updateDepositUI();
+        }
+
+        // ============================================================
         //  СООБЩЕНИЯ
         // ============================================================
         function renderMessages() {
@@ -4164,8 +4225,7 @@
                 messages.push({
                     user: s.user || 'System',
                     preview: s.preview,
-                    time: s.time || 'недавно',
-                    type: 'system'
+                    time: s.time || 'недавно'
                 });
             });
 
@@ -4175,8 +4235,7 @@
                         messages.push({
                             user: r.from,
                             preview: `📝 Отзыв для ${login}: "${r.text}" (${r.rating}★)`,
-                            time: r.date || 'недавно',
-                            type: 'review'
+                            time: r.date || 'недавно'
                         });
                     });
                 }
@@ -4185,8 +4244,7 @@
                         messages.push({
                             user: login,
                             preview: `💰 ${t.type}: ${t.amount} ₽ — ${t.desc || ''}`,
-                            time: t.date || 'недавно',
-                            type: 'transaction'
+                            time: t.date || 'недавно'
                         });
                     });
                 }
@@ -4197,27 +4255,16 @@
                     messages.push({
                         user: item.seller,
                         preview: `📦 ${item.name} (${item.game}) — ${item.price} ₽`,
-                        time: 'активно',
-                        type: 'listing'
+                        time: 'активно'
                     });
                 }
-            });
-
-            disputes.forEach(d => {
-                messages.push({
-                    user: d.author,
-                    preview: `⚖️ Спор #${d.id}: ${d.title} (${d.status === 'open' ? '🟡 открыт' : '✅ закрыт'})`,
-                    time: d.date || 'недавно',
-                    type: 'dispute'
-                });
             });
 
             if (messages.length === 0) {
                 messages.push({
                     user: 'System',
                     preview: '📭 Сообщений пока нет',
-                    time: 'сейчас',
-                    type: 'system'
+                    time: 'сейчас'
                 });
             }
 
@@ -4241,21 +4288,8 @@
                 `).join('');
         }
 
-        function addSystemMessage(user, preview, time) {
-            const saved = JSON.parse(localStorage.getItem('skymarket_system_messages')) || [];
-            saved.push({
-                user: user || 'System',
-                preview: preview,
-                time: time || new Date().toLocaleString()
-            });
-            localStorage.setItem('skymarket_system_messages', JSON.stringify(saved));
-            if (document.getElementById('page-messages').classList.contains('active')) {
-                renderMessages();
-            }
-        }
-
         function openChatWith(user) {
-            alert(`💬 Открыт диалог с ${user}\n\n(Здесь будет ваш чат с этим пользователем)`);
+            showToast(`💬 Открыт диалог с ${user}`);
         }
 
         // ============================================================
@@ -4286,7 +4320,6 @@
             detailContainer.innerHTML = `
                     <div class="stat-row"><span class="label">Средний чек</span><span class="value">${closed > 0 ? (earned / closed).toFixed(2) : 0} ₽</span></div>
                     <div class="stat-row"><span class="label">Статус</span><span class="value green">🟢 Активен</span></div>
-                    <div style="margin-top:10px;font-size:12px;color:var(--text-muted);">* Данные обновляются автоматически</div>
                 `;
         }
 
@@ -4323,23 +4356,6 @@
         }
 
         // ============================================================
-        //  ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
-        // ============================================================
-        function switchPage(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-bar a').forEach(a => a.classList.remove('active'));
-            const targetPage = document.getElementById('page-' + page);
-            if (targetPage) targetPage.classList.add('active');
-            document.querySelector(`.nav-bar a[data-page="${page}"]`)?.classList.add('active');
-
-            if (page === 'messages') renderMessages();
-            if (page === 'sales') renderSales();
-            if (page === 'finance') renderFinance();
-            if (page === 'friends') renderFriends();
-            if (page === 'channels') renderChannels();
-        }
-
-        // ============================================================
         //  ЕЖЕДНЕВНЫЙ БОНУС
         // ============================================================
         let lastBonusClaim = localStorage.getItem('lastBonusClaim') || 0;
@@ -4348,106 +4364,63 @@
             const now = Date.now();
             const day = 24 * 60 * 60 * 1000;
             if (now - lastBonusClaim < day) {
-                alert('🎁 Вы уже получили сегодняшний бонус! Возвращайтесь завтра.');
+                showToast('🎁 Вы уже получили сегодняшний бонус!');
                 return;
             }
             const amount = Math.floor(Math.random() * 5) + 3;
             if (currentUser) {
                 updateUserBalance(currentUser.login, amount);
-                addSystemMessage('System', `🎁 Ежедневный бонус +${amount} ₽`);
-                alert(`🎁 Вы получили ${amount} ₽ бонуса!`);
+                updateUI();
+                updateDepositUI();
+                showToast(`🎁 Вы получили ${amount} ₽ бонуса!`);
             } else {
-                alert('🎁 Войдите в аккаунт, чтобы получить бонус!');
+                showToast('🎁 Войдите в аккаунт, чтобы получить бонус!', 'error');
                 return;
             }
             lastBonusClaim = now;
             localStorage.setItem('lastBonusClaim', now);
             document.getElementById('dailyBonusAmount').textContent = `${amount} ₽`;
-            updateUI();
         }
 
         // ============================================================
-        //  УРОВНИ ПРОДАВЦОВ
+        //  TOAST
         // ============================================================
-        function getLevel(sales) {
-            if (sales >= 100) return { name: '💎 Платина', cls: 'platinum' };
-            if (sales >= 50) return { name: '🥇 Золото', cls: 'gold' };
-            if (sales >= 20) return { name: '🥈 Серебро', cls: 'silver' };
-            if (sales >= 5) return { name: '🥉 Бронза', cls: 'bronze' };
-            return { name: '🟢 Новичок', cls: '' };
-        }
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toastMessage');
+            const icon = toast.querySelector('.toast-icon');
 
-        // ============================================================
-        //  UI ОБНОВЛЕНИЕ
-        // ============================================================
-        function updateUI() {
-            const guest = document.getElementById('guestButtons');
-            const user = document.getElementById('userButtons');
-            const name = document.getElementById('userNameDisplay');
-            const status = document.getElementById('chatUserStatus');
-            const avatar = document.getElementById('userAvatarSmall');
-            const balanceEl = document.getElementById('headerBalance');
-            const navBalance = document.getElementById('navBalance');
+            toast.className = 'toast ' + type;
+            icon.textContent = type === 'success' ? '✅' : '❌';
+            msgEl.textContent = message;
 
-            if (currentUser) {
-                guest.style.display = 'none';
-                user.style.display = 'flex';
-                name.textContent = currentUser.login;
-                avatar.textContent = currentUser.login.charAt(0).toUpperCase();
-                status.textContent = '(' + currentUser.login + ')';
-                const users = getUsers();
-                if (users[currentUser.login]) {
-                    users[currentUser.login].status = 'online';
-                    const bal = users[currentUser.login].balance || 0;
-                    balanceEl.textContent = bal + ' ₽';
-                    navBalance.innerHTML = '<i class="fas fa-wallet"></i> ' + bal + ' ₽';
-                    saveUsers(users);
-                }
-            } else {
-                guest.style.display = 'flex';
-                user.style.display = 'none';
-                status.textContent = '(гость)';
-                balanceEl.textContent = '0 ₽';
-                navBalance.innerHTML = '<i class="fas fa-wallet"></i> 0 ₽';
-            }
-            renderCatalog(catalog);
-            updateCartUI();
-            renderChat();
-            renderTopSellers();
-            renderDisputes();
-            renderSupportTickets();
-            renderFriends();
-            renderChannels();
-            updateStats();
-        }
-
-        function updateStats() {
-            const online = Object.keys(getUsers()).filter(u => getUsers()[u].status === 'online').length;
-            document.getElementById('onlineUsers').textContent = online || 0;
-            document.getElementById('onlineUsers2').textContent = online || 0;
-            document.getElementById('totalUsers').textContent = Object.keys(getUsers()).length;
-            document.getElementById('totalItems').textContent = catalog.filter(item => item.status === 'active').length;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
         }
 
         // ============================================================
         //  ИНИЦИАЛИЗАЦИЯ
         // ============================================================
-        const session = loadSession();
-        if (session) {
-            const users = getUsers();
-            if (users[session.login]) { currentUser = session; } else { clearSession(); }
-        }
-
+        initAuth();
         chatMessages.push({
             user: 'System',
-            text: '🚀 Добро пожаловать в SkyMarket PRO! Все сделки защищены гарантом. Кидай фото, видео и голосовые!',
+            text: '🚀 Добро пожаловать в SkyMarket PRO! Все сделки защищены гарантом.',
             time: new Date().toLocaleTimeString(),
-            self: false,
-            system: true
+            self: false
         });
+        renderChat();
+        renderCatalog(catalog);
+        renderTopSellers();
+        renderDisputes();
+        renderSupportTickets();
+        renderMessages();
+        renderSales();
+        renderFinance();
 
-        updateUI();
-        console.log('🚀 SkyMarket PRO — мега-обновление загружено, братуха!');
+        console.log('🚀 SkyMarket PRO — с пополнением баланса загружен, братуха!');
     </script>
 
 </body>
