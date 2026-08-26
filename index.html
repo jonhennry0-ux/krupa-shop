@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyMarket PRO — игровой маркетплейс</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         /* ============================================================
-           ВСЕ 10 ТЕМ (работают!)
+           ВСЕ 10 ТЕМ (РАБОТАЮТ!)
            ============================================================ */
         [data-theme="neon"] {
             --bg-primary: #0a0a1a;
@@ -38,6 +39,7 @@
             --scrollbar-thumb: rgba(0, 245, 255, 0.3);
             --theme-emoji: '💜';
             --card-shadow: 0 8px 32px rgba(0, 245, 255, 0.1);
+            --header-bg: rgba(17, 17, 40, 0.9);
         }
         [data-theme="cosmos"] {
             --bg-primary: #0a0015;
@@ -68,6 +70,7 @@
             --scrollbar-thumb: rgba(179, 136, 255, 0.3);
             --theme-emoji: '🌌';
             --card-shadow: 0 8px 32px rgba(179, 136, 255, 0.1);
+            --header-bg: rgba(21, 0, 42, 0.9);
         }
         [data-theme="ocean"] {
             --bg-primary: #001220;
@@ -98,6 +101,7 @@
             --scrollbar-thumb: rgba(64, 196, 255, 0.3);
             --theme-emoji: '🌊';
             --card-shadow: 0 8px 32px rgba(64, 196, 255, 0.1);
+            --header-bg: rgba(0, 32, 64, 0.9);
         }
         [data-theme="sunset"] {
             --bg-primary: #1a0808;
@@ -128,6 +132,7 @@
             --scrollbar-thumb: rgba(255, 107, 107, 0.3);
             --theme-emoji: '🌅';
             --card-shadow: 0 8px 32px rgba(255, 107, 107, 0.1);
+            --header-bg: rgba(42, 16, 16, 0.9);
         }
         [data-theme="forest"] {
             --bg-primary: #0a140a;
@@ -158,6 +163,7 @@
             --scrollbar-thumb: rgba(105, 240, 174, 0.3);
             --theme-emoji: '🌿';
             --card-shadow: 0 8px 32px rgba(105, 240, 174, 0.1);
+            --header-bg: rgba(16, 32, 16, 0.9);
         }
         [data-theme="magenta"] {
             --bg-primary: #1a0a1a;
@@ -188,6 +194,7 @@
             --scrollbar-thumb: rgba(255, 107, 255, 0.3);
             --theme-emoji: '💗';
             --card-shadow: 0 8px 32px rgba(255, 107, 255, 0.1);
+            --header-bg: rgba(42, 16, 42, 0.9);
         }
         [data-theme="lavender"] {
             --bg-primary: #0a081a;
@@ -218,6 +225,7 @@
             --scrollbar-thumb: rgba(179, 136, 255, 0.3);
             --theme-emoji: '🌸';
             --card-shadow: 0 8px 32px rgba(179, 136, 255, 0.1);
+            --header-bg: rgba(20, 16, 42, 0.9);
         }
         [data-theme="mint"] {
             --bg-primary: #0a1a12;
@@ -248,6 +256,7 @@
             --scrollbar-thumb: rgba(105, 240, 174, 0.3);
             --theme-emoji: '🍃';
             --card-shadow: 0 8px 32px rgba(105, 240, 174, 0.1);
+            --header-bg: rgba(16, 42, 26, 0.9);
         }
         [data-theme="coral"] {
             --bg-primary: #1a0c0a;
@@ -278,6 +287,7 @@
             --scrollbar-thumb: rgba(255, 138, 128, 0.3);
             --theme-emoji: '🪸';
             --card-shadow: 0 8px 32px rgba(255, 138, 128, 0.1);
+            --header-bg: rgba(42, 20, 16, 0.9);
         }
         [data-theme="amber"] {
             --bg-primary: #1a120a;
@@ -308,6 +318,7 @@
             --scrollbar-thumb: rgba(255, 215, 64, 0.3);
             --theme-emoji: '🔶';
             --card-shadow: 0 8px 32px rgba(255, 215, 64, 0.1);
+            --header-bg: rgba(42, 26, 16, 0.9);
         }
 
         /* ============================================================
@@ -347,41 +358,36 @@
         }
 
         /* ============================================================
-           ПРИВЕТСТВИЕ (welcome overlay)
+           ПРИВЕТСТВИЕ (СУПЕР КРУТОЕ)
            ============================================================ */
         .welcome-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             padding: 30px;
-            animation: welcomeFade 0.6s ease;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
         .welcome-overlay.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
-        @keyframes welcomeFade {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
         .welcome-box {
-            max-width: 620px;
+            max-width: 680px;
             width: 100%;
             background: var(--bg-secondary);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 40px 36px;
+            border-radius: 32px;
+            padding: 44px 40px;
             text-align: center;
-            box-shadow: 0 0 80px var(--accent-glow);
+            box-shadow: 0 0 100px var(--accent-glow);
             position: relative;
             overflow: hidden;
         }
@@ -390,60 +396,144 @@
             position: absolute;
             inset: -2px;
             background: var(--accent-gradient);
-            border-radius: 30px;
+            border-radius: 34px;
             z-index: -1;
             opacity: 0.3;
-            filter: blur(20px);
+            filter: blur(30px);
+        }
+        .welcome-box .stars-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            border-radius: 32px;
+            z-index: 0;
+        }
+        .welcome-box .stars-bg span {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
         .welcome-box .welcome-icon {
-            font-size: 72px;
+            font-size: 80px;
             margin-bottom: 12px;
             display: block;
-            animation: float 3s ease-in-out infinite;
+            animation: float 4s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
         }
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
         }
         .welcome-box h1 {
             font-family: 'Unbounded', cursive;
-            font-size: 32px;
+            font-size: 36px;
             background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
         }
         .welcome-box p {
             color: var(--text-secondary);
             font-size: 15px;
-            line-height: 1.6;
+            line-height: 1.7;
             margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
         }
         .welcome-box .welcome-quote {
             font-style: italic;
             color: var(--accent);
-            font-size: 14px;
-            padding: 12px 20px;
+            font-size: 15px;
+            padding: 14px 24px;
             background: var(--glass-bg);
             border-radius: 16px;
-            border-left: 3px solid var(--accent);
+            border-left: 4px solid var(--accent);
             margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .welcome-box .welcome-quote::before {
-            content: '"';
-            font-size: 24px;
-            color: var(--accent);
-            margin-right: 4px;
+        .welcome-box .welcome-quote .nav-quote {
+            position: absolute;
+            bottom: -20px;
+            right: 10px;
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            padding: 2px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .welcome-box .welcome-quote::after {
-            content: '"';
-            font-size: 24px;
+        .welcome-box .welcome-quote .nav-quote:hover {
             color: var(--accent);
-            margin-left: 4px;
+            transform: scale(1.05);
+        }
+        .welcome-box .welcome-quote .quote-progress {
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            padding: 0 12px;
+            border-radius: 10px;
+        }
+        .welcome-box .social-bonus {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 14px 0 18px;
+            position: relative;
+            z-index: 1;
+        }
+        .welcome-box .social-bonus .social-btn {
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+        }
+        .welcome-box .social-bonus .social-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+        .welcome-box .social-bonus .social-btn.done {
+            border-color: var(--green);
+            color: var(--green);
         }
         .welcome-box .btn {
             font-size: 16px;
-            padding: 12px 40px;
+            padding: 14px 48px;
+            position: relative;
+            z-index: 1;
+        }
+        .welcome-box .btn i {
+            margin-right: 8px;
         }
 
         /* ============================================================
@@ -582,7 +672,7 @@
            ХЕДЕР
            ============================================================ */
         header {
-            background: var(--bg-secondary);
+            background: var(--header-bg);
             padding: 10px 24px;
             display: flex;
             justify-content: space-between;
@@ -619,18 +709,6 @@
         }
         .logo:active {
             transform: scale(0.95);
-        }
-        .logo::after {
-            content: '✨';
-            font-size: 18px;
-            -webkit-text-fill-color: initial;
-            margin-left: 4px;
-            opacity: 0.7;
-            animation: sparkle 2s ease-in-out infinite;
-        }
-        @keyframes sparkle {
-            0%, 100% { opacity: 0.4; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
         }
 
         .logo span {
@@ -677,7 +755,7 @@
             background: var(--bg-input);
             color: var(--text-primary);
             outline: none;
-            width: 200px;
+            width: 220px;
             transition: all 0.3s ease;
             font-size: 13px;
             backdrop-filter: blur(10px);
@@ -685,7 +763,7 @@
 
         .header-controls .search-wrap input:focus {
             border-color: var(--accent);
-            width: 280px;
+            width: 300px;
             box-shadow: var(--shadow-glow);
         }
 
@@ -696,7 +774,7 @@
             font-size: 16px;
         }
 
-        /* СЕЛЕКТОР ТЕМ */
+        /* СЕЛЕКТОР ТЕМ — ЭЛИТНЫЙ */
         .theme-selector {
             display: flex;
             gap: 4px;
@@ -707,34 +785,52 @@
             border-radius: 50px;
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(10px);
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.03);
         }
 
         .theme-selector .theme-btn {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             border: 2px solid transparent;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 13px;
+            font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: transparent;
+            background: var(--glass-bg);
             color: var(--text-secondary);
             line-height: 1;
+            backdrop-filter: blur(4px);
+            position: relative;
+        }
+
+        .theme-selector .theme-btn::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
         }
 
         .theme-selector .theme-btn:hover {
-            transform: scale(1.25);
+            transform: scale(1.2);
             border-color: var(--accent);
         }
 
         .theme-selector .theme-btn.active {
             border-color: var(--accent);
-            box-shadow: 0 0 20px var(--accent-glow);
+            box-shadow: 0 0 25px var(--accent-glow), inset 0 0 15px var(--accent-glow);
             transform: scale(1.15);
             background: var(--glass-bg);
+        }
+
+        .theme-selector .theme-btn.active::after {
+            opacity: 0.5;
         }
 
         .header-user {
@@ -953,7 +1049,7 @@
         }
 
         /* ============================================================
-           ПОВОРОТ УДАЧИ (Lucky Spin)
+           ПОВОРОТ УДАЧИ
            ============================================================ */
         .lucky-spin {
             background: var(--glass-bg);
@@ -1002,47 +1098,69 @@
             flex-wrap: wrap;
         }
         .lucky-spin .spin-bet select {
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 30px;
             border: 1px solid var(--border-color);
             background: var(--bg-input);
             color: var(--text-primary);
-            font-size: 13px;
+            font-size: 14px;
+            font-weight: 600;
             outline: none;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
         .lucky-spin .spin-bet select:focus {
             border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
         }
         .lucky-spin .spin-btn {
             background: linear-gradient(135deg, #ffd700, #ff8c00);
             color: #0b0e14;
             border: none;
-            padding: 8px 24px;
+            padding: 10px 28px;
             border-radius: 50px;
-            font-weight: 700;
-            font-size: 14px;
+            font-weight: 800;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .lucky-spin .spin-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.06);
             box-shadow: 0 8px 40px rgba(255, 215, 0, 0.5);
         }
         .lucky-spin .spin-btn:active {
             transform: scale(0.95);
         }
         .lucky-spin .spin-result {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--gold);
-            min-width: 120px;
+            min-width: 200px;
             text-align: center;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        .lucky-spin .spin-result.lose {
+            color: var(--text-muted);
+        }
+        .lucky-spin .spin-result.win {
+            color: var(--gold);
+            animation: winPulse 0.5s ease;
+        }
+        @keyframes winPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         /* ============================================================
-           СОВЕТ ДНЯ + ЦИТАТА
+           СОВЕТ ДНЯ
            ============================================================ */
         .tip-of-day {
             background: var(--glass-bg);
@@ -1142,7 +1260,7 @@
         }
 
         /* ============================================================
-           КАТЕГОРИИ
+           КАТЕГОРИИ С ИГРАМИ (30+ ИГР)
            ============================================================ */
         .categories-swiper-wrap {
             position: relative;
@@ -1410,6 +1528,224 @@
         }
 
         /* ============================================================
+           ДРУЗЬЯ, ПРОФИЛИ, КАНАЛЫ
+           ============================================================ */
+        .friend-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .friend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .friend-item:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+        .friend-item .f-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: 14px;
+        }
+        .friend-item .f-info {
+            flex: 1;
+        }
+        .friend-item .f-info .f-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        .friend-item .f-info .f-status {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .friend-item .f-info .f-status.online {
+            color: var(--green);
+        }
+        .friend-item .f-btn {
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: none;
+            background: var(--bg-category);
+            color: var(--text-secondary);
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .friend-item .f-btn:hover {
+            background: var(--accent-gradient);
+            color: var(--text-inverse);
+        }
+
+        /* КАНАЛЫ */
+        .channel-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .channel-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .channel-item:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+        .channel-item .c-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: 14px;
+        }
+        .channel-item .c-info {
+            flex: 1;
+        }
+        .channel-item .c-info .c-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        .channel-item .c-info .c-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .channel-item .c-btn {
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: none;
+            background: var(--bg-category);
+            color: var(--text-secondary);
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .channel-item .c-btn:hover {
+            background: var(--accent-gradient);
+            color: var(--text-inverse);
+        }
+
+        /* РЕАКЦИИ */
+        .reactions {
+            display: flex;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .reactions .reaction {
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: var(--bg-category);
+            border: 1px solid var(--border-color);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .reactions .reaction:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+        .reactions .reaction .count {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ДОНАТЫ */
+        .donate-bar {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 16px 20px;
+            border: 1px solid var(--glass-border);
+            margin: 0 24px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: var(--card-shadow);
+        }
+        .donate-bar:hover {
+            border-color: var(--gold);
+        }
+        .donate-bar .donate-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .donate-bar .donate-info .donate-icon {
+            font-size: 28px;
+        }
+        .donate-bar .donate-info .donate-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .donate-bar .donate-info .donate-text strong {
+            color: var(--gold);
+        }
+        .donate-bar .donate-input {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .donate-bar .donate-input input {
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            width: 120px;
+            outline: none;
+            font-size: 13px;
+        }
+        .donate-bar .donate-input input:focus {
+            border-color: var(--accent);
+        }
+        .donate-bar .donate-input .donate-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #0b0e14;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .donate-bar .donate-input .donate-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* ============================================================
            САЙДБАР
            ============================================================ */
         .sidebar-block {
@@ -1510,7 +1846,7 @@
         }
 
         /* ============================================================
-           ПРАВИЛА (огромные, как на FunPay)
+           ПРАВИЛА
            ============================================================ */
         .rules-full {
             background: var(--glass-bg);
@@ -1932,6 +2268,9 @@
             .lucky-spin .spin-bet {
                 justify-content: center;
             }
+            .lucky-spin .spin-result {
+                min-width: 100%;
+            }
             .tip-of-day {
                 margin: 0 16px 12px;
                 flex-direction: column;
@@ -1978,9 +2317,9 @@
                 font-size: 32px;
             }
             .theme-selector .theme-btn {
-                width: 24px;
-                height: 24px;
-                font-size: 10px;
+                width: 26px;
+                height: 26px;
+                font-size: 11px;
             }
             .rules-full {
                 padding: 16px;
@@ -1993,21 +2332,44 @@
                 padding: 28px 20px;
             }
             .welcome-box h1 {
-                font-size: 24px;
+                font-size: 26px;
+            }
+            .donate-bar {
+                margin: 0 16px 12px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .donate-bar .donate-input {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ПРИВЕТСТВИЕ -->
+    <!-- ПРИВЕТСТВИЕ (СУПЕР КРУТОЕ) -->
     <div class="welcome-overlay" id="welcomeOverlay">
         <div class="welcome-box">
+            <div class="stars-bg" id="starsBg"></div>
             <span class="welcome-icon">🚀</span>
             <h1>Добро пожаловать в SkyMarket PRO</h1>
-            <p>Это не просто маркетплейс — это <strong style="color:var(--accent);">игровая экосистема</strong>, где ты можешь покупать и продавать игровые товары с абсолютной безопасностью через систему гаранта.</p>
-            <div class="welcome-quote" id="welcomeQuote">Успех — это умение двигаться от неудачи к неудаче, не теряя энтузиазма.</div>
-            <button class="btn btn-primary" onclick="closeWelcome()">Погнали! 🎮</button>
+            <p>Это не просто маркетплейс — это <strong style="color:var(--accent);">игровая экосистема</strong>, где ты можешь покупать, продавать, общаться и зарабатывать. <br> <span style="color:var(--text-muted);">Присоединяйся к сообществу топовых игроков!</span></p>
+            <div class="welcome-quote" id="welcomeQuote">
+                <span id="quoteText">Успех — это умение двигаться от неудачи к неудаче, не теряя энтузиазма.</span>
+                <span class="nav-quote" onclick="changeQuote(-1)">◀</span>
+                <span class="nav-quote" onclick="changeQuote(1)">▶</span>
+                <span class="quote-progress" id="quoteProgress">1/100</span>
+            </div>
+            <div class="social-bonus">
+                <button class="social-btn" onclick="subscribeSocial(this, 'telegram')"><i class="fab fa-telegram"></i> Telegram</button>
+                <button class="social-btn" onclick="subscribeSocial(this, 'youtube')"><i class="fab fa-youtube"></i> YouTube</button>
+                <button class="social-btn" onclick="subscribeSocial(this, 'discord')"><i class="fab fa-discord"></i> Discord</button>
+                <button class="social-btn" onclick="subscribeSocial(this, 'vk')"><i class="fab fa-vk"></i> VK</button>
+                <button class="social-btn" onclick="subscribeSocial(this, 'instagram')"><i class="fab fa-instagram"></i> Instagram</button>
+                <button class="social-btn" onclick="subscribeSocial(this, 'twitter')"><i class="fab fa-twitter"></i> Twitter</button>
+            </div>
+            <button class="btn btn-primary" onclick="closeWelcome()"><i class="fas fa-rocket"></i> Погнали! 🎮</button>
         </div>
     </div>
 
@@ -2016,11 +2378,11 @@
         <div class="logo" onclick="animateLogo()">Sky<span>Market</span><span class="badge">PRO</span></div>
         <div class="header-controls">
             <div class="search-wrap">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="Поиск..." oninput="filterCatalog()">
+                <span class="search-icon"><i class="fas fa-search"></i></span>
+                <input type="text" id="searchInput" placeholder="Поиск товаров, игр, продавцов..." oninput="filterCatalog()">
             </div>
 
-            <!-- СЕЛЕКТОР ТЕМ -->
+            <!-- СЕЛЕКТОР ТЕМ — ЭЛИТНЫЙ -->
             <div class="theme-selector">
                 <span class="theme-btn active" data-theme="neon" onclick="setTheme('neon')" title="Неон">💜</span>
                 <span class="theme-btn" data-theme="cosmos" onclick="setTheme('cosmos')" title="Космос">🌌</span>
@@ -2034,11 +2396,11 @@
                 <span class="theme-btn" data-theme="amber" onclick="setTheme('amber')" title="Янтарь">🔶</span>
             </div>
 
-            <button class="btn-icon" onclick="toggleThemeMode()" id="themeToggle" title="Светлая/Тёмная">🌙</button>
+            <button class="btn-icon" onclick="toggleThemeMode()" id="themeToggle" title="Светлая/Тёмная"><i class="fas fa-moon"></i></button>
 
             <div id="guestButtons">
-                <button class="btn btn-outline" onclick="openAuth('login')">Вход</button>
-                <button class="btn btn-primary" onclick="openAuth('register')">Регистрация</button>
+                <button class="btn btn-outline" onclick="openAuth('login')"><i class="fas fa-sign-in-alt"></i> Вход</button>
+                <button class="btn btn-primary" onclick="openAuth('register')"><i class="fas fa-user-plus"></i> Регистрация</button>
             </div>
             <div id="userButtons" style="display:none;">
                 <span class="header-user">
@@ -2046,20 +2408,22 @@
                     <span id="userNameDisplay" style="color:var(--accent);font-weight:600;font-size:13px;"></span>
                     <span class="balance" id="headerBalance">0 ₽</span>
                 </span>
-                <button class="btn btn-outline" onclick="openProfile()">Профиль</button>
-                <button class="btn btn-danger" onclick="logout()">Выход</button>
+                <button class="btn btn-outline" onclick="openProfile()"><i class="fas fa-user"></i></button>
+                <button class="btn btn-danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
             </div>
-            <button class="btn btn-primary" onclick="openModal()">➕ Продать</button>
+            <button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Продать</button>
         </div>
     </header>
 
     <!-- НАВИГАЦИЯ -->
     <div class="nav-bar">
-        <a href="#" class="active" data-page="catalog" onclick="switchPage('catalog'); return false;">🏷️ Каталог</a>
-        <a href="#" data-page="messages" onclick="switchPage('messages'); return false;">💬 Сообщения</a>
-        <a href="#" data-page="sales" onclick="switchPage('sales'); return false;">📦 Продажи</a>
-        <a href="#" data-page="finance" onclick="switchPage('finance'); return false;">💰 Финансы</a>
-        <span class="nav-balance" id="navBalance">Баланс: 0 ₽</span>
+        <a href="#" class="active" data-page="catalog" onclick="switchPage('catalog'); return false;"><i class="fas fa-tags"></i> Каталог</a>
+        <a href="#" data-page="messages" onclick="switchPage('messages'); return false;"><i class="fas fa-comments"></i> Сообщения</a>
+        <a href="#" data-page="sales" onclick="switchPage('sales'); return false;"><i class="fas fa-box"></i> Продажи</a>
+        <a href="#" data-page="finance" onclick="switchPage('finance'); return false;"><i class="fas fa-coins"></i> Финансы</a>
+        <a href="#" data-page="friends" onclick="switchPage('friends'); return false;"><i class="fas fa-users"></i> Друзья</a>
+        <a href="#" data-page="channels" onclick="switchPage('channels'); return false;"><i class="fas fa-broadcast"></i> Каналы</a>
+        <span class="nav-balance" id="navBalance"><i class="fas fa-wallet"></i> 0 ₽</span>
         <span class="online-count"><span class="dot"></span> <span id="onlineCount">0</span> онлайн</span>
     </div>
 
@@ -2069,13 +2433,13 @@
             <div class="banner-icon">🎰</div>
             <div class="banner-title">НОВОЕ СОБЫТИЕ</div>
             <div class="banner-sub">ПОВОРОТ УДАЧИ</div>
-            <button class="banner-btn" onclick="document.getElementById('luckySpin').scrollIntoView({behavior:'smooth'})">Крутить 🔥</button>
+            <button class="banner-btn" onclick="document.getElementById('luckySpin').scrollIntoView({behavior:'smooth'})"><i class="fas fa-dice"></i> Крутить 🔥</button>
         </div>
         <div class="banner banner-blue">
             <div class="banner-icon">🚀</div>
             <div class="banner-title">ТОПОВЫЕ ПРИЛОЖЕНИЯ</div>
             <div class="banner-sub">ЛУЧШИЕ СЕРВИСЫ В ОДНОМ МЕСТЕ!</div>
-            <button class="btn btn-primary" onclick="alert('📱 Список топовых приложений')">Смотреть</button>
+            <button class="btn btn-primary" onclick="alert('📱 Список топовых приложений')"><i class="fas fa-eye"></i> Смотреть</button>
         </div>
     </div>
 
@@ -2085,7 +2449,7 @@
             <span class="spin-icon">🎡</span>
             <div class="spin-text">
                 <strong>🎰 Поворот удачи!</strong> Крути и получи <strong>скидку</strong> или <strong>снижение комиссии</strong>.<br>
-                <span style="font-size:12px;color:var(--text-muted);">Чем выше ставка — тем круче приз!</span>
+                <span style="font-size:12px;color:var(--text-muted);">Чем выше ставка — тем лучше приз, но и риск выше!</span>
             </div>
         </div>
         <div class="spin-bet">
@@ -2096,16 +2460,16 @@
                 <option value="500">500 ₽</option>
                 <option value="1000">1000 ₽</option>
             </select>
-            <button class="spin-btn" onclick="spinLucky()">🎲 Крутить!</button>
+            <button class="spin-btn" onclick="spinLucky()"><i class="fas fa-dice"></i> Крутить!</button>
             <span class="spin-result" id="spinResult">🎯 Жми!</span>
         </div>
     </div>
 
-    <!-- СОВЕТ ДНЯ + ЦИТАТА -->
+    <!-- СОВЕТ ДНЯ -->
     <div class="tip-of-day" id="tipOfDay">
         <span class="tip-icon">💡</span>
-        <span class="tip-text"><strong>Совет дня:</strong> <span id="dailyTip">Добавьте описание к товару — это повышает доверие покупателей!</span></span>
-        <span style="font-size:11px;color:var(--text-muted);">📖 <span id="quoteDisplay">Цитата дня</span></span>
+        <span class="tip-text"><strong>Совет дня:</strong> <span id="dailyTip">Проверяйте товар перед отправкой, чтобы избежать возврата.</span></span>
+        <span style="font-size:11px;color:var(--text-muted);"><i class="fas fa-quote-left"></i> <span id="quoteDisplay">Цитата дня</span></span>
     </div>
 
     <!-- ЕЖЕДНЕВНЫЙ БОНУС -->
@@ -2113,32 +2477,48 @@
         <div class="bonus-info">
             <span class="bonus-icon">🎁</span>
             <div class="bonus-text">
-                <strong>Ежедневный бонус!</strong> Забери свои <strong id="dailyBonusAmount">5 ₽</strong>
+                <strong>Ежедневный бонус!</strong> Забери свои <strong id="dailyBonusAmount">3 ₽</strong>
                 <span style="font-size:11px;color:var(--text-muted);display:block;">Заходи каждый день и получай бонус</span>
             </div>
         </div>
-        <button class="bonus-claim" id="dailyBonusBtn">Забрать</button>
+        <button class="bonus-claim" id="dailyBonusBtn"><i class="fas fa-gift"></i> Забрать</button>
     </div>
 
-    <!-- КАТЕГОРИИ -->
+    <!-- КАТЕГОРИИ С ИГРАМИ (30+ ИГР) -->
     <div class="categories-swiper-wrap">
         <button class="swiper-btn swiper-btn-left" onclick="scrollCategories(-1)">◀</button>
         <div class="categories-swiper" id="categoriesSwiper">
-            <span class="cat active" data-game="all"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="var(--accent)"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="var(--text-inverse)" text-anchor="middle">★</text></svg> Все</span>
-            <span class="cat" data-game="Roblox"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#00bcd4" text-anchor="middle">R</text></svg> Roblox</span>
-            <span class="cat" data-game="Fortnite"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff6b6b" text-anchor="middle">F</text></svg> Fortnite</span>
-            <span class="cat" data-game="Minecraft"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#4caf50" text-anchor="middle">M</text></svg> Minecraft</span>
-            <span class="cat" data-game="GTA V"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff9800" text-anchor="middle">G</text></svg> GTA V</span>
-            <span class="cat" data-game="Valorant"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff4655" text-anchor="middle">V</text></svg> Valorant</span>
-            <span class="cat" data-game="CS:GO"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="11" font-weight="900" fill="#f5c842" text-anchor="middle">CS</text></svg> CS:GO</span>
-            <span class="cat" data-game="Dota 2"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ff6b35" text-anchor="middle">D</text></svg> Dota 2</span>
-            <span class="cat" data-game="PUBG"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#f5a623" text-anchor="middle">P</text></svg> PUBG</span>
-            <span class="cat" data-game="Steam"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#00adee" text-anchor="middle">S</text></svg> Steam</span>
-            <span class="cat" data-game="Discord"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#5865f2" text-anchor="middle">D</text></svg> Discord</span>
-            <span class="cat" data-game="Genshin Impact"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="11" font-weight="900" fill="#4fc3f7" text-anchor="middle">GI</text></svg> Genshin</span>
-            <span class="cat" data-game="League of Legends"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#f0c040" text-anchor="middle">L</text></svg> LoL</span>
-            <span class="cat" data-game="World of Warcraft"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="14" font-weight="900" fill="#ffc107" text-anchor="middle">W</text></svg> WoW</span>
-            <span class="cat" data-game="Escape from Tarkov"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1a1a2e"/><text x="12" y="17" font-family="Arial" font-size="10" font-weight="900" fill="#d4af37" text-anchor="middle">EFT</text></svg> EFT</span>
+            <span class="cat active" data-game="all"><i class="fas fa-star"></i> Все</span>
+            <span class="cat" data-game="Roblox"><i class="fas fa-cube"></i> Roblox</span>
+            <span class="cat" data-game="Fortnite"><i class="fas fa-crosshairs"></i> Fortnite</span>
+            <span class="cat" data-game="Minecraft"><i class="fas fa-cubes"></i> Minecraft</span>
+            <span class="cat" data-game="GTA V"><i class="fas fa-car"></i> GTA V</span>
+            <span class="cat" data-game="Valorant"><i class="fas fa-crosshairs"></i> Valorant</span>
+            <span class="cat" data-game="CS:GO"><i class="fas fa-skull"></i> CS:GO</span>
+            <span class="cat" data-game="Dota 2"><i class="fas fa-shield-alt"></i> Dota 2</span>
+            <span class="cat" data-game="PUBG"><i class="fas fa-crosshairs"></i> PUBG</span>
+            <span class="cat" data-game="Steam"><i class="fab fa-steam"></i> Steam</span>
+            <span class="cat" data-game="Discord"><i class="fab fa-discord"></i> Discord</span>
+            <span class="cat" data-game="Genshin Impact"><i class="fas fa-crown"></i> Genshin</span>
+            <span class="cat" data-game="League of Legends"><i class="fas fa-trophy"></i> LoL</span>
+            <span class="cat" data-game="World of Warcraft"><i class="fas fa-dragon"></i> WoW</span>
+            <span class="cat" data-game="Escape from Tarkov"><i class="fas fa-skull-crossbones"></i> EFT</span>
+            <span class="cat" data-game="Apex Legends"><i class="fas fa-fighter-jet"></i> Apex</span>
+            <span class="cat" data-game="Rainbow Six"><i class="fas fa-helmet-safety"></i> R6</span>
+            <span class="cat" data-game="Call of Duty"><i class="fas fa-crosshairs"></i> CoD</span>
+            <span class="cat" data-game="FIFA"><i class="fas fa-futbol"></i> FIFA</span>
+            <span class="cat" data-game="Among Us"><i class="fas fa-user-astronaut"></i> Among Us</span>
+            <span class="cat" data-game="Fall Guys"><i class="fas fa-running"></i> Fall Guys</span>
+            <span class="cat" data-game="Rust"><i class="fas fa-fire"></i> Rust</span>
+            <span class="cat" data-game="DayZ"><i class="fas fa-skull"></i> DayZ</span>
+            <span class="cat" data-game="Tarkov"><i class="fas fa-shield"></i> Tarkov</span>
+            <span class="cat" data-game="Diablo"><i class="fas fa-demon"></i> Diablo</span>
+            <span class="cat" data-game="Path of Exile"><i class="fas fa-crown"></i> PoE</span>
+            <span class="cat" data-game="Warframe"><i class="fas fa-robot"></i> Warframe</span>
+            <span class="cat" data-game="Destiny 2"><i class="fas fa-star"></i> Destiny</span>
+            <span class="cat" data-game="Overwatch"><i class="fas fa-shield"></i> Overwatch</span>
+            <span class="cat" data-game="Hearthstone"><i class="fas fa-card"></i> Hearthstone</span>
+            <span class="cat" data-game="StarCraft"><i class="fas fa-rocket"></i> StarCraft</span>
         </div>
         <button class="swiper-btn swiper-btn-right" onclick="scrollCategories(1)">▶</button>
     </div>
@@ -2152,41 +2532,61 @@
                 <div style="display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
                     <input type="text" id="gameSearchInput" placeholder="🔍 Поиск игры..." oninput="filterGames()" style="flex:1;padding:10px 18px;border-radius:50px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;min-width:180px;transition:all 0.3s ease;font-size:13px;">
                     <select id="sortSelect" onchange="sortCatalog()" style="padding:8px 16px;border-radius:50px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;font-size:13px;">
-                        <option value="popular">По популярности</option>
-                        <option value="price_asc">Цена ↑</option>
-                        <option value="price_desc">Цена ↓</option>
-                        <option value="newest">Новые</option>
+                        <option value="popular"><i class="fas fa-fire"></i> По популярности</option>
+                        <option value="price_asc"><i class="fas fa-arrow-up"></i> Цена ↑</option>
+                        <option value="price_desc"><i class="fas fa-arrow-down"></i> Цена ↓</option>
+                        <option value="newest"><i class="fas fa-clock"></i> Новые</option>
                     </select>
-                    <button class="btn btn-outline" onclick="toggleGuaranteeOnly()" style="font-size:12px;">🛡️ Гарант</button>
-                    <button class="btn btn-outline" onclick="showHotItems()" style="font-size:12px;">🔥 Горячие</button>
+                    <button class="btn btn-outline" onclick="toggleGuaranteeOnly()" style="font-size:12px;"><i class="fas fa-shield-alt"></i> Гарант</button>
+                    <button class="btn btn-outline" onclick="showHotItems()" style="font-size:12px;"><i class="fas fa-fire"></i> Горячие</button>
                 </div>
-                <h2 style="font-weight:400;margin-bottom:14px;color:var(--text-secondary);font-size:20px;font-weight:700;">📦 Товары · <span id="itemCount">0</span></h2>
+                <h2 style="font-weight:400;margin-bottom:14px;color:var(--text-secondary);font-size:20px;font-weight:700;"><i class="fas fa-boxes"></i> Товары · <span id="itemCount">0</span></h2>
                 <div class="items-grid" id="catalogGrid"></div>
             </div>
 
             <!-- СООБЩЕНИЯ -->
             <div class="page" id="page-messages">
-                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;">💬 Сообщения</h2>
+                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-comments"></i> Сообщения</h2>
                 <div class="messages-list" id="messagesList"></div>
             </div>
 
             <!-- ПРОДАЖИ -->
             <div class="page" id="page-sales">
-                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;">📦 Мои продажи</h2>
+                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-box"></i> Мои продажи</h2>
                 <div class="stats-grid" id="salesStats"></div>
                 <div style="background:var(--glass-bg);backdrop-filter:blur(20px);border-radius:16px;padding:16px;border:1px solid var(--glass-border);box-shadow:var(--card-shadow);">
-                    <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">📊 Детальная статистика</h3>
+                    <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;"><i class="fas fa-chart-line"></i> Детальная статистика</h3>
                     <div id="salesDetail"></div>
                 </div>
             </div>
 
             <!-- ФИНАНСЫ -->
             <div class="page" id="page-finance">
-                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;">💰 Финансы</h2>
+                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-coins"></i> Финансы</h2>
                 <div class="stats-grid" id="financeStats"></div>
                 <div style="background:var(--glass-bg);backdrop-filter:blur(20px);border-radius:16px;padding:16px;border:1px solid var(--glass-border);box-shadow:var(--card-shadow);">
-                    <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">📋 История транзакций</h3>
+                    <h3 style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;"><i class="fas fa-history"></i> История транзакций</h3>
                     <div id="transactionHistory"></div>
+                </div>
+            </div>
+
+            <!-- ДРУЗЬЯ -->
+            <div class="page" id="page-friends">
+                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-user-friends"></i> Мои друзья</h2>
+                <div class="friend-list" id="friendsList"></div>
+                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <input type="text" id="addFriendInput" placeholder="Введите логин..." style="flex:1;padding:10px 18px;border-radius:50px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;font-size:13px;">
+                    <button class="btn btn-primary" onclick="addFriend()"><i class="fas fa-user-plus"></i> Добавить</button>
+                </div>
+            </div>
+
+            <!-- КАНАЛЫ -->
+            <div class="page" id="page-channels">
+                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-broadcast"></i> Популярные каналы</h2>
+                <div class="channel-list" id="channelsList"></div>
+                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <input type="text" id="createChannelInput" placeholder="Название канала..." style="flex:1;padding:10px 18px;border-radius:50px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;font-size:13px;">
+                    <button class="btn btn-success" onclick="createChannel()"><i class="fas fa-plus-circle"></i> Создать</button>
                 </div>
             </div>
         </div>
@@ -2196,30 +2596,44 @@
 
             <!-- КОРЗИНА -->
             <div class="cart-block">
-                <h3>🛒 Корзина <span class="count" id="cartCount">0</span></h3>
+                <h3><i class="fas fa-shopping-cart"></i> Корзина <span class="count" id="cartCount">0</span></h3>
                 <div id="cartItems"></div>
-                <div class="cart-total">₽ <span id="cartTotal">0</span></div>
-                <button class="btn-checkout" onclick="checkout()">Оформить</button>
+                <div class="cart-total"><i class="fas fa-ruble-sign"></i> <span id="cartTotal">0</span></div>
+                <button class="btn-checkout" onclick="checkout()"><i class="fas fa-check"></i> Оформить</button>
             </div>
 
             <!-- ТОП ПРОДАВЦОВ -->
             <div class="sidebar-block">
-                <h3>🏆 Топ-продавцы <span class="count">🔥</span></h3>
+                <h3><i class="fas fa-trophy"></i> Топ-продавцы <span class="count">🔥</span></h3>
                 <div id="topSellersList"></div>
             </div>
 
             <!-- СПОРЫ -->
             <div class="sidebar-block">
-                <h3>🛡️ Активные споры <span class="count" id="disputeCount">0</span></h3>
+                <h3><i class="fas fa-shield-alt"></i> Активные споры <span class="count" id="disputeCount">0</span></h3>
                 <div id="disputesList"></div>
-                <button class="btn btn-outline" style="width:100%;margin-top:8px;font-size:12px;" onclick="openSupport()">Открыть спор</button>
+                <button class="btn btn-outline" style="width:100%;margin-top:8px;font-size:12px;" onclick="openSupport()"><i class="fas fa-gavel"></i> Открыть спор</button>
             </div>
         </div>
     </div>
 
-    <!-- ПРАВИЛА (огромные, как на FunPay) -->
+    <!-- ДОНАТЫ -->
+    <div class="donate-bar">
+        <div class="donate-info">
+            <span class="donate-icon">💎</span>
+            <div class="donate-text">
+                <strong>Поддержи проект!</strong> Сделай донат и получи эксклюзивный бейдж <span style="color:var(--gold);">🌟</span>
+            </div>
+        </div>
+        <div class="donate-input">
+            <input type="number" id="donateAmount" placeholder="Сумма" min="1" value="100">
+            <button class="donate-btn" onclick="makeDonate()"><i class="fas fa-heart"></i> Донат</button>
+        </div>
+    </div>
+
+    <!-- ПРАВИЛА -->
     <div class="rules-full">
-        <h2>📜 Правила платформы SkyMarket PRO</h2>
+        <h2><i class="fas fa-scroll"></i> Правила платформы SkyMarket PRO</h2>
         <div class="rules-grid">
             <div class="rule-item">
                 <div class="rule-title"><span class="rule-icon">🛡️</span> Гарант-сделки</div>
@@ -2253,22 +2667,30 @@
                 <div class="rule-title"><span class="rule-icon">💬</span> Чат</div>
                 <div class="rule-desc">Общий чат модерируется. За оскорбления и спам — <strong>предупреждение</strong>, затем бан.</div>
             </div>
+            <div class="rule-item">
+                <div class="rule-title"><span class="rule-icon">💳</span> Пополнение</div>
+                <div class="rule-desc">Поддерживаются <strong>все карты СНГ</strong>, криптовалюта (BTC, ETH, USDT) и P2P переводы.</div>
+            </div>
+            <div class="rule-item">
+                <div class="rule-title"><span class="rule-icon">🎁</span> Бонусы</div>
+                <div class="rule-desc">Топ-продавцы получают <strong>еженедельные бонусы</strong> и сниженную комиссию до <strong>1%</strong>.</div>
+            </div>
         </div>
     </div>
 
     <!-- ГЛОБАЛЬНЫЙ ЧАТ -->
     <div class="chat-container">
         <div class="chat-header">
-            <span>💬 Общий чат <span class="online">Онлайн: <span id="onlineUsers">0</span></span></span>
+            <span><i class="fas fa-comment-dots"></i> Общий чат <span class="online">Онлайн: <span id="onlineUsers">0</span></span></span>
             <span style="font-size:12px;color:var(--text-muted);">🟢</span>
         </div>
         <div class="chat-messages" id="chatMessages"></div>
         <div class="chat-input-row">
             <input type="text" id="chatInput" placeholder="Напишите сообщение..." onkeypress="if(event.key==='Enter') sendMessage()">
             <div class="chat-btns">
-                <button onclick="document.getElementById('chatFileInput').click()" title="Фото/Видео">📎</button>
-                <button id="voiceBtn" onclick="startRecording()" title="Голосовое">🎤</button>
-                <button class="send-btn" onclick="sendMessage()">➤</button>
+                <button onclick="document.getElementById('chatFileInput').click()" title="Фото/Видео"><i class="fas fa-paperclip"></i></button>
+                <button id="voiceBtn" onclick="startRecording()" title="Голосовое"><i class="fas fa-microphone"></i></button>
+                <button class="send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
         <input type="file" id="chatFileInput" class="hidden-input" accept="image/*,video/*" multiple onchange="handleFileUpload(event)">
@@ -2278,21 +2700,21 @@
     <!-- МОДАЛКИ -->
     <div class="modal-overlay" id="authModal">
         <div class="modal">
-            <h2 id="authTitle">🔐 Вход</h2>
+            <h2 id="authTitle"><i class="fas fa-lock"></i> Вход</h2>
             <p id="authDesc">Введите логин и пароль</p>
-            <label>Логин</label>
+            <label><i class="fas fa-user"></i> Логин</label>
             <input type="text" id="authLogin" placeholder="Логин">
-            <label>Пароль</label>
+            <label><i class="fas fa-key"></i> Пароль</label>
             <input type="password" id="authPassword" placeholder="Пароль">
             <div id="confirmPasswordBlock" style="display:none;">
-                <label>Подтвердите пароль</label>
+                <label><i class="fas fa-check-circle"></i> Подтвердите пароль</label>
                 <input type="password" id="authPasswordConfirm" placeholder="Повторите пароль">
             </div>
             <div id="authError" style="color:var(--red);font-size:12px;margin-top:6px;display:none;"></div>
-            <button class="btn btn-primary" style="width:100%;margin-top:12px;padding:12px;" onclick="submitAuth()">Войти</button>
+            <button class="btn btn-primary" style="width:100%;margin-top:12px;padding:12px;" onclick="submitAuth()"><i class="fas fa-sign-in-alt"></i> Войти</button>
             <div class="soc-divider"><span></span>или<span></span></div>
-            <button class="btn" style="width:100%;background:#0088cc;color:#fff;padding:10px;border-radius:50px;border:none;font-weight:600;cursor:pointer;" onclick="authTelegram()">Telegram</button>
-            <button class="btn" style="width:100%;background:#db4437;color:#fff;padding:10px;border-radius:50px;border:none;font-weight:600;cursor:pointer;margin-top:6px;" onclick="authGoogle()">Google</button>
+            <button class="btn" style="width:100%;background:#0088cc;color:#fff;padding:10px;border-radius:50px;border:none;font-weight:600;cursor:pointer;" onclick="authTelegram()"><i class="fab fa-telegram"></i> Telegram</button>
+            <button class="btn" style="width:100%;background:#db4437;color:#fff;padding:10px;border-radius:50px;border:none;font-weight:600;cursor:pointer;margin-top:6px;" onclick="authGoogle()"><i class="fab fa-google"></i> Google</button>
             <div class="actions" style="margin-top:14px;">
                 <button class="btn btn-outline" onclick="closeAuth()">Закрыть</button>
             </div>
@@ -2301,32 +2723,32 @@
 
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
-            <h2>👤 Профиль</h2>
+            <h2><i class="fas fa-user"></i> Профиль</h2>
             <div class="profile-avatar-large" onclick="document.getElementById('avatarUpload').click()">
                 <span id="avatarPlaceholder">👤</span>
                 <img id="profileAvatar" style="display:none;">
             </div>
             <input type="file" id="avatarUpload" accept="image/*" style="display:none;" onchange="uploadAvatar(event)">
             <div class="profile-card">
-                <div class="info"><strong>Логин:</strong> <span id="profileLogin"></span></div>
-                <div class="info"><strong>Дата:</strong> <span id="profileDate"></span></div>
-                <div class="info"><strong>Метод:</strong> <span id="profileMethod"></span></div>
-                <div class="info"><strong>Статус:</strong> <span id="profileStatus" class="profile-status online">Онлайн</span></div>
+                <div class="info"><strong><i class="fas fa-user"></i> Логин:</strong> <span id="profileLogin"></span></div>
+                <div class="info"><strong><i class="fas fa-calendar"></i> Дата:</strong> <span id="profileDate"></span></div>
+                <div class="info"><strong><i class="fas fa-shield-alt"></i> Метод:</strong> <span id="profileMethod"></span></div>
+                <div class="info"><strong><i class="fas fa-circle"></i> Статус:</strong> <span id="profileStatus" class="profile-status online">Онлайн</span></div>
                 <div class="profile-rating">
                     <span class="rating-big" id="profileRating">0.0</span>
                     <span class="rating-stars" id="profileRatingStars">☆☆☆☆☆</span>
                     <span class="rating-count">(<span id="profileRatingCount">0</span> отзывов)</span>
                 </div>
-                <div class="info"><strong>Уровень:</strong> <span id="profileLevel" class="level-badge">🟢 Новичок</span></div>
-                <div class="info"><strong>Описание:</strong></div>
+                <div class="info"><strong><i class="fas fa-level-up-alt"></i> Уровень:</strong> <span id="profileLevel" class="level-badge">🟢 Новичок</span></div>
+                <div class="info"><strong><i class="fas fa-align-left"></i> Описание:</strong></div>
                 <textarea id="profileDescriptionInput" rows="2" style="width:100%;background:var(--bg-input);color:var(--text-primary);border:1px solid var(--border-color);border-radius:10px;padding:8px;margin-top:2px;font-size:13px;" onchange="updateDescription()"></textarea>
             </div>
-            <h4 style="margin-top:14px;color:var(--text-secondary);font-size:14px;font-weight:600;">📝 Отзывы</h4>
+            <h4 style="margin-top:14px;color:var(--text-secondary);font-size:14px;font-weight:600;"><i class="fas fa-star"></i> Отзывы</h4>
             <div class="reviews-list" id="reviewsList"></div>
-            <h4 style="margin-top:14px;color:var(--text-secondary);font-size:14px;font-weight:600;">📦 Мои лоты</h4>
+            <h4 style="margin-top:14px;color:var(--text-secondary);font-size:14px;font-weight:600;"><i class="fas fa-box"></i> Мои лоты</h4>
             <div class="lot-management" id="userLotsList"></div>
             <div class="actions" style="margin-top:14px;">
-                <button class="btn btn-danger" onclick="deleteAccount()" style="flex:0.5;font-size:12px;">Удалить</button>
+                <button class="btn btn-danger" onclick="deleteAccount()" style="flex:0.5;font-size:12px;"><i class="fas fa-trash"></i> Удалить</button>
                 <button class="btn btn-outline" onclick="closeProfile()" style="flex:1;">Закрыть</button>
             </div>
         </div>
@@ -2334,11 +2756,11 @@
 
     <div class="modal-overlay" id="sellModal">
         <div class="modal">
-            <h2>➕ Продать товар</h2>
+            <h2><i class="fas fa-plus-circle"></i> Продать товар</h2>
             <p>Заполните все поля</p>
-            <label>Название</label>
+            <label><i class="fas fa-tag"></i> Название</label>
             <input type="text" id="sellName" placeholder="Аккаунт 21+">
-            <label>Игра</label>
+            <label><i class="fas fa-gamepad"></i> Игра</label>
             <select id="sellGame">
                 <option value="Roblox">Roblox</option>
                 <option value="Fortnite">Fortnite</option>
@@ -2354,18 +2776,33 @@
                 <option value="League of Legends">League of Legends</option>
                 <option value="World of Warcraft">World of Warcraft</option>
                 <option value="Escape from Tarkov">Escape from Tarkov</option>
+                <option value="Apex Legends">Apex Legends</option>
+                <option value="Rainbow Six">Rainbow Six</option>
+                <option value="Call of Duty">Call of Duty</option>
+                <option value="FIFA">FIFA</option>
+                <option value="Among Us">Among Us</option>
+                <option value="Fall Guys">Fall Guys</option>
+                <option value="Rust">Rust</option>
+                <option value="DayZ">DayZ</option>
+                <option value="Diablo">Diablo</option>
+                <option value="Path of Exile">Path of Exile</option>
+                <option value="Warframe">Warframe</option>
+                <option value="Destiny 2">Destiny 2</option>
+                <option value="Overwatch">Overwatch</option>
+                <option value="Hearthstone">Hearthstone</option>
+                <option value="StarCraft">StarCraft</option>
             </select>
-            <label>Цена (₽)</label>
+            <label><i class="fas fa-ruble-sign"></i> Цена (₽)</label>
             <input type="number" id="sellPrice" placeholder="490">
-            <label>Описание</label>
+            <label><i class="fas fa-align-left"></i> Описание</label>
             <textarea id="sellDesc" rows="2" placeholder="Краткое описание"></textarea>
-            <label>Скидка (%)</label>
+            <label><i class="fas fa-percent"></i> Скидка (%)</label>
             <input type="number" id="sellDiscount" placeholder="0" value="0">
             <label style="display:flex;align-items:center;gap:6px;margin-top:6px;font-size:13px;">
-                <input type="checkbox" id="sellGuarantee" checked> 🛡️ Сделка с гарантом
+                <input type="checkbox" id="sellGuarantee" checked> <i class="fas fa-shield-alt"></i> Сделка с гарантом
             </label>
             <div class="actions" style="margin-top:12px;">
-                <button class="btn btn-success" onclick="publishLot()" style="flex:1;">Опубликовать</button>
+                <button class="btn btn-success" onclick="publishLot()" style="flex:1;"><i class="fas fa-upload"></i> Опубликовать</button>
                 <button class="btn btn-outline" onclick="closeSellModal()">Закрыть</button>
             </div>
         </div>
@@ -2373,53 +2810,207 @@
 
     <div class="modal-overlay" id="supportModal">
         <div class="modal">
-            <h2>🛡️ Поддержка / Спор</h2>
+            <h2><i class="fas fa-shield-alt"></i> Поддержка / Спор</h2>
             <p>Создайте обращение — администратор рассмотрит в течение 24 часов</p>
-            <label>Тема</label>
+            <label><i class="fas fa-tag"></i> Тема</label>
             <input type="text" id="supportSubject" placeholder="Проблема с заказом #1234">
-            <label>Сообщение</label>
+            <label><i class="fas fa-align-left"></i> Сообщение</label>
             <textarea id="supportMessage" rows="3" placeholder="Опишите ситуацию..."></textarea>
-            <label>Ссылка на скриншот</label>
+            <label><i class="fas fa-link"></i> Ссылка на скриншот</label>
             <input type="text" id="supportLink" placeholder="https://imgur.com/...">
             <div class="actions" style="margin-top:14px;">
-                <button class="btn btn-primary" onclick="createSupportTicket()" style="flex:1;">Отправить</button>
+                <button class="btn btn-primary" onclick="createSupportTicket()" style="flex:1;"><i class="fas fa-paper-plane"></i> Отправить</button>
                 <button class="btn btn-outline" onclick="closeSupport()">Закрыть</button>
             </div>
-            <h4 style="margin-top:14px;color:var(--text-secondary);font-size:14px;font-weight:600;">Мои обращения</h4>
+            <h4 style="margin-top:14px;color:var(--text-secondary);font-size:14px;font-weight:600;"><i class="fas fa-list"></i> Мои обращения</h4>
             <div id="supportTicketsList" style="max-height:180px;overflow-y:auto;"></div>
         </div>
     </div>
 
     <footer>
         © 2026 <strong>SkyMarket PRO</strong> · защита гаранта · честные сделки · 24/7 поддержка
+        <div style="margin-top:6px;display:flex;gap:14px;justify-content:center;font-size:18px;">
+            <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-telegram"></i></a>
+            <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-youtube"></i></a>
+            <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-discord"></i></a>
+            <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-vk"></i></a>
+            <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-twitter"></i></a>
+            <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-github"></i></a>
+        </div>
     </footer>
 
     <script>
         // ============================================================
-        //  ПРИВЕТСТВИЕ
+        //  БОЛЬШАЯ БАЗА ЦИТАТ (100+)
         // ============================================================
-        const quotes = [
-            'Успех — это умение двигаться от неудачи к неудаче, не теряя энтузиазма.',
-            'Лучший способ предсказать будущее — создать его.',
-            'Не бойтесь быть медленными, бойтесь останавливаться.',
-            'Каждый день — это новая возможность изменить свою жизнь.',
-            'Ваше время ограничено, не тратьте его на чужую жизнь.',
-            'Сложнее всего начать действовать, остальное зависит от упорства.',
-            'Гениальность — это 1% вдохновения и 99% пота.'
+        const quoteDatabase = [
+            "Успех — это умение двигаться от неудачи к неудаче, не теряя энтузиазма.",
+            "Лучший способ предсказать будущее — создать его.",
+            "Не бойтесь быть медленными, бойтесь останавливаться.",
+            "Каждый день — это новая возможность изменить свою жизнь.",
+            "Ваше время ограничено, не тратьте его на чужую жизнь.",
+            "Сложнее всего начать действовать, остальное зависит от упорства.",
+            "Гениальность — это 1% вдохновения и 99% пота.",
+            "Единственный способ делать великую работу — любить то, что вы делаете.",
+            "Если вы не готовы ошибаться, вы никогда не придумаете ничего нового.",
+            "Жизнь — это то, что с вами происходит, пока вы строите планы.",
+            "Не судите каждый день по урожаю, который вы собрали, а по семенам, которые вы посадили.",
+            "Лучшее время для начала — сейчас.",
+            "Успех — это не ключ к счастью. Счастье — это ключ к успеху.",
+            "Будьте собой, все остальные роли уже заняты.",
+            "Всегда выбирайте будущее, а не прошлое.",
+            "Великие умы обсуждают идеи, средние — события, маленькие — людей.",
+            "Если вы можете мечтать, вы можете это сделать.",
+            "Секрет успеха — начать до того, как вы будете готовы.",
+            "Не ждите идеального момента, берите момент и делайте его идеальным.",
+            "Цель — это не всегда то, что вы достигаете, а то, чем вы становитесь.",
+            "Победа — это не всё, но желание победить — это всё.",
+            "Дисциплина — это мост между целями и достижениями.",
+            "Ваш энтузиазм заразителен, а апатия — тоже.",
+            "Никогда не сдавайтесь. Всегда есть еще один шанс.",
+            "Не бойтесь перемен. Бойтесь застоя.",
+            "Каждое утро вы начинаете новую жизнь.",
+            "Искусство — это не то, что вы видите, а то, что вы заставляете видеть других.",
+            "Где есть желание, есть и путь.",
+            "Проблемы — это возможности в рабочей одежде.",
+            "В жизни важно не только то, что с вами случилось, но и то, что вы с этим сделали.",
+            "Смелость — это не отсутствие страха, а умение действовать вопреки ему.",
+            "Знание — сила, но действие — результат.",
+            "Будьте тем изменением, которое хотите видеть в мире.",
+            "Ваш самый опасный враг — это негативные мысли.",
+            "Каждый день мы создаём свою реальность.",
+            "Путь в тысячу миль начинается с первого шага.",
+            "Не бывает неудач, есть только опыт.",
+            "Сфокусируйтесь на цели, а не на препятствиях.",
+            "Успех приходит к тем, кто слишком занят, чтобы искать его.",
+            "Верьте в себя, и другие поверят.",
+            "Лучшая месть — это огромный успех.",
+            "Не позволяйте страху остановить вас.",
+            "Ваше время — самый ценный ресурс.",
+            "Делайте больше, чем ожидают.",
+            "Будьте проактивны, а не реактивны.",
+            "Ваше окружение определяет ваше будущее.",
+            "Стремитесь к совершенству, а не к одобрению.",
+            "Каждая ошибка — это урок.",
+            "Действуйте сейчас, а не позже.",
+            "Нет предела совершенству.",
+            "Ваш потенциал безграничен.",
+            "Жизнь — это путешествие, а не пункт назначения.",
+            "Не сравнивайте себя с другими, сравнивайте с собой вчерашним.",
+            "Сфокусируйтесь на позитиве.",
+            "Будьте благодарны за то, что имеете.",
+            "Улыбка — это маленькая сила.",
+            "Доброта всегда возвращается.",
+            "Будьте лучшей версией себя.",
+            "Ваше мышление формирует вашу реальность.",
+            "Каждый день — это подарок.",
+            "Живите с целью.",
+            "Не бойтесь просить о помощи.",
+            "Инвестируйте в себя.",
+            "Читайте, учитесь, растите.",
+            "Будьте любопытны.",
+            "Исследуйте мир.",
+            "Создавайте что-то новое.",
+            "Оставляйте след.",
+            "Вдохновляйте других.",
+            "Будьте мужественными.",
+            "Доверяйте себе.",
+            "Слушайте своё сердце.",
+            "Следуйте за мечтой.",
+            "Не сдавайтесь никогда.",
+            "Верьте в чудеса.",
+            "Празднуйте маленькие победы.",
+            "Учитесь на ошибках.",
+            "Будьте терпеливы.",
+            "Настойчивость побеждает всё.",
+            "Любите то, что делаете.",
+            "Делайте то, что любите.",
+            "Будьте смелыми.",
+            "Думайте масштабно.",
+            "Действуйте смело.",
+            "Сила в единстве.",
+            "Команда делает мечту реальностью.",
+            "Лидерство — это служение.",
+            "Пример заразителен.",
+            "Будьте примером.",
+            "Оставьте мир лучше, чем нашли.",
+            "Каждый день — новая глава.",
+            "Пишите свою историю.",
+            "Будьте автором своей жизни.",
+            "Рискуйте разумно.",
+            "Инновации — это ключ.",
+            "Креативность — это интеллект, играющий в игры.",
+            "Играйте, но играйте по-крупному.",
+            "Будьте страстными.",
+            "Страсть побеждает.",
+            "Энергия заразительна.",
+            "Заряжайте других.",
+            "Будьте светом.",
+            "Сияйте ярко.",
+            "Всё возможно для того, кто верит.",
+            "Вера — это начало.",
+            "Доверие — основа.",
+            "Честность — лучшая политика.",
+            "Будьте честны с собой.",
+            "Знайте свои ценности.",
+            "Живите по ним.",
+            "Оставьте наследие.",
+            "Будьте памятны.",
+            "Вдохновляйте поколения."
         ];
-        document.getElementById('welcomeQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+        let currentQuoteIndex = 0;
+        let subscribedSocials = {};
+
+        function initWelcomeStars() {
+            const container = document.getElementById('starsBg');
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('span');
+                const size = Math.random() * 4 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(star);
+            }
+        }
+        initWelcomeStars();
+
+        function changeQuote(dir) {
+            currentQuoteIndex = (currentQuoteIndex + dir + quoteDatabase.length) % quoteDatabase.length;
+            document.getElementById('quoteText').textContent = quoteDatabase[currentQuoteIndex];
+            document.getElementById('quoteProgress').textContent = (currentQuoteIndex + 1) + '/' + quoteDatabase.length;
+        }
+
+        function subscribeSocial(btn, platform) {
+            if (subscribedSocials[platform]) {
+                alert(`✅ Вы уже подписаны на ${platform}!`);
+                return;
+            }
+            btn.classList.toggle('done');
+            if (btn.classList.contains('done')) {
+                subscribedSocials[platform] = true;
+                btn.innerHTML = btn.innerHTML.replace('Подписаться', '✅ Подписан');
+                alert(`🎉 Вы подписались на ${platform}! Бонус начислен!`);
+                // бонус
+                if (currentUser) {
+                    updateUserBalance(currentUser.login, 5);
+                }
+            } else {
+                delete subscribedSocials[platform];
+                btn.innerHTML = btn.innerHTML.replace('✅ Подписан', 'Подписаться');
+            }
+        }
 
         function closeWelcome() {
             document.getElementById('welcomeOverlay').classList.add('hidden');
         }
 
         // ============================================================
-        //  ЦИТАТА ДНЯ
-        // ============================================================
-        document.getElementById('quoteDisplay').textContent = '📖 ' + quotes[Math.floor(Math.random() * quotes.length)];
-
-        // ============================================================
-        //  ТЕМЫ (10 цветовых схем)
+        //  ТЕМЫ
         // ============================================================
         function getTheme() { return localStorage.getItem('theme') || 'neon'; }
 
@@ -2440,7 +3031,10 @@
             const newMode = current === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme-mode', newMode);
             localStorage.setItem('theme-mode', newMode);
-            document.getElementById('themeToggle').textContent = newMode === 'dark' ? '🌙' : '☀️';
+            const icon = document.getElementById('themeToggle').querySelector('i');
+            if (icon) {
+                icon.className = newMode === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            }
             if (newMode === 'light') {
                 document.documentElement.style.setProperty('--bg-primary', '#f0f4ff');
                 document.documentElement.style.setProperty('--bg-secondary', '#ffffff');
@@ -2460,7 +3054,10 @@
         setTheme(savedTheme);
         const savedMode = localStorage.getItem('theme-mode') || 'dark';
         document.documentElement.setAttribute('data-theme-mode', savedMode);
-        document.getElementById('themeToggle').textContent = savedMode === 'dark' ? '🌙' : '☀️';
+        const icon = document.getElementById('themeToggle').querySelector('i');
+        if (icon) {
+            icon.className = savedMode === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
 
         // ============================================================
         //  АНИМАЦИЯ ЛОГО
@@ -2477,68 +3074,75 @@
         function spinLucky() {
             const bet = parseInt(document.getElementById('spinBet').value);
             const resultEl = document.getElementById('spinResult');
-            const prizes = [
-                { type: 'discount', value: 3, label: '3% скидка' },
-                { type: 'discount', value: 5, label: '5% скидка' },
-                { type: 'discount', value: 10, label: '10% скидка' },
-                { type: 'discount', value: 15, label: '15% скидка' },
-                { type: 'discount', value: 20, label: '20% скидка' },
-                { type: 'commission', value: 1, label: 'комиссия 4%' },
-                { type: 'commission', value: 2, label: 'комиссия 3%' },
-                { type: 'commission', value: 3, label: 'комиссия 2%' },
-                { type: 'commission', value: 5, label: 'комиссия 0%' },
-                { type: 'discount', value: 50, label: '50% скидка (🔥 редкий!)' },
-                { type: 'discount', value: 75, label: '75% скидка (💎 легендарный!)' },
-                { type: 'discount', value: 90, label: '90% скидка (👑 божественный!)' }
-            ];
 
-            // Шанс: чем выше ставка, тем лучше призы
-            let pool = [...prizes];
-            if (bet >= 100) {
-                pool = pool.filter(p => p.value >= 5 || p.type === 'commission');
+            const outcomes = [];
+            for (let i = 0; i < 60; i++) {
+                outcomes.push({ type: 'lose', label: '😢 Не повезло... попробуй ещё!' });
             }
-            if (bet >= 500) {
-                pool = pool.filter(p => p.value >= 10 || (p.type === 'commission' && p.value >= 2));
+            for (let i = 0; i < 25; i++) {
+                const val = Math.floor(Math.random() * 5) + 3;
+                const type = Math.random() > 0.5 ? 'discount' : 'commission';
+                outcomes.push({
+                    type: type,
+                    value: val,
+                    label: type === 'discount' ? `${val}% скидка` : `комиссия ${val}%`
+                });
             }
-            if (bet >= 1000) {
-                pool = pool.filter(p => p.value >= 20 || (p.type === 'commission' && p.value >= 3));
+            for (let i = 0; i < 10; i++) {
+                const val = Math.floor(Math.random() * 10) + 8;
+                const type = Math.random() > 0.5 ? 'discount' : 'commission';
+                outcomes.push({
+                    type: type,
+                    value: val,
+                    label: type === 'discount' ? `${val}% скидка` : `комиссия ${val}%`
+                });
             }
-            // Маленький шанс на супер-приз (1%)
-            if (Math.random() < 0.01) {
-                const superPrizes = [
-                    { type: 'discount', value: 95, label: '95% скидка (🔥🔥🔥)' },
-                    { type: 'discount', value: 99, label: '99% скидка (🎰 ДЖЕКПОТ!)' },
-                    { type: 'commission', value: 10, label: 'комиссия -5% (💰 ТЫ НАМ ДОЛЖЕН!)' }
-                ];
-                const prize = superPrizes[Math.floor(Math.random() * superPrizes.length)];
-                resultEl.textContent = `🎉 ${prize.label} (ставка ${bet}₽)`;
-                resultEl.style.color = '#ff6bff';
-                return;
+            for (let i = 0; i < 4; i++) {
+                const val = Math.floor(Math.random() * 20) + 15;
+                const type = Math.random() > 0.5 ? 'discount' : 'commission';
+                outcomes.push({
+                    type: type,
+                    value: val,
+                    label: type === 'discount' ? `${val}% скидка 🔥` : `комиссия ${val}% 🔥`
+                });
+            }
+            for (let i = 0; i < 1; i++) {
+                outcomes.push({
+                    type: 'jackpot',
+                    label: '🎰 ДЖЕКПОТ! 50% скидка или 0% комиссия! 👑'
+                });
             }
 
-            const prize = pool[Math.floor(Math.random() * pool.length)];
-            let msg = '';
-            if (prize.type === 'discount') {
-                msg = `🎉 Скидка ${prize.value}% на следующую покупку!`;
+            const result = outcomes[Math.floor(Math.random() * outcomes.length)];
+
+            resultEl.classList.remove('lose', 'win');
+            if (result.type === 'lose') {
+                resultEl.textContent = `😢 Не повезло... попробуй ещё! (ставка ${bet}₽)`;
+                resultEl.className = 'spin-result lose';
+            } else if (result.type === 'jackpot') {
+                resultEl.textContent = `🎰 ДЖЕКПОТ! 50% скидка или 0% комиссия! 👑 (ставка ${bet}₽)`;
+                resultEl.className = 'spin-result win';
             } else {
-                msg = `🎉 Снижение комиссии до ${prize.value}%!`;
+                const typeLabel = result.type === 'discount' ? 'Скидка' : 'Комиссия';
+                resultEl.textContent = `🎉 ${typeLabel} ${result.value}%! (ставка ${bet}₽)`;
+                resultEl.className = 'spin-result win';
             }
-            resultEl.textContent = `${msg} (ставка ${bet}₽)`;
-            resultEl.style.color = 'var(--gold)';
+
+            resultEl.style.animation = 'none';
             setTimeout(() => {
-                resultEl.style.color = 'var(--gold)';
-            }, 100);
+                resultEl.style.animation = 'winPulse 0.5s ease';
+            }, 10);
         }
 
         // ============================================================
-        //  СОВЕТ ДНЯ
+        //  СОВЕТ ДНЯ И ЦИТАТА
         // ============================================================
         const tips = [
+            'Проверяйте товар перед отправкой, чтобы избежать возврата.',
             'Добавьте описание к товару — это повышает доверие покупателей!',
             'Используйте качественные скриншоты товара для привлечения внимания.',
             'Отвечайте на сообщения быстро — это повышает рейтинг продавца.',
             'Указывайте реальную цену и скидки — покупатели это ценят.',
-            'Проверяйте товар перед отправкой, чтобы избежать возвратов.',
             'Будьте вежливы в общении — это создаёт хорошую репутацию.',
             'Используйте ключевые слова в названии товара для лучшего поиска.',
             'Предлагайте бонусы постоянным покупателям для лояльности.',
@@ -2547,11 +3151,17 @@
         ];
         document.getElementById('dailyTip').textContent = tips[Math.floor(Math.random() * tips.length)];
 
+        // Цитата дня из базы
+        const dailyQuote = quoteDatabase[Math.floor(Math.random() * quoteDatabase.length)];
+        document.getElementById('quoteDisplay').textContent = dailyQuote;
+        document.getElementById('quoteText').textContent = dailyQuote;
+        document.getElementById('quoteProgress').textContent = '1/' + quoteDatabase.length;
+
         // ============================================================
-        //  ОНЛАЙН (симуляция)
+        //  ОНЛАЙН
         // ============================================================
         function updateOnline() {
-            const count = Math.floor(Math.random() * 15) + 3;
+            const count = Math.floor(Math.random() * 25) + 5;
             document.getElementById('onlineCount').textContent = count;
             document.getElementById('onlineUsers').textContent = count;
         }
@@ -2567,7 +3177,7 @@
         }
 
         // ============================================================
-        //  ДАННЫЕ
+        //  ДАННЫЕ (расширенные)
         // ============================================================
         let catalog = [
             { id: 1, name: 'Аккаунт 21+ (Roblox)', game: 'Roblox', price: 490, desc: 'Верифицированный голосовой чат', qty: 1,
@@ -2599,7 +3209,17 @@
             { id: 14, name: 'WoW голда', game: 'World of Warcraft', price: 700, desc: '500k голды', qty: 1, discount: 0,
                 seller: 'WoW_Farmer', status: 'active', guarantee: true },
             { id: 15, name: 'EFT аккаунт', game: 'Escape from Tarkov', price: 1600, desc: 'Много денег и лута', qty: 1,
-                discount: 0, seller: 'Tarkov_King', status: 'active', guarantee: true }
+                discount: 0, seller: 'Tarkov_King', status: 'active', guarantee: true },
+            { id: 16, name: 'Apex Legends скины', game: 'Apex Legends', price: 850, desc: 'Набор редких скинов', qty: 1,
+                discount: 0, seller: 'Apex_Pro', status: 'active', guarantee: true },
+            { id: 17, name: 'Rainbow Six аккаунт', game: 'Rainbow Six', price: 1100, desc: 'Все оперативники', qty: 1,
+                discount: 0, seller: 'R6_King', status: 'active', guarantee: true },
+            { id: 18, name: 'Call of Duty аккаунт', game: 'Call of Duty', price: 950, desc: 'Много скинов', qty: 1,
+                discount: 0, seller: 'CoD_Pro', status: 'active', guarantee: false },
+            { id: 19, name: 'FIFA монеты', game: 'FIFA', price: 600, desc: '100k монет', qty: 1, discount: 0,
+                seller: 'FIFA_King', status: 'active', guarantee: true },
+            { id: 20, name: 'Among Us скины', game: 'Among Us', price: 300, desc: 'Все скины', qty: 1, discount: 0,
+                seller: 'Among_Pro', status: 'active', guarantee: false }
         ];
 
         let cart = [];
@@ -2611,6 +3231,12 @@
         let nextTicketId = 1;
         let guaranteeOnly = false;
         let showHot = false;
+        let friends = ['Gamer_King', 'Skins_Master', 'Valorant_Elite'];
+        let channels = [
+            { name: 'Геймерский канал', author: 'Player_Pro', desc: 'Обсуждаем игры и скины', subscribers: 124 },
+            { name: 'Скины и аккаунты', author: 'Skins_Master', desc: 'Продажа скинов', subscribers: 89 },
+            { name: 'Торговая площадка', author: 'User_Pro', desc: 'Обмен опытом', subscribers: 56 }
+        ];
 
         // ============================================================
         //  ПОЛЬЗОВАТЕЛИ (localStorage)
@@ -2651,7 +3277,9 @@
                 uniqueBuyers: 0,
                 totalEarned: 0,
                 phone: '',
-                subscribers: []
+                subscribers: [],
+                friends: [],
+                channels: []
             };
             saveUsers(users);
             return { success: true };
@@ -2772,6 +3400,104 @@
         }
 
         // ============================================================
+        //  ДРУЗЬЯ
+        // ============================================================
+        function renderFriends() {
+            const container = document.getElementById('friendsList');
+            container.innerHTML = friends.map(f => `
+                    <div class="friend-item" onclick="openProfile('${f}')">
+                        <div class="f-avatar">${f.charAt(0).toUpperCase()}</div>
+                        <div class="f-info">
+                            <div class="f-name">${f}</div>
+                            <div class="f-status online">🟢 Онлайн</div>
+                        </div>
+                        <button class="f-btn" onclick="event.stopPropagation();removeFriend('${f}')"><i class="fas fa-user-minus"></i></button>
+                    </div>
+                `).join('');
+        }
+
+        function addFriend() {
+            const input = document.getElementById('addFriendInput');
+            const name = input.value.trim();
+            if (!name) { alert('Введите логин'); return; }
+            if (friends.includes(name)) { alert('Уже в друзьях'); return; }
+            const users = getUsers();
+            if (!users[name]) { alert('Пользователь не найден'); return; }
+            friends.push(name);
+            input.value = '';
+            renderFriends();
+            addSystemMessage(currentUser?.login || 'System', `➕ Добавил в друзья: ${name}`);
+        }
+
+        function removeFriend(name) {
+            friends = friends.filter(f => f !== name);
+            renderFriends();
+        }
+
+        // ============================================================
+        //  КАНАЛЫ
+        // ============================================================
+        function renderChannels() {
+            const container = document.getElementById('channelsList');
+            container.innerHTML = channels.map(c => `
+                    <div class="channel-item" onclick="openChannel('${c.name}')">
+                        <div class="c-avatar">${c.name.charAt(0).toUpperCase()}</div>
+                        <div class="c-info">
+                            <div class="c-name">${c.name}</div>
+                            <div class="c-desc">${c.desc} · 👥 ${c.subscribers} подписчиков</div>
+                        </div>
+                        <button class="c-btn" onclick="event.stopPropagation();subscribeChannel('${c.name}')"><i class="fas fa-bell"></i> Подп.</button>
+                    </div>
+                `).join('');
+        }
+
+        function createChannel() {
+            const input = document.getElementById('createChannelInput');
+            const name = input.value.trim();
+            if (!name) { alert('Введите название'); return; }
+            if (channels.find(c => c.name === name)) { alert('Канал уже существует'); return; }
+            channels.push({
+                name: name,
+                author: currentUser?.login || 'System',
+                desc: 'Новый канал',
+                subscribers: 1
+            });
+            input.value = '';
+            renderChannels();
+            addSystemMessage(currentUser?.login || 'System', `📢 Создал канал: ${name}`);
+        }
+
+        function subscribeChannel(name) {
+            const ch = channels.find(c => c.name === name);
+            if (ch) {
+                ch.subscribers += 1;
+                renderChannels();
+                alert(`✅ Вы подписались на канал ${name}!`);
+            }
+        }
+
+        function openChannel(name) {
+            alert(`📢 Канал: ${name}\nДобро пожаловать в обсуждение!`);
+        }
+
+        // ============================================================
+        //  ДОНАТЫ
+        // ============================================================
+        function makeDonate() {
+            const amount = parseInt(document.getElementById('donateAmount').value);
+            if (!amount || amount < 1) { alert('Введите сумму'); return; }
+            if (!currentUser) { alert('Войдите в аккаунт'); return; }
+            if (getUserBalance(currentUser.login) < amount) {
+                alert('❌ Недостаточно средств на балансе!');
+                return;
+            }
+            updateUserBalance(currentUser.login, -amount);
+            addSystemMessage(currentUser.login, `💎 Сделал донат на ${amount} ₽`);
+            alert(`✅ Спасибо за донат ${amount} ₽! Вы получили бейдж 🌟`);
+            updateUI();
+        }
+
+        // ============================================================
         //  КАТАЛОГ
         // ============================================================
         function renderCatalog(items) {
@@ -2857,24 +3583,38 @@
         });
 
         function getGameLogo(game) {
-            const logos = {
-                'Roblox': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#00bcd4" text-anchor="middle">R</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#00bcd4" stroke-width="2"/></svg>`,
-                'Fortnite': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff6b6b" text-anchor="middle">F</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff6b6b" stroke-width="2"/></svg>`,
-                'Minecraft': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#4caf50" text-anchor="middle">M</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#4caf50" stroke-width="2"/></svg>`,
-                'GTA V': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff9800" text-anchor="middle">G</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff9800" stroke-width="2"/></svg>`,
-                'Valorant': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff4655" text-anchor="middle">V</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff4655" stroke-width="2"/></svg>`,
-                'CS:GO': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="16" font-weight="900" fill="#f5c842" text-anchor="middle">CS</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#f5c842" stroke-width="2"/></svg>`,
-                'Dota 2': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ff6b35" text-anchor="middle">D</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ff6b35" stroke-width="2"/></svg>`,
-                'PUBG': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#f5a623" text-anchor="middle">P</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#f5a623" stroke-width="2"/></svg>`,
-                'Steam': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#00adee" text-anchor="middle">S</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#00adee" stroke-width="2"/></svg>`,
-                'Discord': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#5865f2" text-anchor="middle">D</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#5865f2" stroke-width="2"/></svg>`,
-                'Genshin Impact': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="16" font-weight="900" fill="#4fc3f7" text-anchor="middle">GI</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#4fc3f7" stroke-width="2"/></svg>`,
-                'League of Legends': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#f0c040" text-anchor="middle">L</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#f0c040" stroke-width="2"/></svg>`,
-                'World of Warcraft': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" font-weight="900" fill="#ffc107" text-anchor="middle">W</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#ffc107" stroke-width="2"/></svg>`,
-                'Escape from Tarkov': `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="14" font-weight="900" fill="#d4af37" text-anchor="middle">EFT</text><rect x="3" y="3" width="38" height="38" rx="8" stroke="#d4af37" stroke-width="2"/></svg>`
+            const icons = {
+                'Roblox': '<i class="fas fa-cube" style="font-size:32px;color:#00bcd4;"></i>',
+                'Fortnite': '<i class="fas fa-crosshairs" style="font-size:32px;color:#ff6b6b;"></i>',
+                'Minecraft': '<i class="fas fa-cubes" style="font-size:32px;color:#4caf50;"></i>',
+                'GTA V': '<i class="fas fa-car" style="font-size:32px;color:#ff9800;"></i>',
+                'Valorant': '<i class="fas fa-crosshairs" style="font-size:32px;color:#ff4655;"></i>',
+                'CS:GO': '<i class="fas fa-skull" style="font-size:32px;color:#f5c842;"></i>',
+                'Dota 2': '<i class="fas fa-shield-alt" style="font-size:32px;color:#ff6b35;"></i>',
+                'PUBG': '<i class="fas fa-crosshairs" style="font-size:32px;color:#f5a623;"></i>',
+                'Steam': '<i class="fab fa-steam" style="font-size:32px;color:#00adee;"></i>',
+                'Discord': '<i class="fab fa-discord" style="font-size:32px;color:#5865f2;"></i>',
+                'Genshin Impact': '<i class="fas fa-crown" style="font-size:32px;color:#4fc3f7;"></i>',
+                'League of Legends': '<i class="fas fa-trophy" style="font-size:32px;color:#f0c040;"></i>',
+                'World of Warcraft': '<i class="fas fa-dragon" style="font-size:32px;color:#ffc107;"></i>',
+                'Escape from Tarkov': '<i class="fas fa-skull-crossbones" style="font-size:32px;color:#d4af37;"></i>',
+                'Apex Legends': '<i class="fas fa-fighter-jet" style="font-size:32px;color:#e8484f;"></i>',
+                'Rainbow Six': '<i class="fas fa-helmet-safety" style="font-size:32px;color:#2d3e50;"></i>',
+                'Call of Duty': '<i class="fas fa-crosshairs" style="font-size:32px;color:#3a8c3a;"></i>',
+                'FIFA': '<i class="fas fa-futbol" style="font-size:32px;color:#4caf50;"></i>',
+                'Among Us': '<i class="fas fa-user-astronaut" style="font-size:32px;color:#ff6b6b;"></i>',
+                'Fall Guys': '<i class="fas fa-running" style="font-size:32px;color:#ffd93d;"></i>',
+                'Rust': '<i class="fas fa-fire" style="font-size:32px;color:#e8484f;"></i>',
+                'DayZ': '<i class="fas fa-skull" style="font-size:32px;color:#8a8a8a;"></i>',
+                'Diablo': '<i class="fas fa-demon" style="font-size:32px;color:#e8484f;"></i>',
+                'Path of Exile': '<i class="fas fa-crown" style="font-size:32px;color:#d4af37;"></i>',
+                'Warframe': '<i class="fas fa-robot" style="font-size:32px;color:#4fc3f7;"></i>',
+                'Destiny 2': '<i class="fas fa-star" style="font-size:32px;color:#ffd93d;"></i>',
+                'Overwatch': '<i class="fas fa-shield" style="font-size:32px;color:#ff9800;"></i>',
+                'Hearthstone': '<i class="fas fa-card" style="font-size:32px;color:#ff6b35;"></i>',
+                'StarCraft': '<i class="fas fa-rocket" style="font-size:32px;color:#00bcd4;"></i>'
             };
-            return logos[game] ||
-                `<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="#141c2a"/><text x="22" y="30" font-family="Arial" font-size="20" fill="#55657d" text-anchor="middle">🎮</text></svg>`;
+            return icons[game] || '<i class="fas fa-gamepad" style="font-size:32px;color:#55657d;"></i>';
         }
 
         // ============================================================
@@ -2885,7 +3625,8 @@
         function openAuth(mode) {
             authMode = mode;
             document.getElementById('authModal').classList.add('open');
-            document.getElementById('authTitle').textContent = mode === 'login' ? '🔐 Вход' : '📝 Регистрация';
+            document.getElementById('authTitle').innerHTML = mode === 'login' ? '<i class="fas fa-lock"></i> Вход' :
+                '<i class="fas fa-user-plus"></i> Регистрация';
             document.getElementById('authDesc').textContent = mode === 'login' ? 'Введите логин и пароль' :
                 'Придумайте логин и пароль (≥3 и ≥4)';
             document.getElementById('confirmPasswordBlock').style.display = mode === 'register' ? 'block' : 'none';
@@ -3001,6 +3742,10 @@
             if (cart.length === 0) { alert('Корзина пуста'); return; }
             const total = cart.reduce((acc, i) => acc + (i.discount > 0 ? Math.round(i.price * (1 - i.discount / 100)) : i
                 .price) * i.qty, 0);
+            if (getUserBalance(currentUser.login) < total) {
+                alert('❌ Недостаточно средств на балансе! Пополните баланс.');
+                return;
+            }
             if (confirm(`Оформить заказ на ₽${total} через гаранта?`)) {
                 alert('✅ Заказ оформлен! Свяжитесь с продавцом в чате.');
                 addSystemMessage(currentUser.login, `🛒 Купил: ${cart.map(i => i.name).join(', ')} на ${total} ₽`);
@@ -3052,7 +3797,7 @@
                         stream.getTracks().forEach(track => track.stop());
                         const voiceBtn = document.getElementById('voiceBtn');
                         if (voiceBtn) {
-                            voiceBtn.textContent = '🎤';
+                            voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
                             voiceBtn.style.background = 'var(--bg-category)';
                             voiceBtn.style.color = 'var(--text-secondary)';
                         }
@@ -3063,7 +3808,7 @@
                     isRecording = true;
                     const voiceBtn = document.getElementById('voiceBtn');
                     if (voiceBtn) {
-                        voiceBtn.textContent = '🔴';
+                        voiceBtn.innerHTML = '<i class="fas fa-circle" style="color:#e8484f;"></i>';
                         voiceBtn.style.background = '#e8484f';
                         voiceBtn.style.color = '#fff';
                     }
@@ -3562,6 +4307,8 @@
             if (page === 'messages') renderMessages();
             if (page === 'sales') renderSales();
             if (page === 'finance') renderFinance();
+            if (page === 'friends') renderFriends();
+            if (page === 'channels') renderChannels();
         }
 
         // ============================================================
@@ -3576,7 +4323,7 @@
                 alert('🎁 Вы уже получили сегодняшний бонус! Возвращайтесь завтра.');
                 return;
             }
-            const amount = Math.floor(Math.random() * 10) + 3;
+            const amount = Math.floor(Math.random() * 5) + 3;
             if (currentUser) {
                 updateUserBalance(currentUser.login, amount);
                 addSystemMessage('System', `🎁 Ежедневный бонус +${amount} ₽`);
@@ -3625,7 +4372,7 @@
                     users[currentUser.login].status = 'online';
                     const bal = users[currentUser.login].balance || 0;
                     balanceEl.textContent = bal + ' ₽';
-                    navBalance.textContent = 'Баланс: ' + bal + ' ₽';
+                    navBalance.innerHTML = '<i class="fas fa-wallet"></i> ' + bal + ' ₽';
                     saveUsers(users);
                 }
             } else {
@@ -3633,7 +4380,7 @@
                 user.style.display = 'none';
                 status.textContent = '(гость)';
                 balanceEl.textContent = '0 ₽';
-                navBalance.textContent = 'Баланс: 0 ₽';
+                navBalance.innerHTML = '<i class="fas fa-wallet"></i> 0 ₽';
             }
             renderCatalog(catalog);
             updateCartUI();
@@ -3641,6 +4388,8 @@
             renderTopSellers();
             renderDisputes();
             renderSupportTickets();
+            renderFriends();
+            renderChannels();
             updateStats();
         }
 
@@ -3668,7 +4417,7 @@
         });
 
         updateUI();
-        console.log('🚀 SkyMarket PRO с крутым дизайном загружен!');
+        console.log('🚀 SkyMarket PRO — супер-крутой дизайн загружен, братуха!');
     </script>
 
 </body>
