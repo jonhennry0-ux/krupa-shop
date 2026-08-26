@@ -40,6 +40,10 @@
             --theme-emoji: '💜';
             --card-shadow: 0 8px 32px rgba(0, 245, 255, 0.1);
             --header-bg: rgba(17, 17, 40, 0.9);
+            --slot-bg: #1a1a2e;
+            --slot-border: #2a2a4a;
+            --slot-reel: #0d0d1a;
+            --slot-symbol: #fff;
         }
         [data-theme="cosmos"] {
             --bg-primary: #0a0015;
@@ -71,6 +75,10 @@
             --theme-emoji: '🌌';
             --card-shadow: 0 8px 32px rgba(179, 136, 255, 0.1);
             --header-bg: rgba(21, 0, 42, 0.9);
+            --slot-bg: #1a0a2e;
+            --slot-border: #2a1a4a;
+            --slot-reel: #0d001a;
+            --slot-symbol: #d4b8ff;
         }
         [data-theme="ocean"] {
             --bg-primary: #001220;
@@ -102,6 +110,10 @@
             --theme-emoji: '🌊';
             --card-shadow: 0 8px 32px rgba(64, 196, 255, 0.1);
             --header-bg: rgba(0, 32, 64, 0.9);
+            --slot-bg: #0a1a2e;
+            --slot-border: #1a2a4a;
+            --slot-reel: #000a1a;
+            --slot-symbol: #80d4ff;
         }
         [data-theme="sunset"] {
             --bg-primary: #1a0808;
@@ -133,6 +145,10 @@
             --theme-emoji: '🌅';
             --card-shadow: 0 8px 32px rgba(255, 107, 107, 0.1);
             --header-bg: rgba(42, 16, 16, 0.9);
+            --slot-bg: #2a1a0a;
+            --slot-border: #4a2a1a;
+            --slot-reel: #1a0a00;
+            --slot-symbol: #ffc8b0;
         }
         [data-theme="forest"] {
             --bg-primary: #0a140a;
@@ -164,6 +180,10 @@
             --theme-emoji: '🌿';
             --card-shadow: 0 8px 32px rgba(105, 240, 174, 0.1);
             --header-bg: rgba(16, 32, 16, 0.9);
+            --slot-bg: #0a1a0a;
+            --slot-border: #1a2a1a;
+            --slot-reel: #000a00;
+            --slot-symbol: #90d0a0;
         }
         [data-theme="magenta"] {
             --bg-primary: #1a0a1a;
@@ -195,6 +215,10 @@
             --theme-emoji: '💗';
             --card-shadow: 0 8px 32px rgba(255, 107, 255, 0.1);
             --header-bg: rgba(42, 16, 42, 0.9);
+            --slot-bg: #2a0a2a;
+            --slot-border: #4a1a4a;
+            --slot-reel: #1a001a;
+            --slot-symbol: #f0a0f0;
         }
         [data-theme="lavender"] {
             --bg-primary: #0a081a;
@@ -226,6 +250,10 @@
             --theme-emoji: '🌸';
             --card-shadow: 0 8px 32px rgba(179, 136, 255, 0.1);
             --header-bg: rgba(20, 16, 42, 0.9);
+            --slot-bg: #1a0a2a;
+            --slot-border: #2a1a4a;
+            --slot-reel: #0a001a;
+            --slot-symbol: #c8b0f0;
         }
         [data-theme="mint"] {
             --bg-primary: #0a1a12;
@@ -257,6 +285,10 @@
             --theme-emoji: '🍃';
             --card-shadow: 0 8px 32px rgba(105, 240, 174, 0.1);
             --header-bg: rgba(16, 42, 26, 0.9);
+            --slot-bg: #0a1a12;
+            --slot-border: #1a2a22;
+            --slot-reel: #000a08;
+            --slot-symbol: #90d0b0;
         }
         [data-theme="coral"] {
             --bg-primary: #1a0c0a;
@@ -288,6 +320,10 @@
             --theme-emoji: '🪸';
             --card-shadow: 0 8px 32px rgba(255, 138, 128, 0.1);
             --header-bg: rgba(42, 20, 16, 0.9);
+            --slot-bg: #2a1a0a;
+            --slot-border: #4a2a1a;
+            --slot-reel: #1a0a00;
+            --slot-symbol: #f0c0b0;
         }
         [data-theme="amber"] {
             --bg-primary: #1a120a;
@@ -319,6 +355,10 @@
             --theme-emoji: '🔶';
             --card-shadow: 0 8px 32px rgba(255, 215, 64, 0.1);
             --header-bg: rgba(42, 26, 16, 0.9);
+            --slot-bg: #2a1a0a;
+            --slot-border: #4a3a1a;
+            --slot-reel: #1a0e00;
+            --slot-symbol: #f0e0b0;
         }
 
         /* ============================================================
@@ -358,7 +398,7 @@
         }
 
         /* ============================================================
-           ПРИВЕТСТВИЕ (СУПЕР КРУТОЕ)
+           ПРИВЕТСТВИЕ
            ============================================================ */
         .welcome-overlay {
             position: fixed;
@@ -774,7 +814,6 @@
             font-size: 16px;
         }
 
-        /* СЕЛЕКТОР ТЕМ — ЭЛИТНЫЙ */
         .theme-selector {
             display: flex;
             gap: 4px;
@@ -1160,6 +1199,187 @@
         }
 
         /* ============================================================
+           ИГРОВОЙ АВТОМАТ (SLOT MACHINE)
+           ============================================================ */
+        .slot-machine {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 9998;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        .slot-machine.open {
+            display: flex;
+        }
+        .slot-machine .slot-box {
+            background: var(--slot-bg);
+            border: 2px solid var(--slot-border);
+            border-radius: 24px;
+            padding: 30px 35px;
+            max-width: 560px;
+            width: 100%;
+            box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 60px var(--accent-glow);
+            position: relative;
+        }
+        .slot-machine .slot-box .slot-close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 28px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+        }
+        .slot-machine .slot-box .slot-close:hover {
+            color: var(--red);
+            transform: rotate(90deg);
+        }
+        .slot-machine .slot-box .slot-title {
+            text-align: center;
+            font-family: 'Unbounded', cursive;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(255,215,0,0.3);
+        }
+        .slot-machine .slot-box .slot-reels {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .slot-machine .slot-box .slot-reel {
+            width: 90px;
+            height: 120px;
+            background: var(--slot-reel);
+            border: 2px solid var(--slot-border);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--slot-symbol);
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .slot-machine .slot-box .slot-reel .reel-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.1s linear;
+        }
+        .slot-machine .slot-box .slot-reel .reel-inner span {
+            height: 40px;
+            line-height: 40px;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slot-machine .slot-box .slot-reel.spinning .reel-inner {
+            animation: reelSpin 0.1s linear infinite;
+        }
+        @keyframes reelSpin {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-40px); }
+        }
+        .slot-machine .slot-box .slot-reel .reel-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 45%, transparent 55%, rgba(0,0,0,0.3) 100%);
+            pointer-events: none;
+        }
+        .slot-machine .slot-box .slot-controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .slot-machine .slot-box .slot-controls .slot-bet {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            padding: 4px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+        }
+        .slot-machine .slot-box .slot-controls .slot-bet label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .slot-machine .slot-box .slot-controls .slot-bet input {
+            width: 80px;
+            padding: 6px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            outline: none;
+        }
+        .slot-machine .slot-box .slot-controls .slot-bet input:focus {
+            border-color: var(--accent);
+        }
+        .slot-machine .slot-box .slot-controls .slot-spin-btn {
+            padding: 10px 32px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #0b0e14;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255,215,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .slot-machine .slot-box .slot-controls .slot-spin-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 40px rgba(255,215,0,0.5);
+        }
+        .slot-machine .slot-box .slot-controls .slot-spin-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .slot-machine .slot-box .slot-result {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            min-height: 40px;
+            color: var(--gold);
+            padding: 8px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .slot-machine .slot-box .slot-result.win {
+            color: var(--gold);
+            animation: winPulse 0.5s ease;
+        }
+        .slot-machine .slot-box .slot-result.lose {
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
            СОВЕТ ДНЯ
            ============================================================ */
         .tip-of-day {
@@ -1260,7 +1480,7 @@
         }
 
         /* ============================================================
-           КАТЕГОРИИ С ИГРАМИ (30+ ИГР)
+           КАТЕГОРИИ
            ============================================================ */
         .categories-swiper-wrap {
             position: relative;
@@ -1525,224 +1745,6 @@
             transform: scale(1.03);
             box-shadow: var(--accent-glow);
             border-color: transparent;
-        }
-
-        /* ============================================================
-           ДРУЗЬЯ, ПРОФИЛИ, КАНАЛЫ
-           ============================================================ */
-        .friend-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .friend-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 12px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .friend-item:hover {
-            border-color: var(--accent);
-            transform: translateX(4px);
-        }
-        .friend-item .f-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--accent-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: #fff;
-            font-size: 14px;
-        }
-        .friend-item .f-info {
-            flex: 1;
-        }
-        .friend-item .f-info .f-name {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text-primary);
-        }
-        .friend-item .f-info .f-status {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        .friend-item .f-info .f-status.online {
-            color: var(--green);
-        }
-        .friend-item .f-btn {
-            padding: 4px 14px;
-            border-radius: 20px;
-            border: none;
-            background: var(--bg-category);
-            color: var(--text-secondary);
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .friend-item .f-btn:hover {
-            background: var(--accent-gradient);
-            color: var(--text-inverse);
-        }
-
-        /* КАНАЛЫ */
-        .channel-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .channel-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 12px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .channel-item:hover {
-            border-color: var(--accent);
-            transform: translateX(4px);
-        }
-        .channel-item .c-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: #fff;
-            font-size: 14px;
-        }
-        .channel-item .c-info {
-            flex: 1;
-        }
-        .channel-item .c-info .c-name {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text-primary);
-        }
-        .channel-item .c-info .c-desc {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        .channel-item .c-btn {
-            padding: 4px 14px;
-            border-radius: 20px;
-            border: none;
-            background: var(--bg-category);
-            color: var(--text-secondary);
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .channel-item .c-btn:hover {
-            background: var(--accent-gradient);
-            color: var(--text-inverse);
-        }
-
-        /* РЕАКЦИИ */
-        .reactions {
-            display: flex;
-            gap: 6px;
-            margin-top: 4px;
-        }
-        .reactions .reaction {
-            padding: 2px 10px;
-            border-radius: 20px;
-            background: var(--bg-category);
-            border: 1px solid var(--border-color);
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .reactions .reaction:hover {
-            border-color: var(--accent);
-            transform: scale(1.05);
-        }
-        .reactions .reaction .count {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        /* ДОНАТЫ */
-        .donate-bar {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            padding: 16px 20px;
-            border: 1px solid var(--glass-border);
-            margin: 0 24px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            box-shadow: var(--card-shadow);
-        }
-        .donate-bar:hover {
-            border-color: var(--gold);
-        }
-        .donate-bar .donate-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .donate-bar .donate-info .donate-icon {
-            font-size: 28px;
-        }
-        .donate-bar .donate-info .donate-text {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-        .donate-bar .donate-info .donate-text strong {
-            color: var(--gold);
-        }
-        .donate-bar .donate-input {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .donate-bar .donate-input input {
-            padding: 8px 16px;
-            border-radius: 30px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-input);
-            color: var(--text-primary);
-            width: 120px;
-            outline: none;
-            font-size: 13px;
-        }
-        .donate-bar .donate-input input:focus {
-            border-color: var(--accent);
-        }
-        .donate-bar .donate-input .donate-btn {
-            padding: 8px 20px;
-            border-radius: 30px;
-            border: none;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            color: #0b0e14;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .donate-bar .donate-input .donate-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
         }
 
         /* ============================================================
@@ -2334,21 +2336,29 @@
             .welcome-box h1 {
                 font-size: 26px;
             }
-            .donate-bar {
-                margin: 0 16px 12px;
-                flex-direction: column;
-                text-align: center;
+            .slot-machine .slot-box {
+                padding: 20px;
             }
-            .donate-bar .donate-input {
-                width: 100%;
-                justify-content: center;
+            .slot-machine .slot-box .slot-reel {
+                width: 60px;
+                height: 90px;
+                font-size: 32px;
+            }
+            .slot-machine .slot-box .slot-reel .reel-inner span {
+                height: 30px;
+                line-height: 30px;
+                font-size: 24px;
+            }
+            .slot-machine .slot-box .slot-controls {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ПРИВЕТСТВИЕ (СУПЕР КРУТОЕ) -->
+    <!-- ПРИВЕТСТВИЕ -->
     <div class="welcome-overlay" id="welcomeOverlay">
         <div class="welcome-box">
             <div class="stars-bg" id="starsBg"></div>
@@ -2382,7 +2392,6 @@
                 <input type="text" id="searchInput" placeholder="Поиск товаров, игр, продавцов..." oninput="filterCatalog()">
             </div>
 
-            <!-- СЕЛЕКТОР ТЕМ — ЭЛИТНЫЙ -->
             <div class="theme-selector">
                 <span class="theme-btn active" data-theme="neon" onclick="setTheme('neon')" title="Неон">💜</span>
                 <span class="theme-btn" data-theme="cosmos" onclick="setTheme('cosmos')" title="Космос">🌌</span>
@@ -2421,8 +2430,6 @@
         <a href="#" data-page="messages" onclick="switchPage('messages'); return false;"><i class="fas fa-comments"></i> Сообщения</a>
         <a href="#" data-page="sales" onclick="switchPage('sales'); return false;"><i class="fas fa-box"></i> Продажи</a>
         <a href="#" data-page="finance" onclick="switchPage('finance'); return false;"><i class="fas fa-coins"></i> Финансы</a>
-        <a href="#" data-page="friends" onclick="switchPage('friends'); return false;"><i class="fas fa-users"></i> Друзья</a>
-        <a href="#" data-page="channels" onclick="switchPage('channels'); return false;"><i class="fas fa-broadcast"></i> Каналы</a>
         <span class="nav-balance" id="navBalance"><i class="fas fa-wallet"></i> 0 ₽</span>
         <span class="online-count"><span class="dot"></span> <span id="onlineCount">0</span> онлайн</span>
     </div>
@@ -2432,8 +2439,8 @@
         <div class="banner banner-gold">
             <div class="banner-icon">🎰</div>
             <div class="banner-title">НОВОЕ СОБЫТИЕ</div>
-            <div class="banner-sub">ПОВОРОТ УДАЧИ</div>
-            <button class="banner-btn" onclick="document.getElementById('luckySpin').scrollIntoView({behavior:'smooth'})"><i class="fas fa-dice"></i> Крутить 🔥</button>
+            <div class="banner-sub">ИГРОВОЙ АВТОМАТ</div>
+            <button class="banner-btn" onclick="openSlotMachine()"><i class="fas fa-dice"></i> Крутить! 🎰</button>
         </div>
         <div class="banner banner-blue">
             <div class="banner-icon">🚀</div>
@@ -2443,7 +2450,7 @@
         </div>
     </div>
 
-    <!-- ПОВОРОТ УДАЧИ -->
+    <!-- ПОВОРОТ УДАЧИ (обычный) -->
     <div class="lucky-spin" id="luckySpin">
         <div class="spin-info">
             <span class="spin-icon">🎡</span>
@@ -2462,6 +2469,42 @@
             </select>
             <button class="spin-btn" onclick="spinLucky()"><i class="fas fa-dice"></i> Крутить!</button>
             <span class="spin-result" id="spinResult">🎯 Жми!</span>
+        </div>
+    </div>
+
+    <!-- ИГРОВОЙ АВТОМАТ (SLOT MACHINE) -->
+    <div class="slot-machine" id="slotMachine">
+        <div class="slot-box">
+            <button class="slot-close" onclick="closeSlotMachine()">✕</button>
+            <div class="slot-title">🎰 ИГРОВОЙ АВТОМАТ</div>
+            <div class="slot-reels">
+                <div class="slot-reel" id="reel1">
+                    <div class="reel-inner" id="reelInner1">
+                        <span>🍒</span><span>🍋</span><span>🍊</span><span>🍇</span><span>💎</span><span>7️⃣</span><span>⭐</span><span>🍒</span><span>🍋</span><span>🍊</span>
+                    </div>
+                    <div class="reel-overlay"></div>
+                </div>
+                <div class="slot-reel" id="reel2">
+                    <div class="reel-inner" id="reelInner2">
+                        <span>🍋</span><span>🍊</span><span>🍇</span><span>💎</span><span>7️⃣</span><span>⭐</span><span>🍒</span><span>🍋</span><span>🍊</span><span>🍇</span>
+                    </div>
+                    <div class="reel-overlay"></div>
+                </div>
+                <div class="slot-reel" id="reel3">
+                    <div class="reel-inner" id="reelInner3">
+                        <span>🍊</span><span>🍇</span><span>💎</span><span>7️⃣</span><span>⭐</span><span>🍒</span><span>🍋</span><span>🍊</span><span>🍇</span><span>💎</span>
+                    </div>
+                    <div class="reel-overlay"></div>
+                </div>
+            </div>
+            <div class="slot-controls">
+                <div class="slot-bet">
+                    <label><i class="fas fa-coins"></i> Ставка:</label>
+                    <input type="number" id="slotBetInput" value="10" min="1" step="1">
+                </div>
+                <button class="slot-spin-btn" id="slotSpinBtn" onclick="spinSlot()"><i class="fas fa-play"></i> КРУТИТЬ!</button>
+            </div>
+            <div class="slot-result" id="slotResult">🎯 Нажми КРУТИТЬ!</div>
         </div>
     </div>
 
@@ -2484,7 +2527,7 @@
         <button class="bonus-claim" id="dailyBonusBtn"><i class="fas fa-gift"></i> Забрать</button>
     </div>
 
-    <!-- КАТЕГОРИИ С ИГРАМИ (30+ ИГР) -->
+    <!-- КАТЕГОРИИ -->
     <div class="categories-swiper-wrap">
         <button class="swiper-btn swiper-btn-left" onclick="scrollCategories(-1)">◀</button>
         <div class="categories-swiper" id="categoriesSwiper">
@@ -2569,26 +2612,6 @@
                     <div id="transactionHistory"></div>
                 </div>
             </div>
-
-            <!-- ДРУЗЬЯ -->
-            <div class="page" id="page-friends">
-                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-user-friends"></i> Мои друзья</h2>
-                <div class="friend-list" id="friendsList"></div>
-                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-                    <input type="text" id="addFriendInput" placeholder="Введите логин..." style="flex:1;padding:10px 18px;border-radius:50px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;font-size:13px;">
-                    <button class="btn btn-primary" onclick="addFriend()"><i class="fas fa-user-plus"></i> Добавить</button>
-                </div>
-            </div>
-
-            <!-- КАНАЛЫ -->
-            <div class="page" id="page-channels">
-                <h2 style="font-weight:700;margin-bottom:8px;color:var(--text-secondary);font-size:18px;"><i class="fas fa-broadcast"></i> Популярные каналы</h2>
-                <div class="channel-list" id="channelsList"></div>
-                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-                    <input type="text" id="createChannelInput" placeholder="Название канала..." style="flex:1;padding:10px 18px;border-radius:50px;border:1px solid var(--border-color);background:var(--bg-input);color:var(--text-primary);outline:none;font-size:13px;">
-                    <button class="btn btn-success" onclick="createChannel()"><i class="fas fa-plus-circle"></i> Создать</button>
-                </div>
-            </div>
         </div>
 
         <!-- САЙДБАР -->
@@ -2614,20 +2637,6 @@
                 <div id="disputesList"></div>
                 <button class="btn btn-outline" style="width:100%;margin-top:8px;font-size:12px;" onclick="openSupport()"><i class="fas fa-gavel"></i> Открыть спор</button>
             </div>
-        </div>
-    </div>
-
-    <!-- ДОНАТЫ -->
-    <div class="donate-bar">
-        <div class="donate-info">
-            <span class="donate-icon">💎</span>
-            <div class="donate-text">
-                <strong>Поддержи проект!</strong> Сделай донат и получи эксклюзивный бейдж <span style="color:var(--gold);">🌟</span>
-            </div>
-        </div>
-        <div class="donate-input">
-            <input type="number" id="donateAmount" placeholder="Сумма" min="1" value="100">
-            <button class="donate-btn" onclick="makeDonate()"><i class="fas fa-heart"></i> Донат</button>
         </div>
     </div>
 
@@ -2666,14 +2675,6 @@
             <div class="rule-item">
                 <div class="rule-title"><span class="rule-icon">💬</span> Чат</div>
                 <div class="rule-desc">Общий чат модерируется. За оскорбления и спам — <strong>предупреждение</strong>, затем бан.</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-title"><span class="rule-icon">💳</span> Пополнение</div>
-                <div class="rule-desc">Поддерживаются <strong>все карты СНГ</strong>, криптовалюта (BTC, ETH, USDT) и P2P переводы.</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-title"><span class="rule-icon">🎁</span> Бонусы</div>
-                <div class="rule-desc">Топ-продавцы получают <strong>еженедельные бонусы</strong> и сниженную комиссию до <strong>1%</strong>.</div>
             </div>
         </div>
     </div>
@@ -2836,7 +2837,6 @@
             <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-vk"></i></a>
             <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-instagram"></i></a>
             <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-twitter"></i></a>
-            <a href="#" style="color:var(--text-muted);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fab fa-github"></i></a>
         </div>
     </footer>
 
@@ -2995,7 +2995,6 @@
                 subscribedSocials[platform] = true;
                 btn.innerHTML = btn.innerHTML.replace('Подписаться', '✅ Подписан');
                 alert(`🎉 Вы подписались на ${platform}! Бонус начислен!`);
-                // бонус
                 if (currentUser) {
                     updateUserBalance(currentUser.login, 5);
                 }
@@ -3007,6 +3006,102 @@
 
         function closeWelcome() {
             document.getElementById('welcomeOverlay').classList.add('hidden');
+        }
+
+        // ============================================================
+        //  ИГРОВОЙ АВТОМАТ (SLOT MACHINE)
+        // ============================================================
+        let slotRunning = false;
+
+        function openSlotMachine() {
+            document.getElementById('slotMachine').classList.add('open');
+            document.getElementById('slotResult').textContent = '🎯 Нажми КРУТИТЬ!';
+            document.getElementById('slotResult').className = 'slot-result';
+            document.getElementById('slotSpinBtn').disabled = false;
+        }
+
+        function closeSlotMachine() {
+            document.getElementById('slotMachine').classList.remove('open');
+            slotRunning = false;
+        }
+
+        function spinSlot() {
+            if (slotRunning) return;
+            const bet = parseInt(document.getElementById('slotBetInput').value) || 10;
+            if (!currentUser) {
+                alert('Войдите в аккаунт, чтобы играть!');
+                return;
+            }
+            if (getUserBalance(currentUser.login) < bet) {
+                alert(`❌ Недостаточно средств! Нужно ${bet} ₽, у вас ${getUserBalance(currentUser.login)} ₽`);
+                return;
+            }
+
+            slotRunning = true;
+            document.getElementById('slotSpinBtn').disabled = true;
+            document.getElementById('slotResult').textContent = '🎰 Крутим...';
+
+            // Списываем ставку
+            updateUserBalance(currentUser.login, -bet);
+
+            const symbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '⭐'];
+            const reels = [document.getElementById('reelInner1'), document.getElementById('reelInner2'), document.getElementById('reelInner3')];
+            const reelElements = [document.getElementById('reel1'), document.getElementById('reel2'), document.getElementById('reel3')];
+
+            // Добавляем класс spinning
+            reelElements.forEach(r => r.classList.add('spinning'));
+
+            // Остановка после случайного времени (1.5-3 секунды)
+            const stopTimes = [1500 + Math.random() * 1500, 1800 + Math.random() * 1500, 2000 + Math.random() * 1500];
+            const results = [];
+
+            stopTimes.forEach((time, index) => {
+                setTimeout(() => {
+                    // Останавливаем конкретный барабан
+                    reelElements[index].classList.remove('spinning');
+                    // Выбираем случайный символ
+                    const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+                    results[index] = symbol;
+                    // Обновляем отображение — показываем 3 символа (середина — выигрышный)
+                    const inner = reels[index];
+                    const items = inner.querySelectorAll('span');
+                    // Создаем новую последовательность
+                    const newItems = [];
+                    const symIdx = symbols.indexOf(symbol);
+                    for (let i = -1; i <= 1; i++) {
+                        const idx = (symIdx + i + symbols.length) % symbols.length;
+                        newItems.push(symbols[idx]);
+                    }
+                    inner.innerHTML = newItems.map(s => `<span>${s}</span>`).join('');
+
+                    // Если все остановились — проверяем результат
+                    if (results.length === 3) {
+                        setTimeout(() => {
+                            const resultEl = document.getElementById('slotResult');
+                            // Проверяем выигрыш
+                            if (results[0] === results[1] && results[1] === results[2]) {
+                                const winMultiplier = results[0] === '💎' ? 20 : results[0] === '7️⃣' ? 15 : results[0] === '⭐' ? 10 : 5;
+                                const winAmount = bet * winMultiplier;
+                                updateUserBalance(currentUser.login, winAmount);
+                                resultEl.textContent = `🎉 ДЖЕКПОТ! ${results[0]} ${results[0]} ${results[0]}! Вы выиграли ${winAmount} ₽!`;
+                                resultEl.className = 'slot-result win';
+                                addSystemMessage(currentUser.login, `🎰 Выиграл ${winAmount} ₽ в слотах! (${results[0]}${results[0]}${results[0]})`);
+                            } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
+                                const winAmount = bet * 2;
+                                updateUserBalance(currentUser.login, winAmount);
+                                resultEl.textContent = `🎉 Пара! Выиграли ${winAmount} ₽! (${results.join(' ')})`;
+                                resultEl.className = 'slot-result win';
+                                addSystemMessage(currentUser.login, `🎰 Выиграл ${winAmount} ₽ в слотах! (пара)`);
+                            } else {
+                                resultEl.textContent = `😢 Не повезло... (${results.join(' ')})`;
+                                resultEl.className = 'slot-result lose';
+                            }
+                            document.getElementById('slotSpinBtn').disabled = false;
+                            slotRunning = false;
+                        }, 300);
+                    }
+                }, time);
+            });
         }
 
         // ============================================================
@@ -3151,7 +3246,6 @@
         ];
         document.getElementById('dailyTip').textContent = tips[Math.floor(Math.random() * tips.length)];
 
-        // Цитата дня из базы
         const dailyQuote = quoteDatabase[Math.floor(Math.random() * quoteDatabase.length)];
         document.getElementById('quoteDisplay').textContent = dailyQuote;
         document.getElementById('quoteText').textContent = dailyQuote;
@@ -3177,7 +3271,7 @@
         }
 
         // ============================================================
-        //  ДАННЫЕ (расширенные)
+        //  ДАННЫЕ
         // ============================================================
         let catalog = [
             { id: 1, name: 'Аккаунт 21+ (Roblox)', game: 'Roblox', price: 490, desc: 'Верифицированный голосовой чат', qty: 1,
@@ -3231,12 +3325,6 @@
         let nextTicketId = 1;
         let guaranteeOnly = false;
         let showHot = false;
-        let friends = ['Gamer_King', 'Skins_Master', 'Valorant_Elite'];
-        let channels = [
-            { name: 'Геймерский канал', author: 'Player_Pro', desc: 'Обсуждаем игры и скины', subscribers: 124 },
-            { name: 'Скины и аккаунты', author: 'Skins_Master', desc: 'Продажа скинов', subscribers: 89 },
-            { name: 'Торговая площадка', author: 'User_Pro', desc: 'Обмен опытом', subscribers: 56 }
-        ];
 
         // ============================================================
         //  ПОЛЬЗОВАТЕЛИ (localStorage)
@@ -3277,9 +3365,7 @@
                 uniqueBuyers: 0,
                 totalEarned: 0,
                 phone: '',
-                subscribers: [],
-                friends: [],
-                channels: []
+                subscribers: []
             };
             saveUsers(users);
             return { success: true };
@@ -3397,104 +3483,6 @@
             const users = getUsers();
             if (!users[targetLogin]) return false;
             return users[targetLogin].subscribers && users[targetLogin].subscribers.includes(currentUser.login);
-        }
-
-        // ============================================================
-        //  ДРУЗЬЯ
-        // ============================================================
-        function renderFriends() {
-            const container = document.getElementById('friendsList');
-            container.innerHTML = friends.map(f => `
-                    <div class="friend-item" onclick="openProfile('${f}')">
-                        <div class="f-avatar">${f.charAt(0).toUpperCase()}</div>
-                        <div class="f-info">
-                            <div class="f-name">${f}</div>
-                            <div class="f-status online">🟢 Онлайн</div>
-                        </div>
-                        <button class="f-btn" onclick="event.stopPropagation();removeFriend('${f}')"><i class="fas fa-user-minus"></i></button>
-                    </div>
-                `).join('');
-        }
-
-        function addFriend() {
-            const input = document.getElementById('addFriendInput');
-            const name = input.value.trim();
-            if (!name) { alert('Введите логин'); return; }
-            if (friends.includes(name)) { alert('Уже в друзьях'); return; }
-            const users = getUsers();
-            if (!users[name]) { alert('Пользователь не найден'); return; }
-            friends.push(name);
-            input.value = '';
-            renderFriends();
-            addSystemMessage(currentUser?.login || 'System', `➕ Добавил в друзья: ${name}`);
-        }
-
-        function removeFriend(name) {
-            friends = friends.filter(f => f !== name);
-            renderFriends();
-        }
-
-        // ============================================================
-        //  КАНАЛЫ
-        // ============================================================
-        function renderChannels() {
-            const container = document.getElementById('channelsList');
-            container.innerHTML = channels.map(c => `
-                    <div class="channel-item" onclick="openChannel('${c.name}')">
-                        <div class="c-avatar">${c.name.charAt(0).toUpperCase()}</div>
-                        <div class="c-info">
-                            <div class="c-name">${c.name}</div>
-                            <div class="c-desc">${c.desc} · 👥 ${c.subscribers} подписчиков</div>
-                        </div>
-                        <button class="c-btn" onclick="event.stopPropagation();subscribeChannel('${c.name}')"><i class="fas fa-bell"></i> Подп.</button>
-                    </div>
-                `).join('');
-        }
-
-        function createChannel() {
-            const input = document.getElementById('createChannelInput');
-            const name = input.value.trim();
-            if (!name) { alert('Введите название'); return; }
-            if (channels.find(c => c.name === name)) { alert('Канал уже существует'); return; }
-            channels.push({
-                name: name,
-                author: currentUser?.login || 'System',
-                desc: 'Новый канал',
-                subscribers: 1
-            });
-            input.value = '';
-            renderChannels();
-            addSystemMessage(currentUser?.login || 'System', `📢 Создал канал: ${name}`);
-        }
-
-        function subscribeChannel(name) {
-            const ch = channels.find(c => c.name === name);
-            if (ch) {
-                ch.subscribers += 1;
-                renderChannels();
-                alert(`✅ Вы подписались на канал ${name}!`);
-            }
-        }
-
-        function openChannel(name) {
-            alert(`📢 Канал: ${name}\nДобро пожаловать в обсуждение!`);
-        }
-
-        // ============================================================
-        //  ДОНАТЫ
-        // ============================================================
-        function makeDonate() {
-            const amount = parseInt(document.getElementById('donateAmount').value);
-            if (!amount || amount < 1) { alert('Введите сумму'); return; }
-            if (!currentUser) { alert('Войдите в аккаунт'); return; }
-            if (getUserBalance(currentUser.login) < amount) {
-                alert('❌ Недостаточно средств на балансе!');
-                return;
-            }
-            updateUserBalance(currentUser.login, -amount);
-            addSystemMessage(currentUser.login, `💎 Сделал донат на ${amount} ₽`);
-            alert(`✅ Спасибо за донат ${amount} ₽! Вы получили бейдж 🌟`);
-            updateUI();
         }
 
         // ============================================================
@@ -4307,8 +4295,6 @@
             if (page === 'messages') renderMessages();
             if (page === 'sales') renderSales();
             if (page === 'finance') renderFinance();
-            if (page === 'friends') renderFriends();
-            if (page === 'channels') renderChannels();
         }
 
         // ============================================================
@@ -4388,8 +4374,6 @@
             renderTopSellers();
             renderDisputes();
             renderSupportTickets();
-            renderFriends();
-            renderChannels();
             updateStats();
         }
 
@@ -4417,7 +4401,7 @@
         });
 
         updateUI();
-        console.log('🚀 SkyMarket PRO — супер-крутой дизайн загружен, братуха!');
+        console.log('🚀 SkyMarket PRO — с игровым автоматом загружен, братуха!');
     </script>
 
 </body>
